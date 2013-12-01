@@ -43,8 +43,9 @@ Once Laravel Queuing is installed, you need to register the service provider. Op
 
 `'GrahamCampbell\Queuing\QueuingServiceProvider'`
 
-You can register the two facades in the `aliases` key of your `app/config/app.php` file if you like.
+You can register the three facades in the `aliases` key of your `app/config/app.php` file if you like.
 
+`'JobProvider' => 'GrahamCampbell\Queuing\Facades\JobProvider'`
 `'Queuing' => 'GrahamCampbell\Queuing\Facades\Queuing'`
 `'Cron' => 'GrahamCampbell\Queuing\Facades\Cron'`
 
