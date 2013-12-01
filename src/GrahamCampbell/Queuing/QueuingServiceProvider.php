@@ -58,27 +58,27 @@ class QueuingServiceProvider extends ServiceProvider {
             return new Classes\Cron($app['queuing']);
         });
 
-        $this->app['queue.length'] = $this->app->share(function($app) {
+        $this->app['command.queuelength'] = $this->app->share(function($app) {
             return new Commands\QueueLength;
         });
-        $this->app['queue.clear'] = $this->app->share(function($app) {
+        $this->app['command.queueclear'] = $this->app->share(function($app) {
             return new Commands\QueueClear;
         });
-        $this->app['queue.iron'] = $this->app->share(function($app) {
+        $this->app['command.queueiron'] = $this->app->share(function($app) {
             return new Commands\QueueIron;
         });
-        $this->app['cron.start'] = $this->app->share(function($app) {
+        $this->app['command.cronstart'] = $this->app->share(function($app) {
             return new Commands\CronStart;
         });
-        $this->app['cron.stop'] = $this->app->share(function($app) {
+        $this->app['command.cronstop'] = $this->app->share(function($app) {
             return new Commands\CronStop;
         });
 
-        $this->commands('queue.length');
-        $this->commands('queue.clear');
-        $this->commands('queue.iron');
-        $this->commands('cron.start');
-        $this->commands('cron.stop');
+        $this->commands('command.queuelength');
+        $this->commands('command.queueclear');
+        $this->commands('command.queueiron');
+        $this->commands('command.cronstart');
+        $this->commands('command.cronstop');
     }
 
     /**
