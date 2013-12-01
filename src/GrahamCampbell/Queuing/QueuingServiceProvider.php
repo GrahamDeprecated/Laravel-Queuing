@@ -56,12 +56,27 @@ class QueuingServiceProvider extends ServiceProvider {
             return new Classes\Cron($app['queuing']);
         });
 
-        $this->app['artisan']->add(new GrahamCampbell\Queuing\Commands\QueueLength);
-        $this->app['artisan']->add(new GrahamCampbell\Queuing\Commands\QueueClear);
-        $this->app['artisan']->add(new GrahamCampbell\Queuing\Commands\QueueIron);
+        $this->app['queue.length'] = $this->app->share(function($app) {
+            return new Commands\QueueLength;
+        });
+        $this->app['queue.clear'] = $this->app->share(function($app) {
+            return new Commands\QueueClear;
+        });
+        $this->app['queue.iron'] = $this->app->share(function($app) {
+            return new Commands\QueueIron;
+        });
+        $this->app['cron.start'] = $this->app->share(function($app) {
+            return new Commands\CronStart;
+        });
+        $this->app['cron.stop'] = $this->app->share(function($app) {
+            return new Commands\CronStop;
+        });
 
-        $this->app['artisan']->add(new GrahamCampbell\Queuing\Commands\CronStart);
-        $this->app['artisan']->add(new GrahamCampbell\Queuing\Commands\CronStop);
+        $this->commands('queue.length');
+        $this->commands('queue.clear');
+        $this->commands('queue.iron');
+        $this->commands('cron.start');
+        $this->commands('cron.stop');
     }
 
     /**
@@ -70,6 +85,6 @@ class QueuingServiceProvider extends ServiceProvider {
      * @return array
      */
     public function provides() {
-        return array('jobprovider', 'queuing', 'cron');
+        return array('jobprovider', 'queuing', 'cron', 'queue.length', 'queue.clear', 'queue.iron', 'cron.start', 'cron.stop');
     }
 }
