@@ -38,6 +38,8 @@ class QueuingServiceProvider extends ServiceProvider {
      */
     public function boot() {
         $this->package('graham-campbell/queuing');
+
+        include __DIR__ . '/../../routes.php';
     }
 
     /**
