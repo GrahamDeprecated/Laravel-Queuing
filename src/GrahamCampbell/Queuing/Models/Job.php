@@ -21,7 +21,7 @@
  */
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
-use Illuminate\Support\Facade\Event as LaravelEvent;
+use Illuminate\Support\Facades\Event as LaravelEvent;
 use Carbon\Carbon;
 
 class Job extends Eloquent {
