@@ -20,6 +20,7 @@
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
 
+use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Support\Facade\Event as LaravelEvent;
 use Carbon\Carbon;
 
