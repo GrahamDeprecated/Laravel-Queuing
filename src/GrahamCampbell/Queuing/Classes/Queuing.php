@@ -114,7 +114,7 @@ class Queuing {
      * @param  string  $queue
      * @return \GrahamCampbell\Queuing\Models\Job
      */
-    protected function queue($delay, $task, $data, $queue, $location = 'GrahamCampbell\Queuing\Handlers') {
+    protected function work($delay, $task, $data, $queue, $location = 'GrahamCampbell\Queuing\Handlers') {
         if ($this->driver == 'sync') {
             // check the job
             if ($this->jobprovider->task('cron', $location) == $task) {
@@ -149,7 +149,7 @@ class Queuing {
      * @return \GrahamCampbell\Queuing\Models\Job
      */
     public function laterCron($delay, array $data = array()) {
-        return $this->queue($delay, $this->jobprovider->task('cron'), $data, $this->jobprovider->queue('cron'));
+        return $this->work($delay, $this->jobprovider->task('cron'), $data, $this->jobprovider->queue('cron'));
     }
 
     /**
@@ -170,7 +170,7 @@ class Queuing {
      * @return \GrahamCampbell\Queuing\Models\Job
      */
     public function laterMail($delay, array $data = array()) {
-        return $this->queue($delay, $this->jobprovider->task('mail'), $data, $this->jobprovider->queue('mail'));
+        return $this->work($delay, $this->jobprovider->task('mail'), $data, $this->jobprovider->queue('mail'));
     }
 
     /**
@@ -192,7 +192,7 @@ class Queuing {
      * @return \GrahamCampbell\Queuing\Models\Job
      */
     public function laterJob($delay, $job, array $data = array(), $location = 'GrahamCampbell\Queuing\Handlers') {
-        return $this->queue($delay, $this->jobprovider->task($job, $location), $data, $this->jobprovider->queue('queue'));
+        return $this->work($delay, $this->jobprovider->task($job, $location), $data, $this->jobprovider->queue('queue'));
     }
 
     /**
