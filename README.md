@@ -49,6 +49,8 @@ You can register the three facades in the `aliases` key of your `app/config/app.
 `'Queuing' => 'GrahamCampbell\Queuing\Facades\Queuing'`
 `'Cron' => 'GrahamCampbell\Queuing\Facades\Cron'`
 
+You will additionally need to replace `app/config/queue.php` with the `queue.php` provided in the root folder of this repo. This config allows us to specify different queues for special jobs.
+
 
 ## Updating Your Fork
 
