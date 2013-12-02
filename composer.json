@@ -11,7 +11,10 @@
     ],
     "require": {
         "php": ">=5.4.7",
-        "orchestra/testbench": "~2"
+        "orchestra/testbench": "~2",
+        "pda/pheanstalk": "2.1.*",
+        "aws/aws-sdk-php": "2.4.*",
+        "iron-io/iron_mq": "1.4.*"
     },
     "require-dev": {
         "mockery/mockery": "0.8.*@stable",
