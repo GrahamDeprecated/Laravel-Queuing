@@ -52,7 +52,7 @@ class QueuingServiceProvider extends ServiceProvider {
             return new Providers\JobProvider($app['config']);
         });
         $this->app['queuing'] = $this->app->share(function($app) {
-            return new Classes\Queuing($app['queuing'], $app['jobprovider'], $app['config']['queue.default']);
+            return new Classes\Queuing($app['queue'], $app['jobprovider'], $app['config']['queue.default']);
         });
         $this->app['cron'] = $this->app->share(function($app) {
             return new Classes\Cron($app['queuing']);
