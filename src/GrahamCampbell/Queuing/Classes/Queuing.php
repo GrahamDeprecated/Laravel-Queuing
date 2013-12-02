@@ -23,7 +23,7 @@
 use Carbon\Carbon;
 
 use Illuminate\Queue\QueueManager;
-use GrahamCampbell\Queuing\Provider\JobProvider;
+use GrahamCampbell\Queuing\Providers\JobProvider;
 
 class Queuing {
 
@@ -44,7 +44,7 @@ class Queuing {
     /**
      * The jobprovider instance.
      *
-     * @var \GrahamCampbell\Queuing\Provider\JobProvider
+     * @var \GrahamCampbell\Queuing\Providers\JobProvider
      */
     protected $jobprovider;
 
@@ -59,7 +59,7 @@ class Queuing {
      * Create a new instance.
      *
      * @param  \Illuminate\Queue\QueueManager  $queue
-     * @param  \GrahamCampbell\Queuing\Provider\JobProvider  $jobprovider
+     * @param  \GrahamCampbell\Queuing\Providers\JobProvider  $jobprovider
      * @param  string  $driver
      * @return void
      */
