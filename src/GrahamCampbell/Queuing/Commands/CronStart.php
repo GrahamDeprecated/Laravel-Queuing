@@ -44,8 +44,13 @@ class CronStart extends Command {
      * @return void
      */
     public function fire() {
-        $this->line('Stopping cron...');
-        $this->laravel['cron']->stop();
-        $this->info('Cron stopped!');
+        $this->line('Starting cron...');
+        if ($this->laravel['config']['queue.default'] == 'sync') {
+            $this->error('Cron cannot run on the sync queue.');
+            $this->comment('Please change the queue in the config.');
+        } else {
+            $this->laravel['cron']->start(30);
+            $this->info('Cron started!');
+        }
     }
 }
