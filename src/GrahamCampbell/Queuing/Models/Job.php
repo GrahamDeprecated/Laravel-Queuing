@@ -20,18 +20,9 @@
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
-use Illuminate\Support\Facades\Event as LaravelEvent;
-use Carbon\Carbon;
+use GrahamCampbell\Core\Models\BaseModel;
 
-class Job extends Eloquent {
-
-    /**
-     * A list of methods protected from mass assignment.
-     *
-     * @var array
-     */
-    protected $guarded = array('_token', '_method', 'id');
+class Job extends BaseModel {
 
     /**
      * The table the jobs are stored in.
@@ -85,126 +76,6 @@ class Job extends Eloquent {
         'tries' => 0,
         'task'  => 'GrahamCampbell\Queuing\Handlers\MailHandler'
     );
-
-    /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId() {
-        return $this->id;
-    }
-
-    /**
-     * Get created_at.
-     *
-     * @return \Carbon\Carbon
-     */
-    public function getCreatedAt() {
-        return new Carbon($this->created_at);
-    }
-
-    /**
-     * Get updated_at.
-     *
-     * @return \Carbon\Carbon
-     */
-    public function getUpdatedAt() {
-        return new Carbon($this->updated_at);
-    }
-
-    /**
-     * Create a new model.
-     *
-     * @param  array  $input
-     * @return mixed
-     */
-    public static function create(array $input) {
-        LaravelEvent::fire(static::$name.'.creating');
-        static::beforeCreate($input);
-        $return = parent::create($input);
-        static::afterCreate($input, $return);
-        LaravelEvent::fire(static::$name.'.created');
-        return $return;
-    }
-
-    /**
-     * Before creating a new model.
-     *
-     * @param  array  $input
-     * @return mixed
-     */
-    public static function beforeCreate(array $input) {}
-
-    /**
-     * After creating a new model.
-     *
-     * @param  array  $input
-     * @param  mixed  $return
-     * @return mixed
-     */
-    public static function afterCreate(array $input, $return) {}
-
-    /**
-     * Update an existing model.
-     *
-     * @param  array  $input
-     * @return mixed
-     */
-    public function update(array $input = array()) {
-        LaravelEvent::fire(static::$name.'.updating');
-        $this->beforeUpdate($input);
-        $return = parent::update($input);
-        $this->afterUpdate($input, $return);
-        LaravelEvent::fire(static::$name.'.updated');
-        return $return;
-    }
-
-    /**
-     * Before updating an existing new model.
-     *
-     * @param  array  $input
-     * @return mixed
-     */
-    public function beforeUpdate(array $input) {}
-
-    /**
-     * After updating an existing model.
-     *
-     * @param  array  $input
-     * @param  mixed  $return
-     * @return mixed
-     */
-    public function afterUpdate(array $input, $return) {}
-
-    /**
-     * Delete an existing model.
-     *
-     * @return void
-     */
-    public function delete() {
-        LaravelEvent::fire(static::$name.'.deleting');
-        $this->beforeDelete();
-        $return = parent::delete();
-        $this->afterDelete($return);
-        LaravelEvent::fire(static::$name.'.deleted');
-        return $return;
-    }
-
-    /**
-     * Before deleting an existing model.
-     *
-     * @return mixed
-     */
-    public function beforeDelete() {}
-
-    /**
-     * After deleting an existing model.
-     *
-     * @param  mixed  $return
-     * @return mixed
-     */
-    public function afterDelete($return) {}
 
     /**
      * Get tries.
