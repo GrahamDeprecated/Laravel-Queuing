@@ -20,8 +20,8 @@
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
 
-use Log;
-use GrahamCampbell\Queuing\Providers\JobProvider;
+use Illuminate\Support\Facades\Log;
+use GrahamCampbell\Queuing\Facades\JobProvider;
 
 abstract class BaseHandler {
 

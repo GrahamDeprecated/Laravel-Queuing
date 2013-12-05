@@ -20,7 +20,7 @@
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
 
-use Mail;
+use Illuminate\Support\Facades\Mail;
 
 class MailHandler extends BaseHandler {
 

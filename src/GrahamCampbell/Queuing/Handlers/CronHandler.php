@@ -20,8 +20,8 @@
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
 
-use Cron;
-use JobProvider;
+use GrahamCampbell\Queuing\Facades\Cron;
+use GrahamCampbell\Queuing\Facades\JobProvider;
 
 class CronHandler extends BaseHandler {
 
