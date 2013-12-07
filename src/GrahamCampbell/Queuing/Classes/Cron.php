@@ -20,7 +20,17 @@
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
 
+use Closure;
+use Illuminate\Support\Facades\Event;
+
 class Cron {
+
+    /**
+     * The cron tasks.
+     *
+     * @var array
+     */
+    protected $tasks;
 
     /**
      * The queuing instance.
@@ -35,7 +45,7 @@ class Cron {
      * @param  \GrahamCampbell\Queuing\Classes\Queuing  $queuing
      * @return void
      */
-    public function __construct($queuing) {
+    public function __construct(Queuing $queuing) {
         $this->queuing = $queuing;
     }
 
@@ -47,7 +57,8 @@ class Cron {
      */
     public function start($delay = 1000) {
         $this->stop();
-        return $this->queuing->laterCron($delay);
+        Event::fire('cron.starting');
+        return $this->queuing->laterCron($delay, $this->tasks);
     }
 
     /**
@@ -56,6 +67,18 @@ class Cron {
      * @return void
      */
     public function stop() {
+        Event::fire('cron.stopping');
         return $this->queuing->clearCron();
+    }
+
+    /**
+     * Add a task closure to the cron.
+     * This should be called after listening for a cron.starting event.
+     *
+     * @param  \Closure  $task
+     * @return void
+     */
+    public function add(Closure $task) {
+        return $this->tasks[] = $task;
     }
 }
