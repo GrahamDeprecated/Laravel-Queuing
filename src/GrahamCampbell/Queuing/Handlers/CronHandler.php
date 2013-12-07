@@ -33,7 +33,7 @@ class CronHandler extends BaseHandler {
     protected function run() {
         $data = $this->data;
         JobProvider::clearOldJobs();
-        foreach ($data as $task) {
+        foreach ($data['tasks'] as $task) {
             $task();
         }
     }

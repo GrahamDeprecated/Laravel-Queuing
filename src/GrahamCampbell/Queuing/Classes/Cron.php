@@ -58,7 +58,7 @@ class Cron {
     public function start($delay = 1000) {
         $this->stop();
         Event::fire('cron.starting');
-        return $this->queuing->laterCron($delay, $this->tasks);
+        return $this->queuing->laterCron($delay, array('tasks' => $this->tasks));
     }
 
     /**
