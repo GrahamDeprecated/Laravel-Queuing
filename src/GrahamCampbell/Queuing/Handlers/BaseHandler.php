@@ -290,7 +290,7 @@ abstract class BaseHandler {
         }
 
         // attempt to retry
-        if ($this->method == 'Illuminate\Queue\Jobs\BeanstalkdJob') {
+        if ($this->method == 'Illuminate\Queue\Jobs\BeanstalkdJob' || $this->method == 'Illuminate\Queue\Jobs\RedisJob') {
             // abort if we have retried too many times
             if ($this->tries >= $this->maxtries) {
                 $this->abort($this->task.' has aborted after failing '.$this->tries.' times');
@@ -308,10 +308,10 @@ abstract class BaseHandler {
             if ($this->tries >= $this->maxtries) {
                 return $this->abort($this->task.' has aborted after failing '.$this->tries.' times');
             }
-            // throw an exception in order to push back to queue
+            // throw an exception to let the caller now the sync job failed
             throw new \Exception($this->task.' has failed with '.$this->method);
         } else {
-            // throw an exception to let the caller now the sync job failed
+            // throw an exception in order to push back to queue
             throw new \Exception($this->task.' has failed with '.$this->method);
         }
     }
@@ -348,7 +348,7 @@ abstract class BaseHandler {
             }
         }
 
-        if ($this->method != 'Illuminate\Queue\Jobs\BeanstalkdJob') {
+        if ($this->method != 'Illuminate\Queue\Jobs\BeanstalkdJob' || $this->method != 'Illuminate\Queue\Jobs\RedisJob') {
             // log the message
             if ($message) {
                 Log::critical($message); 
