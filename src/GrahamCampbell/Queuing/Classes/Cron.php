@@ -30,7 +30,7 @@ class Cron {
      *
      * @var array
      */
-    protected $tasks;
+    protected $tasks = array();
 
     /**
      * The queuing instance.
