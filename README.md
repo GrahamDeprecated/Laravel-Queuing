@@ -15,6 +15,7 @@ Laravel Queuing
 Laravel Queuing is a cool way to queue in [Laravel 4](http://laravel.com).  
 
 * Laravel Queuing was created by, and is maintained by [Graham Campbell](https://github.com/GrahamCampbell).  
+* Laravel Queuing relies on my [Laravel Core](https://github.com/GrahamCampbell/Laravel-Core) package.  
 * Laravel Queuing uses [Travis CI](https://travis-ci.org/GrahamCampbell/Laravel-Queuing) to run tests to check if it's working as it should.  
 * Laravel Queuing uses [Scrutinizer CI](https://scrutinizer-ci.com/g/GrahamCampbell/Laravel-Queuing) to run additional tests and checks.  
 * Laravel Queuing uses [Composer](https://getcomposer.org) to load and manage dependencies.  
@@ -38,6 +39,10 @@ To get the latest version of Laravel Queuing, simply require it in your `compose
 `"graham-campbell/queuing": "dev-master"`
 
 You'll then need to run `composer install` or `composer update` to download it and have the autoloader updated.
+
+You will need to register the [Laravel Core](https://github.com/GrahamCampbell/Laravel-Core) service provider before you attempt to load the Laravel Queuing service provider. Open up `app/config/app.php` and add the following to the `providers` key.
+
+`'GrahamCampbell\Core\CoreServiceProvider'`
 
 Once Laravel Queuing is installed, you need to register the service provider. Open up `app/config/app.php` and add the following to the `providers` key.
 
