@@ -176,12 +176,16 @@ abstract class BaseHandler {
             try {
                 $this->model = JobProvider::find($this->id);
             } catch (\Exception $e) {
-               $this->abort($this->task.' has aborted because the job model was inaccessible');
+               return $this->abort($this->task.' has aborted because the job model was inaccessible');
             }
 
             // if there's not model, then the job must have been cancelled
             if (!is_object($this->model)) {
-                $this->abort($this->task.' has aborted because the job was marked as cancelled');
+                return $this->abort($this->task.' has aborted because the job was marked as cancelled');
+            } else {
+                if (!is_a($this->model, 'GrahamCampbell\Queuing\Models\Job')) {
+                    return $this->abort($this->task.' has aborted because the job was marked as cancelled');
+                }
             }
 
             // check the model
@@ -193,7 +197,7 @@ abstract class BaseHandler {
                     throw new \Exception('Bad Task');
                 }
             } catch (\Exception $e) {
-               $this->abort($this->task.' has aborted because the job model was invalid');
+               return $this->abort($this->task.' has aborted because the job model was invalid');
             }
 
             // increment tries
@@ -202,7 +206,7 @@ abstract class BaseHandler {
                 $this->model->tries = $this->tries;
                 $this->model->save();
             } catch (\Exception $e) {
-               $this->abort($this->task.' has aborted because the job model was inaccessible');
+               return $this->abort($this->task.' has aborted because the job model was inaccessible');
             }
         }
 
@@ -211,7 +215,7 @@ abstract class BaseHandler {
             try {
                 $this->before();
             } catch (\Exception $e) {
-                $this->fail($e);
+                return $this->fail($e);
             }
         }
 
@@ -220,13 +224,13 @@ abstract class BaseHandler {
             try {
                 $this->run();
             } catch (\Exception $e) {
-                $this->fail($e);
+                return $this->fail($e);
             }
         }
 
         // finish up
         if ($this->status) {
-            $this->success();
+            return $this->success();
         }
     }
 
@@ -248,10 +252,12 @@ abstract class BaseHandler {
 
         // remove the job from the database
         if (is_object($this->model)) {
-            try {
-                $this->model->delete(); 
-            } catch (\Exception $e) {
-                Log::error($e);
+            if (is_a($this->model, 'GrahamCampbell\Queuing\Models\Job')) {
+                try {
+                    $this->model->delete(); 
+                } catch (\Exception $e) {
+                    Log::error($e);
+                }
             }
         }
 
@@ -293,7 +299,7 @@ abstract class BaseHandler {
         if ($this->method == 'Illuminate\Queue\Jobs\BeanstalkdJob' || $this->method == 'Illuminate\Queue\Jobs\RedisJob') {
             // abort if we have retried too many times
             if ($this->tries >= $this->maxtries) {
-                $this->abort($this->task.' has aborted after failing '.$this->tries.' times');
+                return $this->abort($this->task.' has aborted after failing '.$this->tries.' times');
             } else {
                 // wait x seconds, then push back to queue
                 try {
@@ -341,10 +347,12 @@ abstract class BaseHandler {
 
         // remove the job from the database
         if (is_object($this->model)) {
-            try {
-                $this->model->delete(); 
-            } catch (\Exception $e) {
-                Log::error($e);
+            if (is_a($this->model, 'GrahamCampbell\Queuing\Models\Job')) {
+                try {
+                    $this->model->delete(); 
+                } catch (\Exception $e) {
+                    Log::error($e);
+                }
             }
         }
 
