@@ -180,7 +180,7 @@ abstract class BaseHandler {
             }
 
             // if there's not model, then the job must have been cancelled
-            if (!$this->model) {
+            if (!is_object($this->model)) {
                 $this->abort($this->task.' has aborted because the job was marked as cancelled');
             }
 
@@ -247,7 +247,7 @@ abstract class BaseHandler {
         }
 
         // remove the job from the database
-        if ($this->model) {
+        if (is_object($this->model)) {
             try {
                 $this->model->delete(); 
             } catch (\Exception $e) {
@@ -340,7 +340,7 @@ abstract class BaseHandler {
         }
 
         // remove the job from the database
-        if ($this->model) {
+        if (is_object($this->model)) {
             try {
                 $this->model->delete(); 
             } catch (\Exception $e) {
