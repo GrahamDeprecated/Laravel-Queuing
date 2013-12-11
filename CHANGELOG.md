@@ -9,6 +9,14 @@ CHANGE LOG
 * Handler refactor
 
 
+## V0.1.1 Alpha (Upcoming)
+#### Minor Release
+
+* Updated doc blocks
+* Handler cleanup
+* Minor tweaks
+
+
 ## V0.1 Alpha (10/12/2013)
 #### Major Release
 
