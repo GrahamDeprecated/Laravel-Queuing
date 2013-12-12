@@ -29,11 +29,6 @@
             "GrahamCampbell\\Queuing": "src/"
         }
     },
-    "extra": {
-        "branch-alias": {
-            "dev-develop": "0.1-dev"
-        }
-    },
     "minimum-stability": "dev",
     "prefer-stable": true
 }
