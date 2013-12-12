@@ -51,9 +51,11 @@ class QueuingServiceProvider extends ServiceProvider {
         $this->app['jobprovider'] = $this->app->share(function($app) {
             return new Providers\JobProvider($app['config']);
         });
+
         $this->app['queuing'] = $this->app->share(function($app) {
             return new Classes\Queuing($app['queue'], $app['jobprovider'], $app['config']['queue.default']);
         });
+
         $this->app['cron'] = $this->app->share(function($app) {
             return new Classes\Cron($app['queuing']);
         });
@@ -61,15 +63,19 @@ class QueuingServiceProvider extends ServiceProvider {
         $this->app['command.queuelength'] = $this->app->share(function($app) {
             return new Commands\QueueLength;
         });
+
         $this->app['command.queueclear'] = $this->app->share(function($app) {
             return new Commands\QueueClear;
         });
+
         $this->app['command.queueiron'] = $this->app->share(function($app) {
             return new Commands\QueueIron;
         });
+
         $this->app['command.cronstart'] = $this->app->share(function($app) {
             return new Commands\CronStart;
         });
+
         $this->app['command.cronstop'] = $this->app->share(function($app) {
             return new Commands\CronStop;
         });

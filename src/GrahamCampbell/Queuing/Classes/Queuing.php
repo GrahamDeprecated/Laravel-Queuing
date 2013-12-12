@@ -21,7 +21,6 @@
  */
 
 use Carbon\Carbon;
-
 use Illuminate\Queue\QueueManager;
 use GrahamCampbell\Queuing\Providers\JobProvider;
 
@@ -30,7 +29,7 @@ class Queuing {
     /**
      * The minimum delay for a delayed queue push.
      *
-     * @var array
+     * @var int
      */
     protected $delay = 5;
 
@@ -112,6 +111,7 @@ class Queuing {
      * @param  string  $task
      * @param  mixed   $data
      * @param  string  $queue
+     * @param  string  $location
      * @return \GrahamCampbell\Queuing\Models\Job
      */
     protected function work($delay, $task, $data, $queue, $location = 'GrahamCampbell\Queuing\Handlers') {
@@ -188,7 +188,8 @@ class Queuing {
      *
      * @param  mixed   $delay
      * @param  string  $job
-     * @param  array   $data
+     * @param  string  $queue
+     * @param  string  $location
      * @return \GrahamCampbell\Queuing\Models\Job
      */
     public function laterJob($delay, $job, array $data = array(), $location = 'GrahamCampbell\Queuing\Handlers') {
@@ -289,7 +290,6 @@ class Queuing {
     /**
      * Get the queue length.
      *
-     * @param  string  $queue
      * @return int
      */
     public function length() {

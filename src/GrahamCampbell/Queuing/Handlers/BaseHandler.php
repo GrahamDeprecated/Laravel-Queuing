@@ -61,13 +61,6 @@ abstract class BaseHandler {
     protected $method;
 
     /**
-     * The handler status.
-     *
-     * @var bool
-     */
-    private $status = true;
-
-    /**
      * The job model.
      *
      * @var mixed
@@ -140,15 +133,6 @@ abstract class BaseHandler {
     }
 
     /**
-     * Get the handler status.
-     *
-     * @return bool
-     */
-    protected function getStatus() {
-        return $this->status;
-    }
-
-    /**
      * Fire method (called by Laravel).
      *
      * @return void
@@ -211,27 +195,21 @@ abstract class BaseHandler {
         }
 
         // run the before method
-        if ($this->status) {
-            try {
-                $this->before();
-            } catch (\Exception $e) {
-                return $this->fail($e);
-            }
+        try {
+            $this->before();
+        } catch (\Exception $e) {
+            return $this->fail($e);
         }
 
         // run the handler
-        if ($this->status) {
-            try {
-                $this->run();
-            } catch (\Exception $e) {
-                return $this->fail($e);
-            }
+        try {
+            $this->run();
+        } catch (\Exception $e) {
+            return $this->fail($e);
         }
 
         // finish up
-        if ($this->status) {
-            return $this->success();
-        }
+        $this->success();
     }
 
     /**
@@ -240,9 +218,6 @@ abstract class BaseHandler {
      * @return void
      */
     protected function success() {
-        // set status to completed
-        $this->status = false;
-
         // remove the job from the queue
         try {
             $this->job->delete(); 
@@ -278,9 +253,6 @@ abstract class BaseHandler {
      * @return void
      */
     protected function fail($exception = null) {
-        // set status to completed
-        $this->status = false;
-
         // run the afterFailure method
         try {
             $this->afterFailure();
@@ -328,9 +300,6 @@ abstract class BaseHandler {
      * @return void
      */
     protected function abort($message = null) {
-        // set status to completed
-        $this->status = false;
-
         // run the afterAbortion method
         try {
             $this->afterAbortion();

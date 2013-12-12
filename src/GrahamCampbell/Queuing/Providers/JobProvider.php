@@ -20,8 +20,8 @@
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
 
-use GrahamCampbell\Core\Providers\BaseProvider;
 use Illuminate\Config\Repository;
+use GrahamCampbell\Core\Providers\BaseProvider;
 
 class JobProvider extends BaseProvider {
 

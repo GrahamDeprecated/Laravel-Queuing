@@ -11,15 +11,15 @@
     ],
     "require": {
         "php": ">=5.4.7",
-        "orchestra/testbench": "~2",
-        "graham-campbell/core": "0.1.*-alpha",
+        "orchestra/testbench": "2.0.*|2.1.*",
+        "graham-campbell/core": "0.1.*",
         "pda/pheanstalk": "2.1.*",
         "aws/aws-sdk-php": "2.4.*",
         "iron-io/iron_mq": "1.4.*"
     },
     "require-dev": {
-        "mockery/mockery": "0.8.*@stable",
-        "phpunit/phpunit": "3.7.*@stable"
+        "mockery/mockery": "0.8.*",
+        "phpunit/phpunit": "3.7.*"
     },
     "autoload": {
         "classmap": [
@@ -29,5 +29,6 @@
             "GrahamCampbell\\Queuing": "src/"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
