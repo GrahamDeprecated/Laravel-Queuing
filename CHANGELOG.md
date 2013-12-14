@@ -8,7 +8,8 @@ CHANGE LOG
 * Dropped Laravel 4.0 support
 * Travis and Scrutinizer tweaks
 * Added unit tests
-* Handler refactor
+* Major refactoring
+* Performance improvements
 
 
 ## V0.1.1 Alpha (12/12/2013)

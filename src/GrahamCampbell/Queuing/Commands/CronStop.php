@@ -22,7 +22,8 @@
 
 use Illuminate\Console\Command;
 
-class CronStop extends Command {
+class CronStop extends Command
+{
 
     /**
      * The command name.
@@ -43,7 +44,8 @@ class CronStop extends Command {
      *
      * @return void
      */
-    public function fire() {
+    public function fire()
+    {
         $this->line('Stopping cron...');
         $this->laravel['cron']->stop();
         $this->info('Cron stopped!');

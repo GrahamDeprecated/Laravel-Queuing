@@ -22,13 +22,16 @@
 
 use Illuminate\Support\Facades\Facade;
 
-class Queuing extends Facade {
+class Queuing extends Facade
+{
 
     /**
      * Get the registered name of the component.
      *
      * @return string
      */
-    protected static function getFacadeAccessor() { return 'queuing'; }
-
+    protected static function getFacadeAccessor()
+    {
+        return 'queuing';
+    }
 }

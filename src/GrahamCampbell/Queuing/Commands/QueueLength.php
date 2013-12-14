@@ -22,7 +22,8 @@
 
 use Illuminate\Console\Command;
 
-class QueueLength extends Command {
+class QueueLength extends Command
+{
 
     /**
      * The command name.
@@ -43,7 +44,8 @@ class QueueLength extends Command {
      *
      * @return void
      */
-    public function fire() {
+    public function fire()
+    {
         $this->line('Getting queue length...');
         $length = $this->laravel['queuing']->length();
         if (is_int($length)) {

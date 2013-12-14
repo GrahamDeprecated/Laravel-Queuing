@@ -22,7 +22,8 @@
 
 use Illuminate\Console\Command;
 
-class CronStart extends Command {
+class CronStart extends Command
+{
 
     /**
      * The command name.
@@ -43,7 +44,8 @@ class CronStart extends Command {
      *
      * @return void
      */
-    public function fire() {
+    public function fire()
+    {
         $this->line('Starting cron...');
         if ($this->laravel['config']['queue.default'] == 'sync') {
             $this->error('Cron cannot run on the sync queue.');

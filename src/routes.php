@@ -34,7 +34,7 @@
 
 // iron queue push route
 if (Config::get('queue.default') === 'iron') {
-    Route::post('queue/receive', function() {
+    Route::post('queue/receive', function () {
         return Queue::marshal();
     });
 }

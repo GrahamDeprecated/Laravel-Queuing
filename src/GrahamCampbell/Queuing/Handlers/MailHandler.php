@@ -22,14 +22,16 @@
 
 use Illuminate\Support\Facades\Mail;
 
-class MailHandler extends BaseHandler {
+class MailHandler extends BaseHandler
+{
 
     /**
      * Run the task (called by BaseHandler).
      *
      * @return void
      */
-    protected function run() {
+    protected function run()
+    {
         $data = $this->data;
         if (!is_array($this->data['email'])) {
             $this->data['email'] = array($this->data['email']);

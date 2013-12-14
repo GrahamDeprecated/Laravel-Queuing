@@ -22,13 +22,16 @@
 
 use Illuminate\Support\Facades\Facade;
 
-class JobProvider extends Facade {
+class JobProvider extends Facade
+{
 
     /**
      * Get the registered name of the component.
      *
      * @return string
      */
-    protected static function getFacadeAccessor() { return 'jobprovider'; }
-
+    protected static function getFacadeAccessor()
+    {
+        return 'jobprovider';
+    }
 }

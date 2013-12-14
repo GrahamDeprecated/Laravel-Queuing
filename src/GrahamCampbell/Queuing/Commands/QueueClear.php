@@ -22,7 +22,8 @@
 
 use Illuminate\Console\Command;
 
-class QueueClear extends Command {
+class QueueClear extends Command
+{
 
     /**
      * The command name.
@@ -43,7 +44,8 @@ class QueueClear extends Command {
      *
      * @return void
      */
-    public function fire() {
+    public function fire()
+    {
         $this->line('Clearing the queue...');
         $this->laravel['queuing']->clearAll();
         $this->info('Queue cleared!');

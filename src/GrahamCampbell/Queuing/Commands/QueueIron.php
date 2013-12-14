@@ -22,7 +22,8 @@
 
 use Illuminate\Console\Command;
 
-class QueueIron extends Command {
+class QueueIron extends Command
+{
 
     /**
      * The command name.
@@ -43,7 +44,8 @@ class QueueIron extends Command {
      *
      * @return void
      */
-    public function fire() {
+    public function fire()
+    {
         $this->line('Setting up iron queueing...');
 
         if ($this->laravel['queue']['queue.default'] !== 'iron') {

@@ -24,7 +24,8 @@ use Carbon\Carbon;
 use Illuminate\Queue\QueueManager;
 use GrahamCampbell\Queuing\Providers\JobProvider;
 
-class Queuing {
+class Queuing
+{
 
     /**
      * The minimum delay for a delayed queue push.
@@ -62,7 +63,8 @@ class Queuing {
      * @param  string  $driver
      * @return void
      */
-    public function __construct(QueueManager $queue, JobProvider $jobprovider, $driver) {
+    public function __construct(QueueManager $queue, JobProvider $jobprovider, $driver)
+    {
         $this->queue = $queue;
         $this->jobprovider = $jobprovider;
         $this->driver = $driver;
@@ -74,7 +76,8 @@ class Queuing {
      * @param  mixed  $time
      * @return int
      */
-    protected function time($time = null) {
+    protected function time($time = null)
+    {
         if (is_object($time)) {
             if (get_class($time) == 'Carbon\Carbon') {
                 return $this->times(Carbon::now()->diffInSeconds($time));
@@ -94,7 +97,8 @@ class Queuing {
      * @param  mixed  $time
      * @return int
      */
-    protected function times($time = null) {
+    protected function times($time = null)
+    {
         if (is_int($time)) {
             if ($time >= $this->delay) {
                 return $time;
@@ -114,7 +118,8 @@ class Queuing {
      * @param  string  $location
      * @return \GrahamCampbell\Queuing\Models\Job
      */
-    protected function work($delay, $task, $data, $queue, $location = 'GrahamCampbell\Queuing\Handlers') {
+    protected function work($delay, $task, $data, $queue, $location = 'GrahamCampbell\Queuing\Handlers')
+    {
         if ($this->driver == 'sync') {
             // check the job
             if ($this->jobprovider->task('cron', $location) == $task) {
@@ -148,7 +153,8 @@ class Queuing {
      * @param  array  $data
      * @return \GrahamCampbell\Queuing\Models\Job
      */
-    public function laterCron($delay, array $data = array()) {
+    public function laterCron($delay, array $data = array())
+    {
         return $this->work($delay, $this->jobprovider->task('cron'), $data, $this->jobprovider->queue('cron'));
     }
 
@@ -158,7 +164,8 @@ class Queuing {
      * @param  array  $data
      * @return \GrahamCampbell\Queuing\Models\Job
      */
-    public function pushCron(array $data = array()) {
+    public function pushCron(array $data = array())
+    {
         return $this->laterCron(false, $data);
     }
 
@@ -169,7 +176,8 @@ class Queuing {
      * @param  array  $data
      * @return \GrahamCampbell\Queuing\Models\Job
      */
-    public function laterMail($delay, array $data = array()) {
+    public function laterMail($delay, array $data = array())
+    {
         return $this->work($delay, $this->jobprovider->task('mail'), $data, $this->jobprovider->queue('mail'));
     }
 
@@ -179,7 +187,8 @@ class Queuing {
      * @param  array  $data
      * @return \GrahamCampbell\Queuing\Models\Job
      */
-    public function pushMail(array $data = array()) {
+    public function pushMail(array $data = array())
+    {
         return $this->laterMail(false, $data);
     }
 
@@ -192,7 +201,8 @@ class Queuing {
      * @param  string  $location
      * @return \GrahamCampbell\Queuing\Models\Job
      */
-    public function laterJob($delay, $job, array $data = array(), $location = 'GrahamCampbell\Queuing\Handlers') {
+    public function laterJob($delay, $job, array $data = array(), $location = 'GrahamCampbell\Queuing\Handlers')
+    {
         return $this->work($delay, $this->jobprovider->task($job, $location), $data, $this->jobprovider->queue('queue'));
     }
 
@@ -203,7 +213,8 @@ class Queuing {
      * @param  array   $data
      * @return \GrahamCampbell\Queuing\Models\Job
      */
-    public function pushJob($job, array $data = array()) {
+    public function pushJob($job, array $data = array())
+    {
         return $this->laterJob(false, $job, $data);
     }
 
@@ -213,7 +224,8 @@ class Queuing {
      * @param  string  $type
      * @return void
      */
-    protected function clear($type) {
+    protected function clear($type)
+    {
         $this->jobprovider->clearQueue($type);
         $queue = $this->jobprovider->queue($type);
 
@@ -247,7 +259,8 @@ class Queuing {
      *
      * @return void
      */
-    public function clearCron() {
+    public function clearCron()
+    {
         $this->clear('cron');
         $this->clear('cron');
     }
@@ -257,7 +270,8 @@ class Queuing {
      *
      * @return void
      */
-    public function clearMail() {
+    public function clearMail()
+    {
         $this->clear('mail');
         $this->clear('mail');
     }
@@ -267,7 +281,8 @@ class Queuing {
      *
      * @return void
      */
-    public function clearJobs() {
+    public function clearJobs()
+    {
         $this->clear('jobs');
         $this->clear('jobs');
     }
@@ -277,7 +292,8 @@ class Queuing {
      *
      * @return void
      */
-    public function clearAll() {
+    public function clearAll()
+    {
         $this->clear('cron');
         $this->clear('mail');
         $this->clear('jobs');
@@ -292,7 +308,8 @@ class Queuing {
      *
      * @return int
      */
-    public function length() {
+    public function length()
+    {
         return $this->jobprovider->count();
     }
 }

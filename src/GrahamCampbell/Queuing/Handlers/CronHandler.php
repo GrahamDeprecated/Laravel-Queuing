@@ -23,14 +23,16 @@
 use GrahamCampbell\Queuing\Facades\Cron;
 use GrahamCampbell\Queuing\Facades\JobProvider;
 
-class CronHandler extends BaseHandler {
+class CronHandler extends BaseHandler
+{
 
     /**
      * Run the task (called by BaseHandler).
      *
      * @return void
      */
-    protected function run() {
+    protected function run()
+    {
         $data = $this->data;
         JobProvider::clearOldJobs();
         foreach ($data['tasks'] as $task) {
@@ -43,7 +45,8 @@ class CronHandler extends BaseHandler {
      *
      * @return void
      */
-    protected function afterSuccess() {
+    protected function afterSuccess()
+    {
         Cron::start();
     }
 
@@ -52,7 +55,8 @@ class CronHandler extends BaseHandler {
      *
      * @return void
      */
-    protected function afterAbortion() {
+    protected function afterAbortion()
+    {
         if ($this->model) {
             Cron::start(500);
         }

@@ -23,7 +23,8 @@
 use Closure;
 use Illuminate\Support\Facades\Event;
 
-class Cron {
+class Cron
+{
 
     /**
      * The cron tasks.
@@ -45,7 +46,8 @@ class Cron {
      * @param  \GrahamCampbell\Queuing\Classes\Queuing  $queuing
      * @return void
      */
-    public function __construct(Queuing $queuing) {
+    public function __construct(Queuing $queuing)
+    {
         $this->queuing = $queuing;
     }
 
@@ -55,7 +57,8 @@ class Cron {
      * @param  \Carbon\Carbon|int  $delay
      * @return \GrahamCampbell\Queuing\Models\Job
      */
-    public function start($delay = 1000) {
+    public function start($delay = 1000)
+    {
         $this->stop();
         Event::fire('cron.starting');
         return $this->queuing->laterCron($delay, array('tasks' => $this->tasks));
@@ -66,7 +69,8 @@ class Cron {
      *
      * @return void
      */
-    public function stop() {
+    public function stop()
+    {
         Event::fire('cron.stopping');
         return $this->queuing->clearCron();
     }
@@ -78,7 +82,8 @@ class Cron {
      * @param  \Closure  $task
      * @return void
      */
-    public function add(Closure $task) {
+    public function add(Closure $task)
+    {
         return $this->tasks[] = $task;
     }
 }

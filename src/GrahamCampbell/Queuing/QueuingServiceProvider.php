@@ -22,7 +22,8 @@
 
 use Illuminate\Support\ServiceProvider;
 
-class QueuingServiceProvider extends ServiceProvider {
+class QueuingServiceProvider extends ServiceProvider
+{
 
     /**
      * Indicates if loading of the provider is deferred.
@@ -36,7 +37,8 @@ class QueuingServiceProvider extends ServiceProvider {
      *
      * @return void
      */
-    public function boot() {
+    public function boot()
+    {
         $this->package('graham-campbell/queuing');
 
         include __DIR__ . '/../../routes.php';
@@ -47,36 +49,37 @@ class QueuingServiceProvider extends ServiceProvider {
      *
      * @return void
      */
-    public function register() {
-        $this->app['jobprovider'] = $this->app->share(function($app) {
+    public function register()
+    {
+        $this->app['jobprovider'] = $this->app->share(function ($app) {
             return new Providers\JobProvider($app['config']);
         });
 
-        $this->app['queuing'] = $this->app->share(function($app) {
+        $this->app['queuing'] = $this->app->share(function ($app) {
             return new Classes\Queuing($app['queue'], $app['jobprovider'], $app['config']['queue.default']);
         });
 
-        $this->app['cron'] = $this->app->share(function($app) {
+        $this->app['cron'] = $this->app->share(function ($app) {
             return new Classes\Cron($app['queuing']);
         });
 
-        $this->app['command.queuelength'] = $this->app->share(function($app) {
+        $this->app['command.queuelength'] = $this->app->share(function ($app) {
             return new Commands\QueueLength;
         });
 
-        $this->app['command.queueclear'] = $this->app->share(function($app) {
+        $this->app['command.queueclear'] = $this->app->share(function ($app) {
             return new Commands\QueueClear;
         });
 
-        $this->app['command.queueiron'] = $this->app->share(function($app) {
+        $this->app['command.queueiron'] = $this->app->share(function ($app) {
             return new Commands\QueueIron;
         });
 
-        $this->app['command.cronstart'] = $this->app->share(function($app) {
+        $this->app['command.cronstart'] = $this->app->share(function ($app) {
             return new Commands\CronStart;
         });
 
-        $this->app['command.cronstop'] = $this->app->share(function($app) {
+        $this->app['command.cronstop'] = $this->app->share(function ($app) {
             return new Commands\CronStop;
         });
 
@@ -92,7 +95,8 @@ class QueuingServiceProvider extends ServiceProvider {
      *
      * @return array
      */
-    public function provides() {
+    public function provides()
+    {
         return array('jobprovider', 'queuing', 'cron', 'queue.length', 'queue.clear', 'queue.iron', 'cron.start', 'cron.stop');
     }
 }

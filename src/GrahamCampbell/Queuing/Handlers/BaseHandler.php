@@ -23,7 +23,8 @@
 use Illuminate\Support\Facades\Log;
 use GrahamCampbell\Queuing\Facades\JobProvider;
 
-abstract class BaseHandler {
+abstract class BaseHandler
+{
 
     /**
      * The maximum number of tries.
@@ -82,53 +83,12 @@ abstract class BaseHandler {
     protected $data;
 
     /**
-     * Run the job.
-     *
-     * @return void
-     */
-    abstract protected function run();
-
-    /**
-     * Initialisation for the job.
-     *
-     * @return void
-     */
-    protected function init() {}
-
-    /**
-     * Run on construction.
-     *
-     * @return void
-     */
-    protected function before() {}
-
-    /**
-     * Run after a job success.
-     *
-     * @return void
-     */
-    protected function afterSuccess() {}
-
-    /**
-     * Run after a job failure.
-     *
-     * @return void
-     */
-    protected function afterFailure() {}
-
-    /**
-     * Run after a job abortion.
-     *
-     * @return void
-     */
-    protected function afterAbortion() {}
-
-    /**
      * Constructor. Runs the init method.
      *
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->init(); // unprotected against exceptions
     }
 
@@ -137,7 +97,8 @@ abstract class BaseHandler {
      *
      * @return void
      */
-    public function fire($job, $data) {
+    public function fire($job, $data)
+    {
         // load job details and data to the class
         $this->job = $job;
         unset($job);
@@ -217,7 +178,8 @@ abstract class BaseHandler {
      *
      * @return void
      */
-    protected function success() {
+    protected function success()
+    {
         // remove the job from the queue
         try {
             $this->job->delete(); 
@@ -252,7 +214,8 @@ abstract class BaseHandler {
      *
      * @return void
      */
-    protected function fail($exception = null) {
+    protected function fail($exception = null)
+    {
         // run the afterFailure method
         try {
             $this->afterFailure();
@@ -299,7 +262,8 @@ abstract class BaseHandler {
      *
      * @return void
      */
-    protected function abort($message = null) {
+    protected function abort($message = null)
+    {
         // run the afterAbortion method
         try {
             $this->afterAbortion();
@@ -337,4 +301,61 @@ abstract class BaseHandler {
             throw new \Exception($this->task.' has aborted without a message');
         }
     }
+
+    /**
+     * Initialisation for the job.
+     *
+     * @return void
+     */
+    protected function init()
+    {
+        // can be overwritten by extending class
+    }
+
+    /**
+     * Run on construction.
+     *
+     * @return void
+     */
+    protected function before()
+    {
+        // can be overwritten by extending class
+    }
+
+    /**
+     * Run after a job success.
+     *
+     * @return void
+     */
+    protected function afterSuccess()
+    {
+        // can be overwritten by extending class
+    }
+
+    /**
+     * Run after a job failure.
+     *
+     * @return void
+     */
+    protected function afterFailure()
+    {
+        // can be overwritten by extending class
+    }
+
+    /**
+     * Run after a job abortion.
+     *
+     * @return void
+     */
+    protected function afterAbortion()
+    {
+        // can be overwritten by extending class
+    }
+
+    /**
+     * Run the job.
+     *
+     * @return void
+     */
+    abstract protected function run();
 }
