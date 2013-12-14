@@ -23,7 +23,8 @@
 use Illuminate\Config\Repository;
 use GrahamCampbell\Core\Providers\BaseProvider;
 
-class JobProvider extends BaseProvider {
+class JobProvider extends BaseProvider
+{
 
     /**
      * The name of the model to provide.
@@ -45,7 +46,8 @@ class JobProvider extends BaseProvider {
      * @param  \Illuminate\Config\Repository  $config
      * @return void
      */
-    public function __construct(Repository $config) {
+    public function __construct(Repository $config)
+    {
         $this->config = $config;
     }
 
@@ -55,7 +57,8 @@ class JobProvider extends BaseProvider {
      * @param  string  $type
      * @return string
      */
-    public function queue($type) {
+    public function queue($type)
+    {
         if ($this->config['queue.default'] == 'sync') {
             return $type;
         } else {
@@ -69,7 +72,8 @@ class JobProvider extends BaseProvider {
      * @param  string  $type
      * @return string
      */
-    public function task($type, $location = 'GrahamCampbell\Queuing\Handlers') {
+    public function task($type, $location = 'GrahamCampbell\Queuing\Handlers')
+    {
         return $location.'\\'.ucfirst($type).'Handler';
     }
 
@@ -80,7 +84,8 @@ class JobProvider extends BaseProvider {
      * @param  array   $columns
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getTask($task, array $columns = array('*'), $location = 'GrahamCampbell\Queuing\Handlers') {
+    public function getTask($task, array $columns = array('*'), $location = 'GrahamCampbell\Queuing\Handlers')
+    {
         $model = $this->model;
         $task = $this->task($task, $location);
         return $model::where('task', '=', $task)->get($columns);
@@ -94,7 +99,8 @@ class JobProvider extends BaseProvider {
      * @param  array   $columns
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getDeletedTask($task, array $columns = array('*'), $location = 'GrahamCampbell\Queuing\Handlers') {
+    public function getDeletedTask($task, array $columns = array('*'), $location = 'GrahamCampbell\Queuing\Handlers')
+    {
         $model = $this->model;
         $task = $this->task($task, $location);
         return $model::onlyTrashed()->where('task', '=', $task)->get($columns);
@@ -107,7 +113,8 @@ class JobProvider extends BaseProvider {
      * @return void
      */
     public function clearTask($task) {
-        foreach($this->getTask($task, array('id')) as $job) {
+        foreach($this->getTask($task, array('id')) as $job)
+        {
             $job->delete();
         }
     }
@@ -119,7 +126,8 @@ class JobProvider extends BaseProvider {
      * @return void
      */
     public function clearDeletedTask($task) {
-        foreach($this->getDeletedTask($task, array('id')) as $job) {
+        foreach($this->getDeletedTask($task, array('id')) as $job)
+        {
             $job->forceDelete();
         }
     }
@@ -132,7 +140,8 @@ class JobProvider extends BaseProvider {
      * @param  array   $columns
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getOldTask($task, $age = 68400, array $columns = array('*'), $location = 'GrahamCampbell\Queuing\Handlers') {
+    public function getOldTask($task, $age = 68400, array $columns = array('*'), $location = 'GrahamCampbell\Queuing\Handlers')
+    {
         $model = $this->model;
         $task = $this->task($task, $location);
         return $model::where(function($query) use ($task, $age, $columns) { $query->where('task', '=', $task)->where('updated_at', '<=', time() - ($age)); })->get($columns);
@@ -146,10 +155,13 @@ class JobProvider extends BaseProvider {
      * @param  array   $columns
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getOldDeletedTask($task, $age = 478800, array $columns = array('*'), $location = 'GrahamCampbell\Queuing\Handlers') {
+    public function getOldDeletedTask($task, $age = 478800, array $columns = array('*'), $location = 'GrahamCampbell\Queuing\Handlers')
+    {
         $model = $this->model;
         $task = $this->task($task, $location);
-        return $model::onlyTrashed()->where(function($query) use ($task, $age, $columns) { $query->where('task', '=', $task)->where('deleted_at', '<=', time() - ($age)); })->get($columns);
+        return $model::onlyTrashed()->where(function ($query) use ($task, $age, $columns) {
+            $query->where('task', '=', $task)->where('deleted_at', '<=', time() - ($age));
+        })->get($columns);
     }
 
     /**
@@ -159,7 +171,8 @@ class JobProvider extends BaseProvider {
      * @param  int     $age
      * @return void
      */
-    public function clearOldTask($task, $age = 68400) {
+    public function clearOldTask($task, $age = 68400)
+    {
         foreach($this->getOldTask($task, $age, array('id')) as $job) {
             $job->delete();
         }
@@ -172,7 +185,8 @@ class JobProvider extends BaseProvider {
      * @param  int     $age
      * @return void
      */
-    public function clearOldDeletedTask($task, $age = 478800) {
+    public function clearOldDeletedTask($task, $age = 478800)
+    {
         foreach($this->getOldDeletedTask($task, $age, array('id')) as $job) {
             $job->forceDelete();
         }
@@ -185,7 +199,8 @@ class JobProvider extends BaseProvider {
      * @param  array   $columns
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getQueue($queue, array $columns = array('*')) {
+    public function getQueue($queue, array $columns = array('*'))
+    {
         $model = $this->model;
         $queue = $this->queue($queue);
         return $model::where('queue', '=', $queue)->get($columns);
@@ -198,7 +213,8 @@ class JobProvider extends BaseProvider {
      * @param  array   $columns
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getDeletedQueue($queue, array $columns = array('*')) {
+    public function getDeletedQueue($queue, array $columns = array('*'))
+    {
         $model = $this->model;
         $queue = $this->queue($queue);
         return $model::onlyTrashed()->where('queue', '=', $queue)->get($columns);
@@ -211,7 +227,8 @@ class JobProvider extends BaseProvider {
      * @return void
      */
     public function clearQueue($queue) {
-        foreach($this->getQueue($queue, array('id')) as $job) {
+        foreach($this->getQueue($queue, array('id')) as $job)
+        {
             $job->delete();
         }
     }
@@ -223,7 +240,8 @@ class JobProvider extends BaseProvider {
      * @return void
      */
     public function clearDeletedQueue($queue) {
-        foreach($this->getDeletedQueue($queue, array('id')) as $job) {
+        foreach($this->getDeletedQueue($queue, array('id')) as $job)
+        {
             $job->forceDelete();
         }
     }
@@ -236,7 +254,8 @@ class JobProvider extends BaseProvider {
      * @param  array   $columns
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getOldQueue($queue, $age = 68400, array $columns = array('*')) {
+    public function getOldQueue($queue, $age = 68400, array $columns = array('*'))
+    {
         $model = $this->model;
         $queue = $this->queue($queue);
         return $model::where(function($query) use ($queue, $age, $columns) { $query->where('queue', '=', $queue)->where('updated_at', '<=', time() - ($age)); })->get($columns);
@@ -250,7 +269,8 @@ class JobProvider extends BaseProvider {
      * @param  array   $columns
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getOldDeletedQueue($queue, $age = 478800, array $columns = array('*')) {
+    public function getOldDeletedQueue($queue, $age = 478800, array $columns = array('*'))
+    {
         $model = $this->model;
         $queue = $this->queue($queue);
         return $model::onlyTrashed()->where(function($query) use ($queue, $age, $columns) { $query->where('queue', '=', $queue)->where('deleted_at', '<=', time() - ($age)); })->get($columns);
@@ -263,7 +283,8 @@ class JobProvider extends BaseProvider {
      * @param  int     $age
      * @return void
      */
-    public function clearOldQueue($queue, $age = 68400) {
+    public function clearOldQueue($queue, $age = 68400)
+    {
         foreach($this->getOldQueue($queue, $age, array('id')) as $job) {
             $job->delete();
         }
@@ -276,7 +297,8 @@ class JobProvider extends BaseProvider {
      * @param  int     $age
      * @return void
      */
-    public function clearOldDeletedQueue($queue, $age = 478800) {
+    public function clearOldDeletedQueue($queue, $age = 478800)
+    {
         foreach($this->getOldDeletedQueue($queue, $age, array('id')) as $job) {
             $job->forceDelete();
         }
@@ -288,7 +310,8 @@ class JobProvider extends BaseProvider {
      * @param  array  $columns
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getCron(array $columns = array('*')) {
+    public function getCron(array $columns = array('*'))
+    {
         return $this->getQueue('cron', $columns);
     }
 
@@ -298,7 +321,8 @@ class JobProvider extends BaseProvider {
      * @param  array  $columns
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getDeletedCron(array $columns = array('*')) {
+    public function getDeletedCron(array $columns = array('*'))
+    {
         return $this->getDeletedQueue('cron', $columns);
     }
 
@@ -307,7 +331,8 @@ class JobProvider extends BaseProvider {
      *
      * @return void
      */
-    public function clearCron() {
+    public function clearCron()
+    {
         return $this->clearQueue('cron');
     }
 
@@ -316,7 +341,8 @@ class JobProvider extends BaseProvider {
      *
      * @return void
      */
-    public function clearDeletedCron() {
+    public function clearDeletedCron()
+    {
         return $this->clearDeletedQueue('cron');
     }
 
@@ -327,7 +353,8 @@ class JobProvider extends BaseProvider {
      * @param  array  $columns
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getOldCron($age = 68400, array $columns = array('*')) {
+    public function getOldCron($age = 68400, array $columns = array('*'))
+    {
         return $this->getOldQueue('cron', $age, $columns);
     }
 
@@ -338,7 +365,8 @@ class JobProvider extends BaseProvider {
      * @param  array  $columns
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getOldDeletedCron($age = 478800, array $columns = array('*')) {
+    public function getOldDeletedCron($age = 478800, array $columns = array('*'))
+    {
         return $this->getOldDeletedQueue('cron', $age, $columns);
     }
 
@@ -348,7 +376,8 @@ class JobProvider extends BaseProvider {
      * @param  int  $age
      * @return void
      */
-    public function clearOldCron($age = 68400) {
+    public function clearOldCron($age = 68400)
+    {
         return $this->clearOldQueue('cron', $age);
     }
 
@@ -358,7 +387,8 @@ class JobProvider extends BaseProvider {
      * @param  int  $age
      * @return void
      */
-    public function clearOldDeletedCron($age = 478800) {
+    public function clearOldDeletedCron($age = 478800)
+    {
         return $this->clearOldDeletedQueue('cron', $age);
     }
 
@@ -368,7 +398,8 @@ class JobProvider extends BaseProvider {
      * @param  array  $columns
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getMail(array $columns = array('*')) {
+    public function getMail(array $columns = array('*'))
+    {
         return $this->getQueue('mail', $columns);
     }
 
@@ -378,7 +409,8 @@ class JobProvider extends BaseProvider {
      * @param  array  $columns
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getDeletedMail(array $columns = array('*')) {
+    public function getDeletedMail(array $columns = array('*'))
+    {
         return $this->getDeletedQueue('mail', $columns);
     }
 
@@ -387,7 +419,8 @@ class JobProvider extends BaseProvider {
      *
      * @return void
      */
-    public function clearMail() {
+    public function clearMail()
+    {
         return $this->clearQueue('mail');
     }
 
@@ -396,7 +429,8 @@ class JobProvider extends BaseProvider {
      *
      * @return void
      */
-    public function clearDeletedMail() {
+    public function clearDeletedMail()
+    {
         return $this->clearDeletedQueue('mail');
     }
 
@@ -407,7 +441,8 @@ class JobProvider extends BaseProvider {
      * @param  array  $columns
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getOldMail($age = 68400, array $columns = array('*')) {
+    public function getOldMail($age = 68400, array $columns = array('*'))
+    {
         return $this->getOldQueue('mail', $age, $columns);
     }
 
@@ -418,7 +453,8 @@ class JobProvider extends BaseProvider {
      * @param  array  $columns
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getOldDeletedMail($age = 478800, array $columns = array('*')) {
+    public function getOldDeletedMail($age = 478800, array $columns = array('*'))
+    {
         return $this->getOldDeletedQueue('mail', $age, $columns);
     }
 
@@ -428,7 +464,8 @@ class JobProvider extends BaseProvider {
      * @param  int  $age
      * @return void
      */
-    public function clearOldMail($age = 68400) {
+    public function clearOldMail($age = 68400)
+    {
         return $this->clearOldQueue('mail', $age);
     }
 
@@ -438,7 +475,8 @@ class JobProvider extends BaseProvider {
      * @param  int  $age
      * @return void
      */
-    public function clearOldDeletedMail($age = 478800) {
+    public function clearOldDeletedMail($age = 478800)
+    {
         return $this->clearOldDeletedQueue('mail', $age);
     }
 
@@ -448,7 +486,8 @@ class JobProvider extends BaseProvider {
      * @param  array  $columns
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getJobs(array $columns = array('*')) {
+    public function getJobs(array $columns = array('*'))
+    {
         return $this->getQueue('queue', $columns);
     }
 
@@ -458,7 +497,8 @@ class JobProvider extends BaseProvider {
      * @param  array  $columns
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getDeletedJobs(array $columns = array('*')) {
+    public function getDeletedJobs(array $columns = array('*'))
+    {
         return $this->getDeletedQueue('queue', $columns);
     }
 
@@ -467,7 +507,8 @@ class JobProvider extends BaseProvider {
      *
      * @return void
      */
-    public function clearJobs() {
+    public function clearJobs()
+    {
         return $this->clearQueue('queue');
     }
 
@@ -476,7 +517,8 @@ class JobProvider extends BaseProvider {
      *
      * @return void
      */
-    public function clearDeletedJobs() {
+    public function clearDeletedJobs()
+    {
         return $this->clearDeletedQueue('queue');
     }
 
@@ -487,7 +529,8 @@ class JobProvider extends BaseProvider {
      * @param  array  $columns
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getOldJobs($age = 68400, array $columns = array('*')) {
+    public function getOldJobs($age = 68400, array $columns = array('*'))
+    {
         return $this->getOldQueue('queue', $age, $columns);
     }
 
@@ -498,7 +541,8 @@ class JobProvider extends BaseProvider {
      * @param  array  $columns
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getOldDeletedJobs($age = 478800, array $columns = array('*')) {
+    public function getOldDeletedJobs($age = 478800, array $columns = array('*'))
+    {
         return $this->getOldDeletedQueue('queue', $age, $columns);
     }
 
@@ -508,7 +552,8 @@ class JobProvider extends BaseProvider {
      * @param  int  $age
      * @return void
      */
-    public function clearOldJobs($age = 68400) {
+    public function clearOldJobs($age = 68400)
+    {
         return $this->clearOldQueue('queue', $age);
     }
 
@@ -518,7 +563,8 @@ class JobProvider extends BaseProvider {
      * @param  int  $age
      * @return void
      */
-    public function clearOldDeletedJobs($age = 478800) {
+    public function clearOldDeletedJobs($age = 478800)
+    {
         return $this->clearOldDeletedQueue('queue', $age);
     }
 
@@ -528,7 +574,8 @@ class JobProvider extends BaseProvider {
      * @param  array  $columns
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getAll(array $columns = array('*')) {
+    public function getAll(array $columns = array('*'))
+    {
         $model = $this->model;
         return $model::get($columns);
     }
@@ -539,7 +586,8 @@ class JobProvider extends BaseProvider {
      * @param  array  $columns
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getAllDeleted(array $columns = array('*')) {
+    public function getAllDeleted(array $columns = array('*'))
+    {
         $model = $this->model;
         return $model::onlyTrashed()->get($columns);
     }
@@ -550,7 +598,8 @@ class JobProvider extends BaseProvider {
      * @return void
      */
     public function clearAll() {
-        foreach($this->getAll(array('id')) as $job) {
+        foreach($this->getAll(array('id')) as $job)
+        {
             $job->delete();
         }
     }
@@ -561,7 +610,8 @@ class JobProvider extends BaseProvider {
      * @return void
      */
     public function clearAllDeleted() {
-        foreach($this->getAllDeleted(array('id')) as $job) {
+        foreach($this->getAllDeleted(array('id')) as $job)
+        {
             $job->forceDelete();
         }
     }
@@ -573,7 +623,8 @@ class JobProvider extends BaseProvider {
      * @param  array  $columns
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getAllOld($age = 68400, array $columns = array('*')) {
+    public function getAllOld($age = 68400, array $columns = array('*'))
+    {
         $model = $this->model;
         return $model::where('updated_at', '<=', time() - ($age))->get($columns);
     }
@@ -585,7 +636,8 @@ class JobProvider extends BaseProvider {
      * @param  array  $columns
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getAllOldDeleted($age = 478800, array $columns = array('*')) {
+    public function getAllOldDeleted($age = 478800, array $columns = array('*'))
+    {
         $model = $this->model;
         return $model::onlyTrashed()->where('deleted_at', '<=', time() - ($age))->get($columns);
     }
@@ -596,7 +648,8 @@ class JobProvider extends BaseProvider {
      * @param  int  $age
      * @return void
      */
-    public function clearAllOld($age = 68400) {
+    public function clearAllOld($age = 68400)
+    {
         foreach($this->getAllOld($age, array('id')) as $job) {
             $job->delete();
         }
@@ -608,7 +661,8 @@ class JobProvider extends BaseProvider {
      * @param  int  $age
      * @return void
      */
-    public function clearAllOldDeleted($age = 478800) {
+    public function clearAllOldDeleted($age = 478800)
+    {
         foreach($this->getAllOldDeleted($age, array('id')) as $job) {
             $job->forceDelete();
         }
