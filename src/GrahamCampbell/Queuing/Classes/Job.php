@@ -103,8 +103,7 @@ class Job
         if ($this->delay === false) {
             Queue::push($this->task, $this->data, $this->queue);
         } else {
-            $time = $this->time($this->delay);
-            Queue::later($this->time, $this->task, $this->data, $this->queue);
+            Queue::later($this->time($this->delay), $this->task, $this->data, $this->queue);
         }
     }
 
