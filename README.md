@@ -12,7 +12,7 @@ Laravel Queuing
 
 ## What Is Laravel Queuing?
 
-Laravel Queuing is a cool way to queue in [Laravel 4](http://laravel.com).  
+Laravel Queuing is a cool way to queue in [Laravel 4.1](http://laravel.com).  
 
 * Laravel Queuing was created by, and is maintained by [Graham Campbell](https://github.com/GrahamCampbell).  
 * Laravel Queuing relies on my [Laravel Core](https://github.com/GrahamCampbell/Laravel-Core) package.  
@@ -25,8 +25,8 @@ Laravel Queuing is a cool way to queue in [Laravel 4](http://laravel.com).
 
 ## System Requirements
 
-* PHP 5.4+ or PHP 5.5+ is required.
-* You will need [Laravel 4](http://laravel.com) because this package is designed for it.  
+* PHP 5.4.7+ or PHP 5.5+ is required.
+* You will need [Laravel 4.1](http://laravel.com) because this package is designed for it.  
 * You will need [Composer](https://getcomposer.org) installed to load the dependencies of Laravel Queuing.  
 
 

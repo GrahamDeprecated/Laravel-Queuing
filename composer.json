@@ -1,6 +1,6 @@
 {
     "name": "graham-campbell/queuing",
-    "description": "Queuing Is A Cool Way To Queue In Laravel 4",
+    "description": "Queuing Is A Cool Way To Queue In Laravel 4.1",
     "keywords": ["laravel", "framework", "queuing", "mail", "email", "cron", "queue", "Queuing", "Laravel Queuing", "Laravel-Queuing", "Graham Campbell", "GrahamCampbell"],
     "license": "Apache License 2.0",
     "authors": [
@@ -11,8 +11,10 @@
     ],
     "require": {
         "php": ">=5.4.7",
-        "orchestra/testbench": "2.0.*|2.1.*",
-        "graham-campbell/core": "0.1.*",
+        "orchestra/testbench": "2.1.*",
+        "graham-campbell/core": "0.2.*",
+        "symfony/event-dispatcher": "2.4.*",
+        "guzzle/guzzle": "3.8.*",
         "pda/pheanstalk": "2.1.*",
         "aws/aws-sdk-php": "2.4.*",
         "iron-io/iron_mq": "1.4.*"
