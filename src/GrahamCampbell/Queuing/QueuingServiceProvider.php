@@ -42,6 +42,10 @@ class QueuingServiceProvider extends ServiceProvider
         $this->package('graham-campbell/queuing');
 
         include __DIR__ . '/../../routes.php';
+
+        $app->shutdown(function ($app) {
+            $app['queuing']->process();
+        });
     }
 
     /**

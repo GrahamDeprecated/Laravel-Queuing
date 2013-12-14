@@ -20,7 +20,6 @@
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
 
-use Carbon\Carbon;
 use Illuminate\Queue\QueueManager;
 use GrahamCampbell\Queuing\Providers\JobProvider;
 
@@ -28,11 +27,11 @@ class Queuing
 {
 
     /**
-     * The minimum delay for a delayed queue push.
+     * The jobs to get pushed.
      *
-     * @var int
+     * @var array
      */
-    protected $delay = 5;
+    protected $jobs = array();
 
     /**
      * The queue instance.
@@ -71,54 +70,16 @@ class Queuing
     }
 
     /**
-     * Convert to a valid time.
-     *
-     * @param  mixed  $time
-     * @return int
-     */
-    protected function time($time = null)
-    {
-        if (is_object($time)) {
-            if (get_class($time) == 'Carbon\Carbon') {
-                return $this->times(Carbon::now()->diffInSeconds($time));
-            }
-        }
-
-        if (is_int($time)) {
-            return $this->times($time);
-        }
-
-        return $this->times();
-    }
-
-    /**
-     * Convert to a valid time strictly.
-     *
-     * @param  mixed  $time
-     * @return int
-     */
-    protected function times($time = null)
-    {
-        if (is_int($time)) {
-            if ($time >= $this->delay) {
-                return $time;
-            }
-        }
-
-        return $this->delay;
-    }
-
-    /**
-     * Do the actual job queuing.
+     * Queue the job to memory.
      *
      * @param  mixed   $delay
      * @param  string  $task
-     * @param  mixed   $data
+     * @param  array   $data
      * @param  string  $queue
      * @param  string  $location
-     * @return \GrahamCampbell\Queuing\Models\Job
+     * @return void
      */
-    protected function work($delay, $task, $data, $queue, $location = 'GrahamCampbell\Queuing\Handlers')
+    protected function work($delay, $task, array $data, $queue, $location = 'GrahamCampbell\Queuing\Handlers')
     {
         if ($this->driver == 'sync') {
             // check the job
@@ -126,23 +87,21 @@ class Queuing
                 throw new \InvalidArgumentException('A cron job cannot run on the sync queue.');
             }
         } else {
-            // push to the database server
-            $model = $this->jobprovider->create(array('task' => $task, 'queue' => $queue));
-            // save model id
-            $data['model_id'] = $model->getId();
+            // push to memory
+            $this->jobs[] = new Job($delay, $task, $data, $queue, $location);
         }
+    }
 
-        // push to the queuing server
-        if ($delay === false) {
-            $this->queue->push($task, $data, $queue);
-        } else {
-            $time = $this->time($delay);
-            $this->queue->later($time, $task, $data, $queue);
-        }
-
-        // return the model
-        if (isset($model)) {
-            return $model;
+    /**
+     * Do the actual job queuing.
+     * This method is called on application shutdown.
+     *
+     * @return void
+     */
+    public function process()
+    {
+        foreach ($this->jobs as $job) {
+            $job->push();
         }
     }
 
@@ -151,22 +110,22 @@ class Queuing
      *
      * @param  mixed  $delay
      * @param  array  $data
-     * @return \GrahamCampbell\Queuing\Models\Job
+     * @return void
      */
     public function laterCron($delay, array $data = array())
     {
-        return $this->work($delay, $this->jobprovider->task('cron'), $data, $this->jobprovider->queue('cron'));
+        $this->work($delay, $this->jobprovider->task('cron'), $data, $this->jobprovider->queue('cron'));
     }
 
     /**
      * Push a new cron job onto the queue.
      *
      * @param  array  $data
-     * @return \GrahamCampbell\Queuing\Models\Job
+     * @return void
      */
     public function pushCron(array $data = array())
     {
-        return $this->laterCron(false, $data);
+        $this->laterCron(false, $data);
     }
 
     /**
@@ -174,22 +133,22 @@ class Queuing
      *
      * @param  mixed  $delay
      * @param  array  $data
-     * @return \GrahamCampbell\Queuing\Models\Job
+     * @return void
      */
     public function laterMail($delay, array $data = array())
     {
-        return $this->work($delay, $this->jobprovider->task('mail'), $data, $this->jobprovider->queue('mail'));
+        $this->work($delay, $this->jobprovider->task('mail'), $data, $this->jobprovider->queue('mail'));
     }
 
     /**
      * Push a new mail job onto the queue.
      *
      * @param  array  $data
-     * @return \GrahamCampbell\Queuing\Models\Job
+     * @return void
      */
     public function pushMail(array $data = array())
     {
-        return $this->laterMail(false, $data);
+        $this->laterMail(false, $data);
     }
 
     /**
@@ -199,11 +158,11 @@ class Queuing
      * @param  string  $job
      * @param  string  $queue
      * @param  string  $location
-     * @return \GrahamCampbell\Queuing\Models\Job
+     * @return void
      */
     public function laterJob($delay, $job, array $data = array(), $location = 'GrahamCampbell\Queuing\Handlers')
     {
-        return $this->work($delay, $this->jobprovider->task($job, $location), $data, $this->jobprovider->queue('queue'));
+        $this->work($delay, $this->jobprovider->task($job, $location), $data, $this->jobprovider->queue('queue'));
     }
 
     /**
@@ -211,11 +170,11 @@ class Queuing
      *
      * @param  string  $job
      * @param  array   $data
-     * @return \GrahamCampbell\Queuing\Models\Job
+     * @return void
      */
     public function pushJob($job, array $data = array())
     {
-        return $this->laterJob(false, $job, $data);
+        $this->laterJob(false, $job, $data);
     }
 
     /**
