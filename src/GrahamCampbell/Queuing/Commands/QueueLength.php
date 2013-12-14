@@ -58,6 +58,6 @@ class QueueLength extends Command
             }
         } else {
             $this->error('Queue information is currently unavailable!');
-        }   
+        }
     }
 }

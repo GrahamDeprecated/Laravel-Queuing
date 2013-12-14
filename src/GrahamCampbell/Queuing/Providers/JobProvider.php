@@ -112,9 +112,9 @@ class JobProvider extends BaseProvider
      * @param  string  $task
      * @return void
      */
-    public function clearTask($task) {
-        foreach($this->getTask($task, array('id')) as $job)
-        {
+    public function clearTask($task)
+    {
+        foreach ($this->getTask($task, array('id')) as $job) {
             $job->delete();
         }
     }
@@ -125,9 +125,9 @@ class JobProvider extends BaseProvider
      * @param  string  $task
      * @return void
      */
-    public function clearDeletedTask($task) {
-        foreach($this->getDeletedTask($task, array('id')) as $job)
-        {
+    public function clearDeletedTask($task)
+    {
+        foreach ($this->getDeletedTask($task, array('id')) as $job) {
             $job->forceDelete();
         }
     }
@@ -173,7 +173,7 @@ class JobProvider extends BaseProvider
      */
     public function clearOldTask($task, $age = 68400)
     {
-        foreach($this->getOldTask($task, $age, array('id')) as $job) {
+        foreach ($this->getOldTask($task, $age, array('id')) as $job) {
             $job->delete();
         }
     }
@@ -187,7 +187,7 @@ class JobProvider extends BaseProvider
      */
     public function clearOldDeletedTask($task, $age = 478800)
     {
-        foreach($this->getOldDeletedTask($task, $age, array('id')) as $job) {
+        foreach ($this->getOldDeletedTask($task, $age, array('id')) as $job) {
             $job->forceDelete();
         }
     }
@@ -226,9 +226,9 @@ class JobProvider extends BaseProvider
      * @param  string  $queue
      * @return void
      */
-    public function clearQueue($queue) {
-        foreach($this->getQueue($queue, array('id')) as $job)
-        {
+    public function clearQueue($queue)
+    {
+        foreach ($this->getQueue($queue, array('id')) as $job) {
             $job->delete();
         }
     }
@@ -239,9 +239,9 @@ class JobProvider extends BaseProvider
      * @param  string  $queue
      * @return void
      */
-    public function clearDeletedQueue($queue) {
-        foreach($this->getDeletedQueue($queue, array('id')) as $job)
-        {
+    public function clearDeletedQueue($queue)
+    {
+        foreach ($this->getDeletedQueue($queue, array('id')) as $job) {
             $job->forceDelete();
         }
     }
@@ -285,7 +285,7 @@ class JobProvider extends BaseProvider
      */
     public function clearOldQueue($queue, $age = 68400)
     {
-        foreach($this->getOldQueue($queue, $age, array('id')) as $job) {
+        foreach ($this->getOldQueue($queue, $age, array('id')) as $job) {
             $job->delete();
         }
     }
@@ -299,7 +299,7 @@ class JobProvider extends BaseProvider
      */
     public function clearOldDeletedQueue($queue, $age = 478800)
     {
-        foreach($this->getOldDeletedQueue($queue, $age, array('id')) as $job) {
+        foreach ($this->getOldDeletedQueue($queue, $age, array('id')) as $job) {
             $job->forceDelete();
         }
     }

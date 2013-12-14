@@ -36,9 +36,9 @@ class MailHandler extends BaseHandler
         if (!is_array($this->data['email'])) {
             $this->data['email'] = array($this->data['email']);
         }
-        foreach($this->data['email'] as $email) {
+        foreach ($this->data['email'] as $email) {
             $data['email'] = $email;
-            Mail::send($data['view'], $data, function($mail) use($data) {
+            Mail::send($data['view'], $data, function ($mail) use ($data) {
                 $mail->to($data['email'])->subject($data['subject']);
             });
         }

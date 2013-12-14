@@ -121,7 +121,7 @@ abstract class BaseHandler
             try {
                 $this->model = JobProvider::find($this->id);
             } catch (\Exception $e) {
-               return $this->abort($this->task.' has aborted because the job model was inaccessible');
+                return $this->abort($this->task.' has aborted because the job model was inaccessible');
             }
 
             // if there's not model, then the job must have been cancelled
@@ -142,7 +142,7 @@ abstract class BaseHandler
                     throw new \Exception('Bad Task');
                 }
             } catch (\Exception $e) {
-               return $this->abort($this->task.' has aborted because the job model was invalid');
+                return $this->abort($this->task.' has aborted because the job model was invalid');
             }
 
             // increment tries
@@ -151,7 +151,7 @@ abstract class BaseHandler
                 $this->model->tries = $this->tries;
                 $this->model->save();
             } catch (\Exception $e) {
-               return $this->abort($this->task.' has aborted because the job model was inaccessible');
+                return $this->abort($this->task.' has aborted because the job model was inaccessible');
             }
         }
 
@@ -182,7 +182,7 @@ abstract class BaseHandler
     {
         // remove the job from the queue
         try {
-            $this->job->delete(); 
+            $this->job->delete();
         } catch (\Exception $e) {
             Log::error($e);
         }
@@ -191,7 +191,7 @@ abstract class BaseHandler
         if (is_object($this->model)) {
             if (is_a($this->model, 'GrahamCampbell\Queuing\Models\Job')) {
                 try {
-                    $this->model->delete(); 
+                    $this->model->delete();
                 } catch (\Exception $e) {
                     Log::error($e);
                 }
@@ -273,7 +273,7 @@ abstract class BaseHandler
 
         // remove the job from the queue
         try {
-            $this->job->delete(); 
+            $this->job->delete();
         } catch (\Exception $e) {
             Log::error($e);
         }
@@ -282,7 +282,7 @@ abstract class BaseHandler
         if (is_object($this->model)) {
             if (is_a($this->model, 'GrahamCampbell\Queuing\Models\Job')) {
                 try {
-                    $this->model->delete(); 
+                    $this->model->delete();
                 } catch (\Exception $e) {
                     Log::error($e);
                 }

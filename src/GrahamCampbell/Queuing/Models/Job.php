@@ -22,7 +22,8 @@
 
 use GrahamCampbell\Core\Models\BaseModel;
 
-class Job extends BaseModel {
+class Job extends BaseModel
+{
 
     /**
      * The table the jobs are stored in.
@@ -82,7 +83,8 @@ class Job extends BaseModel {
      *
      * @return int
      */
-    public function getTries() {
+    public function getTries()
+    {
         return $this->tries;
     }
 
@@ -91,7 +93,8 @@ class Job extends BaseModel {
      *
      * @return string
      */
-    public function getTask() {
+    public function getTask()
+    {
         return $this->task;
     }
 }

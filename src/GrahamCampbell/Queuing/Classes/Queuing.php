@@ -191,20 +191,26 @@ class Queuing
         if ($this->driver == 'beanstalkd') {
             $pheanstalk = $this->queue->getPheanstalk();
             try {
-                while($job = $pheanstalk->peekReady($queue)) {
+                while ($job = $pheanstalk->peekReady($queue)) {
                     $pheanstalk->delete($job);
                 }
-            } catch (\Pheanstalk_Exception_ServerException $e) {}
+            } catch (\Pheanstalk_Exception_ServerException $e) {
+                // do nothing
+            }
             try {
-                while($job = $pheanstalk->peekDelayed($queue)) {
+                while ($job = $pheanstalk->peekDelayed($queue)) {
                     $pheanstalk->delete($job);
                 }
-            } catch (\Pheanstalk_Exception_ServerException $e) {}
+            } catch (\Pheanstalk_Exception_ServerException $e) {
+                // do nothing
+            }
             try {
-                while($job = $pheanstalk->peekBuried($queue)) {
+                while ($job = $pheanstalk->peekBuried($queue)) {
                     $pheanstalk->delete($job);
                 }
-            } catch (\Pheanstalk_Exception_ServerException $e) {}
+            } catch (\Pheanstalk_Exception_ServerException $e) {
+                // do nothing
+            }
         } elseif ($this->driver == 'iron') {
             $iron = $this->queue->getIron();
             $iron->clearQueue($queue);
