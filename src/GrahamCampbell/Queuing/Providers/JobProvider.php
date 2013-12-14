@@ -144,7 +144,9 @@ class JobProvider extends BaseProvider
     {
         $model = $this->model;
         $task = $this->task($task, $location);
-        return $model::where(function($query) use ($task, $age, $columns) { $query->where('task', '=', $task)->where('updated_at', '<=', time() - ($age)); })->get($columns);
+        return $model::where(function ($query) use ($task, $age, $columns) {
+            $query->where('task', '=', $task)->where('updated_at', '<=', time() - ($age));
+        })->get($columns);
     }
 
     /**
@@ -258,7 +260,9 @@ class JobProvider extends BaseProvider
     {
         $model = $this->model;
         $queue = $this->queue($queue);
-        return $model::where(function($query) use ($queue, $age, $columns) { $query->where('queue', '=', $queue)->where('updated_at', '<=', time() - ($age)); })->get($columns);
+        return $model::where(function ($query) use ($queue, $age, $columns) {
+            $query->where('queue', '=', $queue)->where('updated_at', '<=', time() - ($age));
+        })->get($columns);
     }
 
     /**
@@ -273,7 +277,9 @@ class JobProvider extends BaseProvider
     {
         $model = $this->model;
         $queue = $this->queue($queue);
-        return $model::onlyTrashed()->where(function($query) use ($queue, $age, $columns) { $query->where('queue', '=', $queue)->where('deleted_at', '<=', time() - ($age)); })->get($columns);
+        return $model::onlyTrashed()->where(function ($query) use ($queue, $age, $columns) {
+            $query->where('queue', '=', $queue)->where('deleted_at', '<=', time() - ($age));
+        })->get($columns);
     }
 
     /**
@@ -597,9 +603,9 @@ class JobProvider extends BaseProvider
      *
      * @return void
      */
-    public function clearAll() {
-        foreach($this->getAll(array('id')) as $job)
-        {
+    public function clearAll()
+    {
+        foreach ($this->getAll(array('id')) as $job) {
             $job->delete();
         }
     }
@@ -609,9 +615,9 @@ class JobProvider extends BaseProvider
      *
      * @return void
      */
-    public function clearAllDeleted() {
-        foreach($this->getAllDeleted(array('id')) as $job)
-        {
+    public function clearAllDeleted()
+    {
+        foreach ($this->getAllDeleted(array('id')) as $job) {
             $job->forceDelete();
         }
     }
@@ -650,7 +656,7 @@ class JobProvider extends BaseProvider
      */
     public function clearAllOld($age = 68400)
     {
-        foreach($this->getAllOld($age, array('id')) as $job) {
+        foreach ($this->getAllOld($age, array('id')) as $job) {
             $job->delete();
         }
     }
@@ -663,7 +669,7 @@ class JobProvider extends BaseProvider
      */
     public function clearAllOldDeleted($age = 478800)
     {
-        foreach($this->getAllOldDeleted($age, array('id')) as $job) {
+        foreach ($this->getAllOldDeleted($age, array('id')) as $job) {
             $job->forceDelete();
         }
     }

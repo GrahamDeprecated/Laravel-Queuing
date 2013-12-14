@@ -292,7 +292,7 @@ abstract class BaseHandler
         if ($this->method != 'Illuminate\Queue\Jobs\BeanstalkdJob' || $this->method != 'Illuminate\Queue\Jobs\RedisJob') {
             // log the message
             if ($message) {
-                Log::critical($message); 
+                Log::critical($message);
             } else {
                 Log::critical($this->task.' has aborted without a message');
             }
