@@ -24,7 +24,6 @@ use Illuminate\Console\Command;
 
 class QueueIron extends Command
 {
-
     /**
      * The command name.
      *

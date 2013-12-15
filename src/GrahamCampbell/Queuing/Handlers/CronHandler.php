@@ -25,7 +25,6 @@ use GrahamCampbell\Queuing\Facades\JobProvider;
 
 class CronHandler extends BaseHandler
 {
-
     /**
      * Run the task (called by BaseHandler).
      *

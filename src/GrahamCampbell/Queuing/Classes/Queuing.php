@@ -25,7 +25,6 @@ use GrahamCampbell\Queuing\Providers\JobProvider;
 
 class Queuing
 {
-
     /**
      * The jobs to get pushed.
      *

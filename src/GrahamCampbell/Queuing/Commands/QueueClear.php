@@ -24,7 +24,6 @@ use Illuminate\Console\Command;
 
 class QueueClear extends Command
 {
-
     /**
      * The command name.
      *

@@ -24,7 +24,6 @@ use Illuminate\Support\Facades\Mail;
 
 class MailHandler extends BaseHandler
 {
-
     /**
      * Run the task (called by BaseHandler).
      *

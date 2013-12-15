@@ -25,7 +25,6 @@ use GrahamCampbell\Queuing\Facades\JobProvider;
 
 abstract class BaseHandler
 {
-
     /**
      * The maximum number of tries.
      *

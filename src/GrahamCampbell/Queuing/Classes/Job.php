@@ -25,7 +25,6 @@ use GrahamCampbell\Queuing\Facades\JobProvider;
 
 class Job
 {
-
     /**
      * The minimum delay for a delayed queue push.
      *

@@ -24,7 +24,6 @@ use GrahamCampbell\Core\Models\BaseModel;
 
 class Job extends BaseModel
 {
-
     /**
      * The table the jobs are stored in.
      *

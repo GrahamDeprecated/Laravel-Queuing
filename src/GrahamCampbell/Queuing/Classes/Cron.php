@@ -25,7 +25,6 @@ use Illuminate\Support\Facades\Event;
 
 class Cron
 {
-
     /**
      * The cron tasks.
      *

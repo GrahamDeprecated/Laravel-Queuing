@@ -24,7 +24,6 @@ use Illuminate\Console\Command;
 
 class QueueLength extends Command
 {
-
     /**
      * The command name.
      *

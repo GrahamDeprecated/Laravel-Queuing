@@ -24,7 +24,6 @@ use Illuminate\Console\Command;
 
 class CronStart extends Command
 {
-
     /**
      * The command name.
      *

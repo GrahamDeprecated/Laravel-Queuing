@@ -25,7 +25,6 @@ use GrahamCampbell\Core\Providers\BaseProvider;
 
 class JobProvider extends BaseProvider
 {
-
     /**
      * The name of the model to provide.
      *
