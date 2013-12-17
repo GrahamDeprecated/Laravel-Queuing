@@ -34,27 +34,35 @@ Laravel Queuing is a cool way to queue in [Laravel 4.1](http://laravel.com).
 
 Please check the system requirements before installing Laravel Queuing.  
 
-To get the latest version of Laravel Queuing, simply require it in your `composer.json` file.
+To get the latest version of Laravel Queuing, simply require it in your `composer.json` file.  
 
-`"graham-campbell/queuing": "dev-master"`
+`"graham-campbell/queuing": "dev-master"`  
 
-You'll then need to run `composer install` or `composer update` to download it and have the autoloader updated.
+You'll then need to run `composer install` or `composer update` to download it and have the autoloader updated.  
 
-You will need to register the [Laravel Core](https://github.com/GrahamCampbell/Laravel-Core) service provider before you attempt to load the Laravel Queuing service provider. Open up `app/config/app.php` and add the following to the `providers` key.
+You will need to register the [Laravel Core](https://github.com/GrahamCampbell/Laravel-Core) service provider before you attempt to load the Laravel Queuing service provider. Open up `app/config/app.php` and add the following to the `providers` key.  
 
-`'GrahamCampbell\Core\CoreServiceProvider'`
+`'GrahamCampbell\Core\CoreServiceProvider'`  
 
-Once Laravel Queuing is installed, you need to register the service provider. Open up `app/config/app.php` and add the following to the `providers` key.
+Once Laravel Queuing is installed, you need to register the service provider. Open up `app/config/app.php` and add the following to the `providers` key.  
 
-`'GrahamCampbell\Queuing\QueuingServiceProvider'`
+`'GrahamCampbell\Queuing\QueuingServiceProvider'`  
 
-You can register the three facades in the `aliases` key of your `app/config/app.php` file if you like.
+You can register the three facades in the `aliases` key of your `app/config/app.php` file if you like.  
 
-`'JobProvider' => 'GrahamCampbell\Queuing\Facades\JobProvider'`
-`'Queuing' => 'GrahamCampbell\Queuing\Facades\Queuing'`
-`'Cron' => 'GrahamCampbell\Queuing\Facades\Cron'`
+`'JobProvider' => 'GrahamCampbell\Queuing\Facades\JobProvider'`  
+`'Queuing' => 'GrahamCampbell\Queuing\Facades\Queuing'`  
+`'Cron' => 'GrahamCampbell\Queuing\Facades\Cron'`  
 
-You will additionally need to replace `app/config/queue.php` with the `queue.php` provided in the root folder of this repo. This config allows us to specify different queues for special jobs.
+You will additionally need to replace `app/config/queue.php` with the `queue.php` provided in the root folder of this repo. This config allows us to specify different queues for special jobs.  
+
+
+## Usage
+
+There is currently no usage documentation besides the [API Documentation](http://grahamcampbell.github.io/Laravel-Queuing
+) for Laravel Queuing.  
+
+You may see an example of implementation in [CMS Core](https://github.com/GrahamCampbell/CMS-Core).  
 
 
 ## Updating Your Fork
