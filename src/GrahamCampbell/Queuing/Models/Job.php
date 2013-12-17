@@ -96,4 +96,34 @@ class Job extends BaseModel
     {
         return $this->task;
     }
+
+    /**
+     * Get deleted.
+     *
+     * @return \Carbon\Carbon
+     */
+    public function getDeleted()
+    {
+        // TODO: Use the TraitDeletedModel from the Core package
+        if ($this->deleted_at) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get deleted_at.
+     *
+     * @return \Carbon\Carbon
+     */
+    public function getDeletedAt()
+    {
+        // TODO: Use the TraitDeletedModel from the Core package
+        if ($this->deleted_at) {
+            return new Carbon($this->activated_at);
+        }
+
+        return null;
+    }
 }
