@@ -3,10 +3,10 @@ Laravel Queuing
 
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/GrahamCampbell/Laravel-Queuing/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-[![Build Status](https://travis-ci.org/GrahamCampbell/Laravel-Queuing.png?branch=master)](https://travis-ci.org/GrahamCampbell/Laravel-Queuing)
-[![Latest Version](https://poser.pugx.org/graham-campbell/queuing/v/stable.png)](https://packagist.org/packages/graham-campbell/queuing)
-[![Total Downloads](https://poser.pugx.org/graham-campbell/queuing/downloads.png)](https://packagist.org/packages/graham-campbell/queuing)
+[![Build Status](https://travis-ci.org/GrahamCampbell/Laravel-Queuing.png?branch=develop)](https://travis-ci.org/GrahamCampbell/Laravel-Queuing)
+[![Coverage Status](https://coveralls.io/repos/GrahamCampbell/Laravel-Queuing/badge.png?branch=develop)](https://coveralls.io/r/GrahamCampbell/Laravel-Queuing)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/GrahamCampbell/Laravel-Queuing/badges/quality-score.png?s=8aa8514610dfe89cd32922515c7ed35d0901bdd9)](https://scrutinizer-ci.com/g/GrahamCampbell/Laravel-Queuing)
+[![Latest Version](https://poser.pugx.org/graham-campbell/queuing/v/stable.png)](https://packagist.org/packages/graham-campbell/queuing)
 [![Still Maintained](http://stillmaintained.com/GrahamCampbell/Laravel-Queuing.png)](http://stillmaintained.com/GrahamCampbell/Laravel-Queuing)
 
 
@@ -17,10 +17,10 @@ Laravel Queuing is a cool way to queue in [Laravel 4.1](http://laravel.com).
 * Laravel Queuing was created by, and is maintained by [Graham Campbell](https://github.com/GrahamCampbell).  
 * Laravel Queuing relies on my [Laravel Core](https://github.com/GrahamCampbell/Laravel-Core) package.  
 * Laravel Queuing uses [Travis CI](https://travis-ci.org/GrahamCampbell/Laravel-Queuing) to run tests to check if it's working as it should.  
-* Laravel Queuing uses [Scrutinizer CI](https://scrutinizer-ci.com/g/GrahamCampbell/Laravel-Queuing) to run additional tests and checks.  
+* Laravel Queuing uses [Scrutinizer CI](https://scrutinizer-ci.com/g/GrahamCampbell/Laravel-Queuing) and [Coveralls](https://coveralls.io/r/GrahamCampbell/Laravel-Queuing) to run additional tests and checks.  
 * Laravel Queuing uses [Composer](https://getcomposer.org) to load and manage dependencies.  
-* Laravel Queuing provides a [change log](https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/CHANGELOG.md), [releases](https://github.com/GrahamCampbell/Laravel-Queuing/releases), and a [wiki](https://github.com/GrahamCampbell/Laravel-Queuing/wiki).  
-* Laravel Queuing is licensed under the Apache License, available [here](https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md).  
+* Laravel Queuing provides a [change log](https://github.com/GrahamCampbell/Laravel-Queuing/blob/develop/CHANGELOG.md), [releases](https://github.com/GrahamCampbell/Laravel-Queuing/releases), and a [wiki](https://github.com/GrahamCampbell/Laravel-Queuing/wiki).  
+* Laravel Queuing is licensed under the Apache License, available [here](https://github.com/GrahamCampbell/Laravel-Queuing/blob/develop/LICENSE.md).  
 
 
 ## System Requirements
