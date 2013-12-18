@@ -1,4 +1,4 @@
-<?php namespace GrahamCampbell\Queuing\Handlers;
+<?php
 
 /**
  * This file is part of Laravel Queuing by Graham Campbell.
@@ -12,20 +12,25 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * @package    Laravel-Queuing
- * @author     Graham Campbell
- * @license    Apache License
- * @copyright  Copyright 2013 Graham Campbell
- * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
+
+namespace GrahamCampbell\Queuing\Handlers;
 
 use Illuminate\Support\Facades\Mail;
 
-class MailHandler extends BaseHandler
+/**
+ * This is the mail handler class.
+ *
+ * @package    Laravel-Queuing
+ * @author     Graham Campbell
+ * @copyright  Copyright 2013 Graham Campbell
+ * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/develop/LICENSE.md
+ * @link       https://github.com/GrahamCampbell/Laravel-Queuing
+ */
+class MailHandler extends AbstractHandler
 {
     /**
-     * Run the task (called by BaseHandler).
+     * Run the task (called by AbstractHandler).
      *
      * @return void
      */

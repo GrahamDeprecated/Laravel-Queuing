@@ -1,4 +1,4 @@
-<?php namespace GrahamCampbell\Queuing\Providers;
+<?php
 
 /**
  * This file is part of Laravel Queuing by Graham Campbell.
@@ -12,18 +12,23 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ */
+
+namespace GrahamCampbell\Queuing\Providers;
+
+use Illuminate\Config\Repository;
+use GrahamCampbell\Core\Providers\AbstractProvider;
+
+/**
+ * This is the job provider class.
  *
  * @package    Laravel-Queuing
  * @author     Graham Campbell
- * @license    Apache License
  * @copyright  Copyright 2013 Graham Campbell
+ * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/develop/LICENSE.md
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
-
-use Illuminate\Config\Repository;
-use GrahamCampbell\Core\Providers\BaseProvider;
-
-class JobProvider extends BaseProvider
+class JobProvider extends AbstractProvider
 {
     /**
      * The name of the model to provide.

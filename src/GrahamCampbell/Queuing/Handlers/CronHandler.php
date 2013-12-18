@@ -1,4 +1,4 @@
-<?php namespace GrahamCampbell\Queuing\Handlers;
+<?php
 
 /**
  * This file is part of Laravel Queuing by Graham Campbell.
@@ -12,21 +12,26 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * @package    Laravel-Queuing
- * @author     Graham Campbell
- * @license    Apache License
- * @copyright  Copyright 2013 Graham Campbell
- * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
+
+namespace GrahamCampbell\Queuing\Handlers;
 
 use GrahamCampbell\Queuing\Facades\Cron;
 use GrahamCampbell\Queuing\Facades\JobProvider;
 
-class CronHandler extends BaseHandler
+/**
+ * This is the cron handler class.
+ *
+ * @package    Laravel-Queuing
+ * @author     Graham Campbell
+ * @copyright  Copyright 2013 Graham Campbell
+ * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/develop/LICENSE.md
+ * @link       https://github.com/GrahamCampbell/Laravel-Queuing
+ */
+class CronHandler extends AbstractHandler
 {
     /**
-     * Run the task (called by BaseHandler).
+     * Run the task (called by AbstractHandler).
      *
      * @return void
      */
@@ -40,7 +45,7 @@ class CronHandler extends BaseHandler
     }
 
     /**
-     * Run after a job success (called by BaseHandler).
+     * Run after a job success (called by AbstractHandler).
      *
      * @return void
      */
@@ -50,7 +55,7 @@ class CronHandler extends BaseHandler
     }
 
     /**
-     * Run after a job abortion (called by BaseHandler).
+     * Run after a job abortion (called by AbstractHandler).
      *
      * @return void
      */
