@@ -47,7 +47,7 @@ class QueuingServiceProvider extends ServiceProvider
 
         include __DIR__.'/../../routes.php';
 
-        $app->shutdown(function ($app) {
+        $this->app->shutdown(function ($app) {
             $app['queuing']->process();
         });
     }
