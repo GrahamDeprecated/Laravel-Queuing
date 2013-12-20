@@ -43,7 +43,7 @@
         "iron-io/iron_mq": "1.4.*"
     },
     "require-dev": {
-        "graham-campbell/testbench": "0.1.*"
+        "graham-campbell/testbench": "0.2.*"
     },
     "autoload": {
         "classmap": [
