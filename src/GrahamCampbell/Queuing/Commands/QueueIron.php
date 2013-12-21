@@ -36,7 +36,7 @@ class QueueIron extends Command {
      *
      * @var string
      */
-    protected $description = 'Setups up IronMQ subscriptions';
+    protected $description = 'Sets up IronMQ subscriptions';
 
     /**
      * Run the commend.
@@ -46,15 +46,15 @@ class QueueIron extends Command {
     public function fire() {
         $this->line('Setting up iron queueing...');
 
-        if ($this->laravel['queue']['queue.default'] !== 'iron') {
+        if ($this->laravel['config']['queue.default'] !== 'iron') {
             $this->error('The current config is not setup for iron queueing!');
         }
 
-        $this->call('queue:subscribe', array('queue' => $this->laravel['jobprovider']->queue('queue'), 'url' => URL::route('queuing.index')));
+        $this->call('queue:subscribe', array('queue' => $this->laravel['jobprovider']->queue('queue'), 'url' => $this->laravel['url']->route('queuing.index')));
 
-        $this->call('queue:subscribe', array('queue' => $this->laravel['jobprovider']->queue('mail'), 'url' => URL::route('queuing.index')));
+        $this->call('queue:subscribe', array('queue' => $this->laravel['jobprovider']->queue('mail'), 'url' => $this->laravel['url']->route('queuing.index')));
 
-        $this->call('queue:subscribe', array('queue' => $this->laravel['jobprovider']->queue('cron'), 'url' => URL::route('queuing.index')));
+        $this->call('queue:subscribe', array('queue' => $this->laravel['jobprovider']->queue('cron'), 'url' => $this->laravel['url']->route('queuing.index')));
 
         $this->info('Queueing is now setup!');
     }
