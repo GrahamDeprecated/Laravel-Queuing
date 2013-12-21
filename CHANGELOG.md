@@ -13,6 +13,12 @@ CHANGE LOG
 * Added unit tests
 
 
+## V0.1.2 Alpha (21/12/2013)
+#### Minor Release
+
+* Fix iron queue setup
+
+
 ## V0.1.1 Alpha (12/12/2013)
 #### Minor Release
 
