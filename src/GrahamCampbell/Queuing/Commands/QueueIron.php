@@ -56,11 +56,11 @@ class QueueIron extends Command
             $this->error('The current config is not setup for iron queueing!');
         }
 
-        $this->call('queue:subscribe', array('queue' => $this->laravel['jobprovider']->queue('queue'), 'url' => $this->laravel['url']->route('queuing.index')));
+        $this->call('queue:subscribe', array('queue' => $this->laravel['jobprovider']->queue('queue'), 'url' => $this->laravel['url']->to('queue/receive')));
 
-        $this->call('queue:subscribe', array('queue' => $this->laravel['jobprovider']->queue('mail'), 'url' => $this->laravel['url']->route('queuing.index')));
+        $this->call('queue:subscribe', array('queue' => $this->laravel['jobprovider']->queue('mail'), 'url' => $this->laravel['url']->to('queue/receive')));
 
-        $this->call('queue:subscribe', array('queue' => $this->laravel['jobprovider']->queue('cron'), 'url' => $this->laravel['url']->route('queuing.index')));
+        $this->call('queue:subscribe', array('queue' => $this->laravel['jobprovider']->queue('cron'), 'url' => $this->laravel['url']->to('queue/receive')));
 
         $this->info('Queueing is now setup!');
     }
