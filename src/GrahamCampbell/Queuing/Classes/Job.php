@@ -17,6 +17,7 @@
 namespace GrahamCampbell\Queuing\Classes;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Queue;
 use GrahamCampbell\Queuing\Facades\JobProvider;
 
 /**
