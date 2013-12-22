@@ -249,12 +249,8 @@ abstract class AbstractHandler
                 }
             }
         } elseif ($this->method != 'Illuminate\Queue\Jobs\SyncJob') {
-            // abort if we have retried too many times
-            if ($this->tries >= $this->maxtries) {
-                return $this->abort($this->task.' has aborted after failing '.$this->tries.' times');
-            }
-            // throw an exception to let the caller now the sync job failed
-            throw new \Exception($this->task.' has failed with '.$this->method);
+            // abort the sync job
+            return $this->abort($this->task.' has aborted as a sync job');
         } else {
             // throw an exception in order to push back to queue
             throw new \Exception($this->task.' has failed with '.$this->method);
@@ -293,7 +289,7 @@ abstract class AbstractHandler
             }
         }
 
-        if ($this->method != 'Illuminate\Queue\Jobs\BeanstalkdJob' || $this->method != 'Illuminate\Queue\Jobs\RedisJob') {
+        if ($this->method == 'Illuminate\Queue\Jobs\BeanstalkdJob' || $this->method == 'Illuminate\Queue\Jobs\RedisJob') {
             // log the message
             if ($message) {
                 Log::critical($message);
@@ -302,7 +298,11 @@ abstract class AbstractHandler
             }
         } else {
             // make sure the queue knows the job aborted
-            throw new \Exception($this->task.' has aborted without a message');
+            if ($message) {
+                throw new \Exception($message);
+            } else {
+                throw new \Exception($this->task.' has aborted without a message');
+            }
         }
     }
 
