@@ -31,13 +31,6 @@ use GrahamCampbell\Core\Providers\AbstractProvider;
 class JobProvider extends AbstractProvider
 {
     /**
-     * The name of the model to provide.
-     *
-     * @var string
-     */
-    protected $model = 'GrahamCampbell\Queuing\Models\Job';
-
-    /**
      * The config instance.
      *
      * @var string
@@ -47,11 +40,13 @@ class JobProvider extends AbstractProvider
     /**
      * Create a new instance.
      *
+     * @param  string  $model
      * @param  \Illuminate\Config\Repository  $config
      * @return void
      */
-    public function __construct(Repository $config)
+    public function __construct($model, Repository $config)
     {
+        parent::__construct($model);
         $this->config = $config;
     }
 

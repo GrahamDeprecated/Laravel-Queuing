@@ -60,7 +60,8 @@ class QueuingServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app['jobprovider'] = $this->app->share(function ($app) {
-            return new Providers\JobProvider($app['config']);
+            $model = $app['config']['queuing::job'];
+            return new Providers\JobProvider($model, $app['config']);
         });
 
         $this->app['queuing'] = $this->app->share(function ($app) {
