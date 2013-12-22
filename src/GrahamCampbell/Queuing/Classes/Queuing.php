@@ -85,15 +85,13 @@ class Queuing
      */
     protected function work($delay, $task, array $data, $queue, $location = 'GrahamCampbell\Queuing\Handlers')
     {
-        if ($this->driver == 'sync') {
-            // check the job
-            if ($this->jobprovider->task('cron', $location) == $task) {
-                throw new \InvalidArgumentException('A cron job cannot run on the sync queue.');
-            }
-        } else {
-            // push to memory
-            $this->jobs[] = new Job($delay, $task, $data, $queue, $location);
+        // check the job
+        if ($this->driver === 'sync' && $this->jobprovider->task('cron', $location) === $task) {
+            throw new \InvalidArgumentException('A cron job cannot run on the sync queue.');
         }
+
+        // push to memory
+        $this->jobs[] = new Job($delay, $task, $data, $queue, $location);
     }
 
     /**
