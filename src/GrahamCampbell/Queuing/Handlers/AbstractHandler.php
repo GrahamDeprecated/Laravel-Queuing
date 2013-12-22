@@ -111,7 +111,7 @@ abstract class AbstractHandler
         $this->task = get_class($this);
         $this->method = get_class($this->job);
 
-        if ($this->method == 'Illuminate\Queue\Jobs\SyncJob') {
+        if ($this->method === 'Illuminate\Queue\Jobs\SyncJob') {
             // log the job start
             Log::debug($this->task.' has started execution of a sync job');
         } else {
@@ -235,7 +235,7 @@ abstract class AbstractHandler
         }
 
         // attempt to retry
-        if ($this->method == 'Illuminate\Queue\Jobs\BeanstalkdJob' || $this->method == 'Illuminate\Queue\Jobs\RedisJob') {
+        if ($this->method === 'Illuminate\Queue\Jobs\BeanstalkdJob' || $this->method === 'Illuminate\Queue\Jobs\RedisJob') {
             // abort if we have retried too many times
             if ($this->tries >= $this->maxtries) {
                 return $this->abort($this->task.' has aborted after failing '.$this->tries.' times');
@@ -248,7 +248,7 @@ abstract class AbstractHandler
                     return $this->abort($this->task.' has aborted after failing to repush to the queue');
                 }
             }
-        } elseif ($this->method != 'Illuminate\Queue\Jobs\SyncJob') {
+        } elseif ($this->method === 'Illuminate\Queue\Jobs\SyncJob') {
             // abort the sync job
             return $this->abort($this->task.' has aborted as a sync job');
         } else {
@@ -289,7 +289,7 @@ abstract class AbstractHandler
             }
         }
 
-        if ($this->method == 'Illuminate\Queue\Jobs\BeanstalkdJob' || $this->method == 'Illuminate\Queue\Jobs\RedisJob') {
+        if ($this->method === 'Illuminate\Queue\Jobs\BeanstalkdJob' || $this->method === 'Illuminate\Queue\Jobs\RedisJob') {
             // log the message
             if ($message) {
                 Log::critical($message);
