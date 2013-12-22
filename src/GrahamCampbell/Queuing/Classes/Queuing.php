@@ -80,18 +80,17 @@ class Queuing
      * @param  string  $task
      * @param  array   $data
      * @param  string  $queue
-     * @param  string  $location
      * @return void
      */
-    protected function work($delay, $task, array $data, $queue, $location = 'GrahamCampbell\Queuing\Handlers')
+    protected function work($delay, $task, array $data, $queue)
     {
         // check the job
-        if ($this->driver === 'sync' && $this->jobprovider->task('cron', $location) === $task) {
+        if ($this->driver === 'sync' && $this->jobprovider->task('cron') === $task) {
             throw new \InvalidArgumentException('A cron job cannot run on the sync queue.');
         }
 
         // push to memory
-        $this->jobs[] = new Job($delay, $task, $data, $queue, $location);
+        $this->jobs[] = new Job($delay, $task, $data, $queue);
     }
 
     /**
@@ -174,9 +173,9 @@ class Queuing
      * @param  array   $data
      * @return void
      */
-    public function pushJob($job, array $data = array())
+    public function pushJob($job, array $data = array(), $location = 'GrahamCampbell\Queuing\Handlers')
     {
-        $this->laterJob(false, $job, $data);
+        $this->laterJob(false, $job, $data, $location);
     }
 
     /**

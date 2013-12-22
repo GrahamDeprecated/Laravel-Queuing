@@ -67,29 +67,20 @@ class Job
     protected $queue;
 
     /**
-     * The job location.
-     *
-     * @var string
-     */
-    protected $location;
-
-    /**
      * Create a new instance.
      *
      * @param  mixed   $delay
      * @param  string  $task
      * @param  array   $data
      * @param  string  $queue
-     * @param  string  $location
      * @return void
      */
-    public function __construct($delay, $task, array $data, $queue, $location = 'GrahamCampbell\Queuing\Handlers')
+    public function __construct($delay, $task, array $data, $queue)
     {
         $this->delay = $delay;
         $this->task = $task;
         $this->data = $data;
         $this->queue = $queue;
-        $this->location = $location;
     }
 
     /**
