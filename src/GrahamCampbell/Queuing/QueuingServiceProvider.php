@@ -78,7 +78,9 @@ class QueuingServiceProvider extends ServiceProvider
     protected function registerJobProvider()
     {
         $this->app->bindShared('jobprovider', function ($app) {
-            $job = $app['config']['queuing::job'];
+            $model = $app['config']['queuing::job'];
+            $job = new $model();
+
             $config = $app['config'];
 
             return new Providers\JobProvider($job, $config);
