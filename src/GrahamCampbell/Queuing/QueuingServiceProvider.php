@@ -194,6 +194,15 @@ class QueuingServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return array('jobprovider', 'queuing', 'cron', 'command.queuelength', 'command.queueclear', 'command.queueiron', 'command.cronstart', 'command.cronstop');
+        return array(
+            'jobprovider',
+            'queuing',
+            'cron',
+            'command.queuelength',
+            'command.queueclear',
+            'command.queueiron',
+            'command.cronstart',
+            'command.cronstop'
+        );
     }
 }
