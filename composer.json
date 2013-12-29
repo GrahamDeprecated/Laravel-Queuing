@@ -2,7 +2,7 @@
     "name": "graham-campbell/queuing",
     "description": "Queuing Is A Cool Way To Queue In Laravel 4.1",
     "keywords": ["laravel", "framework", "queuing", "mail", "email", "cron", "queue", "Queuing", "Laravel Queuing", "Laravel-Queuing", "Graham Campbell", "GrahamCampbell"],
-    "license": "Apache License 2.0",
+    "license": "Apache-2.0",
     "authors": [
         {
             "name": "Graham Campbell",
