@@ -39,7 +39,7 @@
         "symfony/event-dispatcher": "2.4.*",
         "guzzle/guzzle": "3.8.*",
         "pda/pheanstalk": "2.1.*",
-        "aws/aws-sdk-php": "2.4.*",
+        "aws/aws-sdk-php": "2.5.*",
         "iron-io/iron_mq": "1.4.*"
     },
     "require-dev": {
