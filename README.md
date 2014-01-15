@@ -36,7 +36,7 @@ Please check the system requirements before installing Laravel Queuing.
 
 To get the latest version of Laravel Queuing, simply require it in your `composer.json` file.  
 
-`"graham-campbell/queuing": "dev-master"`  
+`"graham-campbell/queuing": "*"`  
 
 You'll then need to run `composer install` or `composer update` to download it and have the autoloader updated.  
 
