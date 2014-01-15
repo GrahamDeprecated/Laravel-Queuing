@@ -80,7 +80,7 @@ class Queuing
      * @param  string  $task
      * @param  array   $data
      * @param  string  $queue
-     * @return void
+     * @return $this
      */
     protected function work($delay, $task, array $data, $queue)
     {
@@ -91,19 +91,23 @@ class Queuing
 
         // push to memory
         $this->jobs[] = new Job($delay, $task, $data, $queue);
+
+        return $this;
     }
 
     /**
      * Do the actual job queuing.
      * This method is called on application shutdown.
      *
-     * @return void
+     * @return $this
      */
     public function process()
     {
         foreach ($this->jobs as $job) {
             $job->push();
         }
+
+        return $this;
     }
 
     /**
@@ -111,22 +115,22 @@ class Queuing
      *
      * @param  mixed  $delay
      * @param  array  $data
-     * @return void
+     * @return $this
      */
     public function laterCron($delay, array $data = array())
     {
-        $this->work($delay, $this->jobprovider->task('cron'), $data, $this->jobprovider->queue('cron'));
+        return $this->work($delay, $this->jobprovider->task('cron'), $data, $this->jobprovider->queue('cron'));
     }
 
     /**
      * Push a new cron job onto the queue.
      *
      * @param  array  $data
-     * @return void
+     * @return $this
      */
     public function pushCron(array $data = array())
     {
-        $this->laterCron(false, $data);
+        return $this->laterCron(false, $data);
     }
 
     /**
@@ -134,22 +138,22 @@ class Queuing
      *
      * @param  mixed  $delay
      * @param  array  $data
-     * @return void
+     * @return $this
      */
     public function laterMail($delay, array $data = array())
     {
-        $this->work($delay, $this->jobprovider->task('mail'), $data, $this->jobprovider->queue('mail'));
+        return $this->work($delay, $this->jobprovider->task('mail'), $data, $this->jobprovider->queue('mail'));
     }
 
     /**
      * Push a new mail job onto the queue.
      *
      * @param  array  $data
-     * @return void
+     * @return $this
      */
     public function pushMail(array $data = array())
     {
-        $this->laterMail(false, $data);
+        return $this->laterMail(false, $data);
     }
 
     /**
@@ -159,11 +163,11 @@ class Queuing
      * @param  string  $job
      * @param  string  $queue
      * @param  string  $location
-     * @return void
+     * @return $this
      */
     public function laterJob($delay, $job, array $data = array(), $location = 'GrahamCampbell\Queuing\Handlers')
     {
-        $this->work($delay, $this->jobprovider->task($job, $location), $data, $this->jobprovider->queue('queue'));
+        return $this->work($delay, $this->jobprovider->task($job, $location), $data, $this->jobprovider->queue('queue'));
     }
 
     /**
@@ -171,18 +175,18 @@ class Queuing
      *
      * @param  string  $job
      * @param  array   $data
-     * @return void
+     * @return $this
      */
     public function pushJob($job, array $data = array(), $location = 'GrahamCampbell\Queuing\Handlers')
     {
-        $this->laterJob(false, $job, $data, $location);
+        return $this->laterJob(false, $job, $data, $location);
     }
 
     /**
      * Clear the specified queue.
      *
      * @param  string  $type
-     * @return void
+     * @return $this
      */
     protected function clear($type)
     {
@@ -218,55 +222,52 @@ class Queuing
         }
 
         $this->jobprovider->clearAll();
+
+        return $this;
     }
 
     /**
      * Clear all cron jobs.
      *
-     * @return void
+     * @return $this
      */
     public function clearCron()
     {
-        $this->clear('cron');
-        $this->clear('cron');
+        return $this->clear('cron')->clear('cron');
     }
 
     /**
      * Clear all mail jobs.
      *
-     * @return void
+     * @return $this
      */
     public function clearMail()
     {
-        $this->clear('mail');
-        $this->clear('mail');
+        return $this->clear('mail')->clear('mail');
     }
 
     /**
      * Clear all other jobs.
      *
-     * @return void
+     * @return $this
      */
     public function clearJobs()
     {
-        $this->clear('jobs');
-        $this->clear('jobs');
+        return $this->clear('jobs')->clear('jobs');
     }
 
     /**
      * Clear all jobs.
      *
-     * @return void
+     * @return $this
      */
     public function clearAll()
     {
-        $this->clear('cron');
-        $this->clear('mail');
-        $this->clear('jobs');
-        $this->clear('cron');
-        $this->clear('mail');
-        $this->clear('jobs');
+        $this->clear('cron')->clear('mail')->clear('jobs');
+        $this->clear('cron')->clear('mail')->clear('jobs');
         $this->jobprovider->clearAll();
+
+        return $this;
     }
 
     /**

@@ -109,26 +109,30 @@ class JobProvider extends AbstractProvider
      * Clear all jobs of the specified task.
      *
      * @param  string  $task
-     * @return void
+     * @return $this
      */
     public function clearTask($task)
     {
         foreach ($this->getTask($task, array('id')) as $job) {
             $job->delete();
         }
+
+        return $this;
     }
 
     /**
      * Clear all deleted jobs of the specified task.
      *
      * @param  string  $task
-     * @return void
+     * @return $this
      */
     public function clearDeletedTask($task)
     {
         foreach ($this->getDeletedTask($task, array('id')) as $job) {
             $job->forceDelete();
         }
+
+        return $this;
     }
 
     /**
@@ -170,13 +174,15 @@ class JobProvider extends AbstractProvider
      *
      * @param  string  $task
      * @param  int     $age
-     * @return void
+     * @return $this
      */
     public function clearOldTask($task, $age = 68400)
     {
         foreach ($this->getOldTask($task, $age, array('id')) as $job) {
             $job->delete();
         }
+
+        return $this;
     }
 
     /**
@@ -184,13 +190,15 @@ class JobProvider extends AbstractProvider
      *
      * @param  string  $task
      * @param  int     $age
-     * @return void
+     * @return $this
      */
     public function clearOldDeletedTask($task, $age = 478800)
     {
         foreach ($this->getOldDeletedTask($task, $age, array('id')) as $job) {
             $job->forceDelete();
         }
+
+        return $this;
     }
 
     /**
@@ -225,26 +233,30 @@ class JobProvider extends AbstractProvider
      * Clear all jobs in the specified queue.
      *
      * @param  string  $queue
-     * @return void
+     * @return $this
      */
     public function clearQueue($queue)
     {
         foreach ($this->getQueue($queue, array('id')) as $job) {
             $job->delete();
         }
+
+        return $this;
     }
 
     /**
      * Clear all deleted jobs in the specified queue.
      *
      * @param  string  $queue
-     * @return void
+     * @return $this
      */
     public function clearDeletedQueue($queue)
     {
         foreach ($this->getDeletedQueue($queue, array('id')) as $job) {
             $job->forceDelete();
         }
+
+        return $this;
     }
 
     /**
@@ -286,13 +298,15 @@ class JobProvider extends AbstractProvider
      *
      * @param  string  $queue
      * @param  int     $age
-     * @return void
+     * @return $this
      */
     public function clearOldQueue($queue, $age = 68400)
     {
         foreach ($this->getOldQueue($queue, $age, array('id')) as $job) {
             $job->delete();
         }
+
+        return $this;
     }
 
     /**
@@ -300,13 +314,15 @@ class JobProvider extends AbstractProvider
      *
      * @param  string  $queue
      * @param  int     $age
-     * @return void
+     * @return $this
      */
     public function clearOldDeletedQueue($queue, $age = 478800)
     {
         foreach ($this->getOldDeletedQueue($queue, $age, array('id')) as $job) {
             $job->forceDelete();
         }
+
+        return $this;
     }
 
     /**
@@ -334,7 +350,7 @@ class JobProvider extends AbstractProvider
     /**
      * Clear all cron jobs.
      *
-     * @return void
+     * @return $this
      */
     public function clearCron()
     {
@@ -344,7 +360,7 @@ class JobProvider extends AbstractProvider
     /**
      * Clear all deleted cron jobs.
      *
-     * @return void
+     * @return $this
      */
     public function clearDeletedCron()
     {
@@ -379,7 +395,7 @@ class JobProvider extends AbstractProvider
      * Clear all old cron jobs.
      *
      * @param  int  $age
-     * @return void
+     * @return $this
      */
     public function clearOldCron($age = 68400)
     {
@@ -390,7 +406,7 @@ class JobProvider extends AbstractProvider
      * Clear all old deleted cron jobs.
      *
      * @param  int  $age
-     * @return void
+     * @return $this
      */
     public function clearOldDeletedCron($age = 478800)
     {
@@ -422,7 +438,7 @@ class JobProvider extends AbstractProvider
     /**
      * Clear all mail jobs.
      *
-     * @return void
+     * @return $this
      */
     public function clearMail()
     {
@@ -432,7 +448,7 @@ class JobProvider extends AbstractProvider
     /**
      * Clear all deleted mail jobs.
      *
-     * @return void
+     * @return $this
      */
     public function clearDeletedMail()
     {
@@ -467,7 +483,7 @@ class JobProvider extends AbstractProvider
      * Clear all old mail jobs.
      *
      * @param  int  $age
-     * @return void
+     * @return $this
      */
     public function clearOldMail($age = 68400)
     {
@@ -478,7 +494,7 @@ class JobProvider extends AbstractProvider
      * Clear all old deleted mail jobs.
      *
      * @param  int  $age
-     * @return void
+     * @return $this
      */
     public function clearOldDeletedMail($age = 478800)
     {
@@ -510,7 +526,7 @@ class JobProvider extends AbstractProvider
     /**
      * Clear all other jobs.
      *
-     * @return void
+     * @return $this
      */
     public function clearJobs()
     {
@@ -520,7 +536,7 @@ class JobProvider extends AbstractProvider
     /**
      * Clear all other deleted jobs.
      *
-     * @return void
+     * @return $this
      */
     public function clearDeletedJobs()
     {
@@ -555,7 +571,7 @@ class JobProvider extends AbstractProvider
      * Clear all other old jobs.
      *
      * @param  int  $age
-     * @return void
+     * @return $this
      */
     public function clearOldJobs($age = 68400)
     {
@@ -566,7 +582,7 @@ class JobProvider extends AbstractProvider
      * Clear all other old deleted jobs.
      *
      * @param  int  $age
-     * @return void
+     * @return $this
      */
     public function clearOldDeletedJobs($age = 478800)
     {
@@ -600,25 +616,29 @@ class JobProvider extends AbstractProvider
     /**
      * Clear all jobs.
      *
-     * @return void
+     * @return $this
      */
     public function clearAll()
     {
         foreach ($this->getAll(array('id')) as $job) {
             $job->delete();
         }
+
+        return $this;
     }
 
     /**
      * Clear all deleted jobs.
      *
-     * @return void
+     * @return $this
      */
     public function clearAllDeleted()
     {
         foreach ($this->getAllDeleted(array('id')) as $job) {
             $job->forceDelete();
         }
+
+        return $this;
     }
 
     /**
@@ -651,25 +671,29 @@ class JobProvider extends AbstractProvider
      * Clear all old jobs.
      *
      * @param  int  $age
-     * @return void
+     * @return $this
      */
     public function clearAllOld($age = 68400)
     {
         foreach ($this->getAllOld($age, array('id')) as $job) {
             $job->delete();
         }
+
+        return $this;
     }
 
     /**
      * Clear all old deleted jobs.
      *
      * @param  int  $age
-     * @return void
+     * @return $this
      */
     public function clearAllOldDeleted($age = 478800)
     {
         foreach ($this->getAllOldDeleted($age, array('id')) as $job) {
             $job->forceDelete();
         }
+
+        return $this;
     }
 }

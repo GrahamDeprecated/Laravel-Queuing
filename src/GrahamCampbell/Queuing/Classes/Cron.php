@@ -59,24 +59,28 @@ class Cron
      * Start the cron jobs after a delay.
      *
      * @param  \Carbon\Carbon|int  $delay
-     * @return \GrahamCampbell\Queuing\Models\Job
+     * @return $this
      */
     public function start($delay = 1000)
     {
         $this->stop();
         Event::fire('cron.starting');
-        return $this->queuing->laterCron($delay, array('tasks' => $this->tasks));
+        $this->queuing->laterCron($delay, array('tasks' => $this->tasks));
+
+        return $this;
     }
 
     /**
      * Stop the cron jobs.
      *
-     * @return void
+     * @return $this
      */
     public function stop()
     {
         Event::fire('cron.stopping');
-        return $this->queuing->clearCron();
+        $this->queuing->clearCron();
+
+        return $this;
     }
 
     /**
@@ -84,10 +88,12 @@ class Cron
      * This should be called after listening for a cron.starting event.
      *
      * @param  \Closure  $task
-     * @return void
+     * @return $this
      */
     public function add(Closure $task)
     {
-        return $this->tasks[] = $task;
+        $this->tasks[] = $task;
+
+        return $this;
     }
 }

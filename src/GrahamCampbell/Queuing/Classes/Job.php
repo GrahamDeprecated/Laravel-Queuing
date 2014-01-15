@@ -86,7 +86,7 @@ class Job
     /**
      * Do the actual job queuing.
      *
-     * @return void
+     * @return $this
      */
     public function push()
     {
@@ -101,6 +101,8 @@ class Job
         } else {
             Queue::later($this->time($this->delay), $this->task, $this->data, $this->queue);
         }
+
+        return $this;
     }
 
     /**
