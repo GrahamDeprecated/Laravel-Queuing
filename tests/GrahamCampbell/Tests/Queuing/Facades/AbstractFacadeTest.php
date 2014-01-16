@@ -25,7 +25,7 @@ use GrahamCampbell\TestBench\Traits\FacadeTestCaseTrait;
  * @package    Laravel-Queuing
  * @author     Graham Campbell
  * @copyright  Copyright 2013-2014 Graham Campbell
- * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/develop/LICENSE.md
+ * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
 abstract class AbstractFacadeTestCase extends AbstractTestCase
