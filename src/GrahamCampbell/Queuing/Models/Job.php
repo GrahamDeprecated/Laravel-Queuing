@@ -16,6 +16,7 @@
 
 namespace GrahamCampbell\Queuing\Models;
 
+use Carbon\Carbon;
 use GrahamCampbell\Core\Models\AbstractModel;
 
 /**
