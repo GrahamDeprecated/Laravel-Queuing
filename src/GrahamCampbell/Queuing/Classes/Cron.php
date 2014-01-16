@@ -1,4 +1,4 @@
-<?php namespace GrahamCampbell\Queuing\Classes;
+<?php
 
 /**
  * This file is part of Laravel Queuing by Graham Campbell.
@@ -12,19 +12,24 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * @package    Laravel-Queuing
- * @author     Graham Campbell
- * @license    Apache License
- * @copyright  Copyright 2013 Graham Campbell
- * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
+
+namespace GrahamCampbell\Queuing\Classes;
 
 use Closure;
 use Illuminate\Support\Facades\Event;
 
-class Cron {
-
+/**
+ * This is the cron class.
+ *
+ * @package    Laravel-Queuing
+ * @author     Graham Campbell
+ * @copyright  Copyright 2013-2014 Graham Campbell
+ * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
+ * @link       https://github.com/GrahamCampbell/Laravel-Queuing
+ */
+class Cron
+{
     /**
      * The cron tasks.
      *
@@ -45,7 +50,8 @@ class Cron {
      * @param  \GrahamCampbell\Queuing\Classes\Queuing  $queuing
      * @return void
      */
-    public function __construct(Queuing $queuing) {
+    public function __construct(Queuing $queuing)
+    {
         $this->queuing = $queuing;
     }
 
@@ -53,22 +59,28 @@ class Cron {
      * Start the cron jobs after a delay.
      *
      * @param  \Carbon\Carbon|int  $delay
-     * @return \GrahamCampbell\Queuing\Models\Job
+     * @return $this
      */
-    public function start($delay = 1000) {
+    public function start($delay = 1000)
+    {
         $this->stop();
         Event::fire('cron.starting');
-        return $this->queuing->laterCron($delay, array('tasks' => $this->tasks));
+        $this->queuing->laterCron($delay, array('tasks' => $this->tasks));
+
+        return $this;
     }
 
     /**
      * Stop the cron jobs.
      *
-     * @return void
+     * @return $this
      */
-    public function stop() {
+    public function stop()
+    {
         Event::fire('cron.stopping');
-        return $this->queuing->clearCron();
+        $this->queuing->clearCron();
+
+        return $this;
     }
 
     /**
@@ -76,9 +88,12 @@ class Cron {
      * This should be called after listening for a cron.starting event.
      *
      * @param  \Closure  $task
-     * @return void
+     * @return $this
      */
-    public function add(Closure $task) {
-        return $this->tasks[] = $task;
+    public function add(Closure $task)
+    {
+        $this->tasks[] = $task;
+
+        return $this;
     }
 }

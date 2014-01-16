@@ -14,21 +14,19 @@
  * limitations under the License.
  */
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
-|
-*/
+return array(
 
+    /*
+    |--------------------------------------------------------------------------
+    | Job Model
+    |--------------------------------------------------------------------------
+    |
+    | This defines the job model to be used.
+    |
+    | Default: 'GrahamCampbell\Queuing\Models\Job'
+    |
+    */
 
-// iron queue push route
-if (Config::get('queue.default') === 'iron') {
-    Route::post('queue/receive', function () {
-        return Queue::marshal();
-    });
-}
+    'job' => 'GrahamCampbell\Queuing\Models\Job'
+
+);

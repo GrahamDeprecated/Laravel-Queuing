@@ -1,4 +1,4 @@
-<?php namespace GrahamCampbell\Queuing\Facades;
+<?php
 
 /**
  * This file is part of Laravel Queuing by Graham Campbell.
@@ -12,23 +12,30 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * @package    Laravel-Queuing
- * @author     Graham Campbell
- * @license    Apache License
- * @copyright  Copyright 2013 Graham Campbell
- * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
+
+namespace GrahamCampbell\Queuing\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class JobProvider extends Facade {
-
+/**
+ * This is the job provider facade class.
+ *
+ * @package    Laravel-Queuing
+ * @author     Graham Campbell
+ * @copyright  Copyright 2013-2014 Graham Campbell
+ * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
+ * @link       https://github.com/GrahamCampbell/Laravel-Queuing
+ */
+class JobProvider extends Facade
+{
     /**
      * Get the registered name of the component.
      *
      * @return string
      */
-    protected static function getFacadeAccessor() { return 'jobprovider'; }
-
+    protected static function getFacadeAccessor()
+    {
+        return 'jobprovider';
+    }
 }

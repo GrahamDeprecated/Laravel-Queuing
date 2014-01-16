@@ -1,4 +1,4 @@
-<?php namespace GrahamCampbell\Queuing\Handlers;
+<?php
 
 /**
  * This file is part of Laravel Queuing by Graham Campbell.
@@ -12,19 +12,24 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * @package    Laravel-Queuing
- * @author     Graham Campbell
- * @license    Apache License
- * @copyright  Copyright 2013 Graham Campbell
- * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
+
+namespace GrahamCampbell\Queuing\Handlers;
 
 use Illuminate\Support\Facades\Log;
 use GrahamCampbell\Queuing\Facades\JobProvider;
 
-abstract class BaseHandler {
-
+/**
+ * This is the abstract handler class.
+ *
+ * @package    Laravel-Queuing
+ * @author     Graham Campbell
+ * @copyright  Copyright 2013-2014 Graham Campbell
+ * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
+ * @link       https://github.com/GrahamCampbell/Laravel-Queuing
+ */
+abstract class AbstractHandler
+{
     /**
      * The maximum number of tries.
      *
@@ -82,53 +87,12 @@ abstract class BaseHandler {
     protected $data;
 
     /**
-     * Run the job.
-     *
-     * @return void
-     */
-    abstract protected function run();
-
-    /**
-     * Initialisation for the job.
-     *
-     * @return void
-     */
-    protected function init() {}
-
-    /**
-     * Run on construction.
-     *
-     * @return void
-     */
-    protected function before() {}
-
-    /**
-     * Run after a job success.
-     *
-     * @return void
-     */
-    protected function afterSuccess() {}
-
-    /**
-     * Run after a job failure.
-     *
-     * @return void
-     */
-    protected function afterFailure() {}
-
-    /**
-     * Run after a job abortion.
-     *
-     * @return void
-     */
-    protected function afterAbortion() {}
-
-    /**
      * Constructor. Runs the init method.
      *
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->init(); // unprotected against exceptions
     }
 
@@ -137,7 +101,8 @@ abstract class BaseHandler {
      *
      * @return void
      */
-    public function fire($job, $data) {
+    public function fire($job, $data)
+    {
         // load job details and data to the class
         $this->job = $job;
         unset($job);
@@ -146,7 +111,7 @@ abstract class BaseHandler {
         $this->task = get_class($this);
         $this->method = get_class($this->job);
 
-        if ($this->method == 'Illuminate\Queue\Jobs\SyncJob') {
+        if ($this->method === 'Illuminate\Queue\Jobs\SyncJob') {
             // log the job start
             Log::debug($this->task.' has started execution of a sync job');
         } else {
@@ -160,7 +125,7 @@ abstract class BaseHandler {
             try {
                 $this->model = JobProvider::find($this->id);
             } catch (\Exception $e) {
-               return $this->abort($this->task.' has aborted because the job model was inaccessible');
+                return $this->abort($this->task.' has aborted because the job model was inaccessible');
             }
 
             // if there's not model, then the job must have been cancelled
@@ -181,7 +146,7 @@ abstract class BaseHandler {
                     throw new \Exception('Bad Task');
                 }
             } catch (\Exception $e) {
-               return $this->abort($this->task.' has aborted because the job model was invalid');
+                return $this->abort($this->task.' has aborted because the job model was invalid');
             }
 
             // increment tries
@@ -190,7 +155,7 @@ abstract class BaseHandler {
                 $this->model->tries = $this->tries;
                 $this->model->save();
             } catch (\Exception $e) {
-               return $this->abort($this->task.' has aborted because the job model was inaccessible');
+                return $this->abort($this->task.' has aborted because the job model was inaccessible');
             }
         }
 
@@ -217,10 +182,11 @@ abstract class BaseHandler {
      *
      * @return void
      */
-    protected function success() {
+    protected function success()
+    {
         // remove the job from the queue
         try {
-            $this->job->delete(); 
+            $this->job->delete();
         } catch (\Exception $e) {
             Log::error($e);
         }
@@ -229,7 +195,7 @@ abstract class BaseHandler {
         if (is_object($this->model)) {
             if (is_a($this->model, 'GrahamCampbell\Queuing\Models\Job')) {
                 try {
-                    $this->model->delete(); 
+                    $this->model->delete();
                 } catch (\Exception $e) {
                     Log::error($e);
                 }
@@ -252,7 +218,8 @@ abstract class BaseHandler {
      *
      * @return void
      */
-    protected function fail($exception = null) {
+    protected function fail($exception = null)
+    {
         // run the afterFailure method
         try {
             $this->afterFailure();
@@ -268,7 +235,7 @@ abstract class BaseHandler {
         }
 
         // attempt to retry
-        if ($this->method == 'Illuminate\Queue\Jobs\BeanstalkdJob' || $this->method == 'Illuminate\Queue\Jobs\RedisJob') {
+        if ($this->method === 'Illuminate\Queue\Jobs\BeanstalkdJob' || $this->method === 'Illuminate\Queue\Jobs\RedisJob') {
             // abort if we have retried too many times
             if ($this->tries >= $this->maxtries) {
                 return $this->abort($this->task.' has aborted after failing '.$this->tries.' times');
@@ -281,13 +248,9 @@ abstract class BaseHandler {
                     return $this->abort($this->task.' has aborted after failing to repush to the queue');
                 }
             }
-        } elseif ($this->method != 'Illuminate\Queue\Jobs\SyncJob') {
-            // abort if we have retried too many times
-            if ($this->tries >= $this->maxtries) {
-                return $this->abort($this->task.' has aborted after failing '.$this->tries.' times');
-            }
-            // throw an exception to let the caller now the sync job failed
-            throw new \Exception($this->task.' has failed with '.$this->method);
+        } elseif ($this->method === 'Illuminate\Queue\Jobs\SyncJob') {
+            // abort the sync job
+            return $this->abort($this->task.' has aborted as a sync job');
         } else {
             // throw an exception in order to push back to queue
             throw new \Exception($this->task.' has failed with '.$this->method);
@@ -299,7 +262,8 @@ abstract class BaseHandler {
      *
      * @return void
      */
-    protected function abort($message = null) {
+    protected function abort($message = null)
+    {
         // run the afterAbortion method
         try {
             $this->afterAbortion();
@@ -309,7 +273,7 @@ abstract class BaseHandler {
 
         // remove the job from the queue
         try {
-            $this->job->delete(); 
+            $this->job->delete();
         } catch (\Exception $e) {
             Log::error($e);
         }
@@ -318,23 +282,84 @@ abstract class BaseHandler {
         if (is_object($this->model)) {
             if (is_a($this->model, 'GrahamCampbell\Queuing\Models\Job')) {
                 try {
-                    $this->model->delete(); 
+                    $this->model->delete();
                 } catch (\Exception $e) {
                     Log::error($e);
                 }
             }
         }
 
-        if ($this->method != 'Illuminate\Queue\Jobs\BeanstalkdJob' || $this->method != 'Illuminate\Queue\Jobs\RedisJob') {
+        if ($this->method === 'Illuminate\Queue\Jobs\BeanstalkdJob' || $this->method === 'Illuminate\Queue\Jobs\RedisJob') {
             // log the message
             if ($message) {
-                Log::critical($message); 
+                Log::critical($message);
             } else {
                 Log::critical($this->task.' has aborted without a message');
             }
         } else {
             // make sure the queue knows the job aborted
-            throw new \Exception($this->task.' has aborted without a message');
+            if ($message) {
+                throw new \Exception($message);
+            } else {
+                throw new \Exception($this->task.' has aborted without a message');
+            }
         }
     }
+
+    /**
+     * Initialisation for the job.
+     *
+     * @return void
+     */
+    protected function init()
+    {
+        // can be overwritten by extending class
+    }
+
+    /**
+     * Run on construction.
+     *
+     * @return void
+     */
+    protected function before()
+    {
+        // can be overwritten by extending class
+    }
+
+    /**
+     * Run after a job success.
+     *
+     * @return void
+     */
+    protected function afterSuccess()
+    {
+        // can be overwritten by extending class
+    }
+
+    /**
+     * Run after a job failure.
+     *
+     * @return void
+     */
+    protected function afterFailure()
+    {
+        // can be overwritten by extending class
+    }
+
+    /**
+     * Run after a job abortion.
+     *
+     * @return void
+     */
+    protected function afterAbortion()
+    {
+        // can be overwritten by extending class
+    }
+
+    /**
+     * Run the job.
+     *
+     * @return void
+     */
+    abstract protected function run();
 }

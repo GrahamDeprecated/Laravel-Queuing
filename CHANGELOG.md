@@ -5,8 +5,12 @@ CHANGE LOG
 ## V0.2 Alpha (Upcoming)
 #### Major Release
 
+* Dropped Laravel 4.0 support
+* Major refactoring
+* Performance improvements
+* Travis and Scrutinizer tweaks
+* Coding style fixes
 * Added unit tests
-* Handler refactor
 
 
 ## V0.1.3 Alpha (21/12/2013)

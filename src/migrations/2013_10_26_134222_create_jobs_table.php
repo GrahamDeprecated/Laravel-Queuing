@@ -12,27 +12,31 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * @package    Laravel-Queuing
- * @author     Graham Campbell
- * @license    Apache License
- * @copyright  Copyright 2013 Graham Campbell
- * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateJobsTable extends Migration {
-
+/**
+ * This is the create jobs table migration class.
+ *
+ * @package    Laravel-Queuing
+ * @author     Graham Campbell
+ * @copyright  Copyright 2013-2014 Graham Campbell
+ * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
+ * @link       https://github.com/GrahamCampbell/Laravel-Queuing
+ */
+class CreateJobsTable extends Migration
+{
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up() {
-        Schema::create('jobs', function(Blueprint $table) {
+    public function up()
+    {
+        Schema::create('jobs', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id')->unsigned();
             $table->smallInteger('tries')->unsigned()->default(0);
@@ -48,7 +52,8 @@ class CreateJobsTable extends Migration {
      *
      * @return void
      */
-    public function down() {
+    public function down()
+    {
         Schema::drop('jobs');
     }
 }

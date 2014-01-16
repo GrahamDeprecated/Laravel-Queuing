@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-namespace GrahamCampbell\Queuing\Commands;
-
-use Illuminate\Console\Command;
+namespace GrahamCampbell\Tests\Queuing\Facades;
 
 /**
- * This is the queue clear command class.
+ * This is the cron facade test case class.
  *
  * @package    Laravel-Queuing
  * @author     Graham Campbell
@@ -27,32 +25,35 @@ use Illuminate\Console\Command;
  * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
-class QueueClear extends Command
+class CronTest extends AbstractFacadeTestCase
 {
     /**
-     * The command name.
+     * Get the facade accessor.
      *
-     * @var string
+     * @return string
      */
-    protected $name = 'queue:clear';
-
-    /**
-     * The command description.
-     *
-     * @var string
-     */
-    protected $description = 'Clears the queue';
-
-    /**
-     * Run the commend.
-     *
-     * @return void
-     */
-    public function fire()
+    protected function getFacadeAccessor()
     {
-        $this->line('Clearing the queue...');
-        $this->laravel['queuing']->clearAll();
-        $this->info('Queue cleared!');
-        $this->comment('Note that cron jobs were cleared too.');
+        return 'cron';
+    }
+
+    /**
+     * Get the facade class.
+     *
+     * @return string
+     */
+    protected function getFacadeClass()
+    {
+        return 'GrahamCampbell\Queuing\Facades\Cron';
+    }
+
+    /**
+     * Get the facade route.
+     *
+     * @return string
+     */
+    protected function getFacadeRoot()
+    {
+        return 'GrahamCampbell\Queuing\Classes\Cron';
     }
 }

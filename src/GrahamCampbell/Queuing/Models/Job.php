@@ -1,4 +1,4 @@
-<?php namespace GrahamCampbell\Queuing\Models;
+<?php
 
 /**
  * This file is part of Laravel Queuing by Graham Campbell.
@@ -12,18 +12,23 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ */
+
+namespace GrahamCampbell\Queuing\Models;
+
+use GrahamCampbell\Core\Models\AbstractModel;
+
+/**
+ * This is the job model class.
  *
  * @package    Laravel-Queuing
  * @author     Graham Campbell
- * @license    Apache License
- * @copyright  Copyright 2013 Graham Campbell
+ * @copyright  Copyright 2013-2014 Graham Campbell
+ * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
-
-use GrahamCampbell\Core\Models\BaseModel;
-
-class Job extends BaseModel {
-
+class Job extends AbstractModel
+{
     /**
      * The table the jobs are stored in.
      *
@@ -82,7 +87,8 @@ class Job extends BaseModel {
      *
      * @return int
      */
-    public function getTries() {
+    public function getTries()
+    {
         return $this->tries;
     }
 
@@ -91,7 +97,38 @@ class Job extends BaseModel {
      *
      * @return string
      */
-    public function getTask() {
+    public function getTask()
+    {
         return $this->task;
+    }
+
+    /**
+     * Get deleted.
+     *
+     * @return \Carbon\Carbon
+     */
+    public function getDeleted()
+    {
+        // TODO: Use the TraitDeletedModel from the Core package
+        if ($this->deleted_at) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get deleted_at.
+     *
+     * @return \Carbon\Carbon
+     */
+    public function getDeletedAt()
+    {
+        // TODO: Use the TraitDeletedModel from the Core package
+        if ($this->deleted_at) {
+            return new Carbon($this->activated_at);
+        }
+
+        return null;
     }
 }

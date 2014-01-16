@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-namespace GrahamCampbell\Queuing\Commands;
+namespace GrahamCampbell\Tests\Queuing;
 
-use Illuminate\Console\Command;
+use GrahamCampbell\TestBench\Classes\AbstractLaravelTestCase as TestCase;
 
 /**
- * This is the queue clear command class.
+ * This is the abstract test case class.
  *
  * @package    Laravel-Queuing
  * @author     Graham Campbell
@@ -27,32 +27,25 @@ use Illuminate\Console\Command;
  * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
-class QueueClear extends Command
+abstract class AbstractTestCase extends TestCase
 {
     /**
-     * The command name.
+     * Get the application base path.
      *
-     * @var string
+     * @return string
      */
-    protected $name = 'queue:clear';
-
-    /**
-     * The command description.
-     *
-     * @var string
-     */
-    protected $description = 'Clears the queue';
-
-    /**
-     * Run the commend.
-     *
-     * @return void
-     */
-    public function fire()
+    protected function getBasePath()
     {
-        $this->line('Clearing the queue...');
-        $this->laravel['queuing']->clearAll();
-        $this->info('Queue cleared!');
-        $this->comment('Note that cron jobs were cleared too.');
+        return __DIR__.'/../../../../src';
+    }
+
+    /**
+     * Get the service provider class.
+     *
+     * @return string
+     */
+    protected function getServiceProviderClass()
+    {
+        return 'GrahamCampbell\Queuing\QueuingServiceProvider';
     }
 }

@@ -1,4 +1,4 @@
-<?php namespace GrahamCampbell\Queuing;
+<?php
 
 /**
  * This file is part of Laravel Queuing by Graham Campbell.
@@ -12,18 +12,23 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * @package    Laravel-Queuing
- * @author     Graham Campbell
- * @license    Apache License
- * @copyright  Copyright 2013 Graham Campbell
- * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
+
+namespace GrahamCampbell\Queuing;
 
 use Illuminate\Support\ServiceProvider;
 
-class QueuingServiceProvider extends ServiceProvider {
-
+/**
+ * This is the queuing service provider class.
+ *
+ * @package    Laravel-Queuing
+ * @author     Graham Campbell
+ * @copyright  Copyright 2013-2014 Graham Campbell
+ * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
+ * @link       https://github.com/GrahamCampbell/Laravel-Queuing
+ */
+class QueuingServiceProvider extends ServiceProvider
+{
     /**
      * Indicates if loading of the provider is deferred.
      *
@@ -36,10 +41,16 @@ class QueuingServiceProvider extends ServiceProvider {
      *
      * @return void
      */
-    public function boot() {
+    public function boot()
+    {
         $this->package('graham-campbell/queuing');
 
-        include __DIR__ . '/../../routes.php';
+        include __DIR__.'/../../routes.php';
+
+        // process jobs on shutdown
+        $this->app->shutdown(function ($app) {
+            $app['queuing']->process();
+        });
     }
 
     /**
@@ -47,43 +58,132 @@ class QueuingServiceProvider extends ServiceProvider {
      *
      * @return void
      */
-    public function register() {
-        $this->app['jobprovider'] = $this->app->share(function($app) {
-            return new Providers\JobProvider($app['config']);
-        });
+    public function register()
+    {
+        $this->registerJobProvider();
+        $this->registerQueuing();
+        $this->registerCron();
+        $this->registerQueueLengthCommand();
+        $this->registerQueueClearCommand();
+        $this->registerQueueIronCommand();
+        $this->registerCronStartCommand();
+        $this->registerCronStopCommand();
+    }
 
-        $this->app['queuing'] = $this->app->share(function($app) {
-            return new Classes\Queuing($app['queue'], $app['jobprovider'], $app['config']['queue.default']);
-        });
+    /**
+     * Register the job provider class.
+     *
+     * @return void
+     */
+    protected function registerJobProvider()
+    {
+        $this->app->bindShared('jobprovider', function ($app) {
+            $model = $app['config']['queuing::job'];
+            $job = new $model();
 
-        $this->app['cron'] = $this->app->share(function($app) {
-            return new Classes\Cron($app['queuing']);
-        });
+            $config = $app['config'];
 
-        $this->app['command.queuelength'] = $this->app->share(function($app) {
-            return new Commands\QueueLength;
+            return new Providers\JobProvider($job, $config);
         });
+    }
 
-        $this->app['command.queueclear'] = $this->app->share(function($app) {
-            return new Commands\QueueClear;
+    /**
+     * Register the queuing class.
+     *
+     * @return void
+     */
+    protected function registerQueuing()
+    {
+        $this->app->bindShared('queuing', function ($app) {
+            $queue = $app['queue'];
+            $jobprovider = $app['jobprovider'];
+            $driver = $app['config']['queue.default'];
+
+            return new Classes\Queuing($queue, $jobprovider, $driver);
         });
+    }
 
-        $this->app['command.queueiron'] = $this->app->share(function($app) {
-            return new Commands\QueueIron;
+    /**
+     * Register the cron class.
+     *
+     * @return void
+     */
+    protected function registerCron()
+    {
+        $this->app->bindShared('cron', function ($app) {
+            $queuing = $app['queuing'];
+
+            return new Classes\Cron($queuing);
         });
+    }
 
-        $this->app['command.cronstart'] = $this->app->share(function($app) {
-            return new Commands\CronStart;
-        });
-
-        $this->app['command.cronstop'] = $this->app->share(function($app) {
-            return new Commands\CronStop;
+    /**
+     * Register the queue length command class.
+     *
+     * @return void
+     */
+    protected function registerQueueLengthCommand()
+    {
+        $this->app->bindShared('command.queuelength', function ($app) {
+            return new Commands\QueueLength();
         });
 
         $this->commands('command.queuelength');
+    }
+
+    /**
+     * Register the queue clear command class.
+     *
+     * @return void
+     */
+    protected function registerQueueClearCommand()
+    {
+        $this->app->bindShared('command.queueclear', function ($app) {
+            return new Commands\QueueClear();
+        });
+
         $this->commands('command.queueclear');
+    }
+
+    /**
+     * Register the queue iron command class.
+     *
+     * @return void
+     */
+    protected function registerQueueIronCommand()
+    {
+        $this->app->bindShared('command.queueiron', function ($app) {
+            return new Commands\QueueIron();
+        });
+
         $this->commands('command.queueiron');
+    }
+
+    /**
+     * Register the cron start command class.
+     *
+     * @return void
+     */
+    protected function registerCronStartCommand()
+    {
+        $this->app->bindShared('command.cronstart', function ($app) {
+            return new Commands\CronStart();
+        });
+
         $this->commands('command.cronstart');
+    }
+
+    /**
+     * Register the cron stop command class.
+     *
+     * @return void
+     */
+    protected function registerCronStopCommand()
+    {
+        $this->app->bindShared('command.cronstop', function ($app) {
+            return new Commands\CronStop();
+        });
+
         $this->commands('command.cronstop');
     }
 
@@ -92,7 +192,17 @@ class QueuingServiceProvider extends ServiceProvider {
      *
      * @return array
      */
-    public function provides() {
-        return array('jobprovider', 'queuing', 'cron', 'queue.length', 'queue.clear', 'queue.iron', 'cron.start', 'cron.stop');
+    public function provides()
+    {
+        return array(
+            'jobprovider',
+            'queuing',
+            'cron',
+            'command.queuelength',
+            'command.queueclear',
+            'command.queueiron',
+            'command.cronstart',
+            'command.cronstop'
+        );
     }
 }
