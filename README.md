@@ -6,8 +6,8 @@ Laravel Queuing
 [![Build Status](https://travis-ci.org/GrahamCampbell/Laravel-Queuing.png)](https://travis-ci.org/GrahamCampbell/Laravel-Queuing)
 [![Coverage Status](https://coveralls.io/repos/GrahamCampbell/Laravel-Queuing/badge.png)](https://coveralls.io/r/GrahamCampbell/Laravel-Queuing)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/GrahamCampbell/Laravel-Queuing/badges/quality-score.png?s=8aa8514610dfe89cd32922515c7ed35d0901bdd9)](https://scrutinizer-ci.com/g/GrahamCampbell/Laravel-Queuing)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/75cb257f-5622-49a1-aff1-eba21c2487e2/mini.png)](https://insight.sensiolabs.com/projects/75cb257f-5622-49a1-aff1-eba21c2487e2)
 [![Latest Version](https://poser.pugx.org/graham-campbell/queuing/v/stable.png)](https://packagist.org/packages/graham-campbell/queuing)
-[![Still Maintained](http://stillmaintained.com/GrahamCampbell/Laravel-Queuing.png)](http://stillmaintained.com/GrahamCampbell/Laravel-Queuing)
 
 
 ## What Is Laravel Queuing?
@@ -19,7 +19,7 @@ Laravel Queuing is a cool way to queue in [Laravel 4.1](http://laravel.com).
 * Laravel Queuing uses [Travis CI](https://travis-ci.org/GrahamCampbell/Laravel-Queuing) to run tests to check if it's working as it should.  
 * Laravel Queuing uses [Scrutinizer CI](https://scrutinizer-ci.com/g/GrahamCampbell/Laravel-Queuing) and [Coveralls](https://coveralls.io/r/GrahamCampbell/Laravel-Queuing) to run additional tests and checks.  
 * Laravel Queuing uses [Composer](https://getcomposer.org) to load and manage dependencies.  
-* Laravel Queuing provides a [change log](https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/CHANGELOG.md), [releases](https://github.com/GrahamCampbell/Laravel-Queuing/releases), and a [wiki](https://github.com/GrahamCampbell/Laravel-Queuing/wiki).  
+* Laravel Queuing provides a [change log](https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/CHANGELOG.md), [releases](https://github.com/GrahamCampbell/Laravel-Queuing/releases), and [api docs](http://grahamcampbell.github.io/Laravel-Queuing).  
 * Laravel Queuing is licensed under the Apache License, available [here](https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md).  
 
 
@@ -88,7 +88,7 @@ Once it is set up, run `git mergetool`. Once all conflicts are fixed, run `git r
 
 Please review these guidelines before submitting any pull requests.  
 
-* Bug fixes shouldn't be sent to the master branch unless they fix features that exist only in the upcoming release.  
+* When submitting bug fixes, check if a maintenance branch exists for an older series, then pull against that older branch if the bug is present in it.  
 * Before sending a pull request for a new feature, you should first create an issue with [Proposal] in the title.  
 * Please follow the [PSR-2 Coding Style](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) and [PHP-FIG Naming Conventions](https://github.com/php-fig/fig-standards/blob/master/bylaws/002-psr-naming-conventions.md).  
 
