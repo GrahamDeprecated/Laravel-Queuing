@@ -16,6 +16,9 @@
 
 namespace GrahamCampbell\Tests\Queuing\Facades;
 
+use GrahamCampbell\Tests\Queuing\AbstractTestCase;
+use GrahamCampbell\TestBench\Traits\FacadeTestCaseTrait;
+
 /**
  * This is the job provider facade test case class.
  *
@@ -25,8 +28,10 @@ namespace GrahamCampbell\Tests\Queuing\Facades;
  * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
-class JobProviderTest extends AbstractFacadeTestCase
+class JobProviderTest extends AbstractTestCase
 {
+    use FacadeTestCaseTrait;
+
     /**
      * Get the facade accessor.
      *
