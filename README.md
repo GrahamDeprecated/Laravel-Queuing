@@ -7,6 +7,7 @@ Laravel Queuing
 [![Coverage Status](https://coveralls.io/repos/GrahamCampbell/Laravel-Queuing/badge.png)](https://coveralls.io/r/GrahamCampbell/Laravel-Queuing)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/GrahamCampbell/Laravel-Queuing/badges/quality-score.png?s=8aa8514610dfe89cd32922515c7ed35d0901bdd9)](https://scrutinizer-ci.com/g/GrahamCampbell/Laravel-Queuing)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/75cb257f-5622-49a1-aff1-eba21c2487e2/mini.png)](https://insight.sensiolabs.com/projects/75cb257f-5622-49a1-aff1-eba21c2487e2)
+[![Software License](https://poser.pugx.org/graham-campbell/queuing/license.png)](https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md)
 [![Latest Version](https://poser.pugx.org/graham-campbell/queuing/v/stable.png)](https://packagist.org/packages/graham-campbell/queuing)
 
 
