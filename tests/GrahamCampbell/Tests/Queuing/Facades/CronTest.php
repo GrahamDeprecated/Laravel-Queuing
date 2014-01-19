@@ -20,7 +20,7 @@ use GrahamCampbell\Tests\Queuing\AbstractTestCase;
 use GrahamCampbell\TestBench\Traits\FacadeTestCaseTrait;
 
 /**
- * This is the cron facade test case class.
+ * This is the cron facade test class.
  *
  * @package    Laravel-Queuing
  * @author     Graham Campbell

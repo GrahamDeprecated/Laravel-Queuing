@@ -20,7 +20,7 @@ use GrahamCampbell\Tests\Queuing\AbstractTestCase;
 use GrahamCampbell\TestBench\Traits\FacadeTestCaseTrait;
 
 /**
- * This is the queuing facade test case class.
+ * This is the queuing facade test class.
  *
  * @package    Laravel-Queuing
  * @author     Graham Campbell
