@@ -139,10 +139,10 @@ abstract class AbstractHandler
 
             // check the model
             try {
-                if ($this->model->getId() !== $this->id) {
+                if ($this->model->id !== $this->id) {
                     throw new \Exception('Bad Id');
                 }
-                if ($this->model->getTask() !== $this->task) {
+                if ($this->model->task !== $this->task) {
                     throw new \Exception('Bad Task');
                 }
             } catch (\Exception $e) {
@@ -151,7 +151,7 @@ abstract class AbstractHandler
 
             // increment tries
             try {
-                $this->tries = $this->model->getTries() + 1;
+                $this->tries = $this->model->tries + 1;
                 $this->model->tries = $this->tries;
                 $this->model->save();
             } catch (\Exception $e) {

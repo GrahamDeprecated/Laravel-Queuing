@@ -16,7 +16,6 @@
 
 namespace GrahamCampbell\Queuing\Models;
 
-use Carbon\Carbon;
 use GrahamCampbell\Core\Models\AbstractModel;
 
 /**
@@ -82,54 +81,4 @@ class Job extends AbstractModel
         'tries' => 0,
         'task'  => 'GrahamCampbell\Queuing\Handlers\MailHandler'
     );
-
-    /**
-     * Get tries.
-     *
-     * @return int
-     */
-    public function getTries()
-    {
-        return $this->tries;
-    }
-
-    /**
-     * Get task.
-     *
-     * @return string
-     */
-    public function getTask()
-    {
-        return $this->task;
-    }
-
-    /**
-     * Get deleted.
-     *
-     * @return \Carbon\Carbon
-     */
-    public function getDeleted()
-    {
-        // TODO: Use the TraitDeletedModel from the Core package
-        if ($this->deleted_at) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Get deleted_at.
-     *
-     * @return \Carbon\Carbon
-     */
-    public function getDeletedAt()
-    {
-        // TODO: Use the TraitDeletedModel from the Core package
-        if ($this->deleted_at) {
-            return new Carbon($this->activated_at);
-        }
-
-        return null;
-    }
 }

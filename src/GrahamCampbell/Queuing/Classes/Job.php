@@ -93,7 +93,7 @@ class Job
         // push to the database server
         $model = JobProvider::create(array('task' => $this->task, 'queue' => $this->queue));
         // save model id
-        $this->data['model_id'] = $model->getId();
+        $this->data['model_id'] = $model->id;
 
         // push to the queuing server
         if ($this->delay === false) {
