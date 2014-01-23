@@ -70,15 +70,4 @@ class Job extends AbstractModel
      * @var array
      */
     public static $rules = array('task');
-
-    /**
-     * The page factory.
-     *
-     * @var array
-     */
-    public static $factory = array(
-        'id'    => 1,
-        'tries' => 0,
-        'task'  => 'GrahamCampbell\Queuing\Handlers\MailHandler'
-    );
 }
