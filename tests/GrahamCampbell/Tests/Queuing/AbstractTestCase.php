@@ -40,6 +40,18 @@ abstract class AbstractTestCase extends TestCase
     }
 
     /**
+     * Get the required service providers.
+     *
+     * @return array
+     */
+    protected function getRequiredServiceProviders()
+    {
+        return array(
+            'GrahamCampbell\Core\CoreServiceProvider'
+        );
+    }
+
+    /**
      * Get the service provider class.
      *
      * @return string
