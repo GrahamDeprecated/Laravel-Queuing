@@ -49,9 +49,9 @@
         "classmap": [
             "src/migrations"
         ],
-        "psr-0": {
-            "GrahamCampbell\\Queuing": "src/",
-            "GrahamCampbell\\Tests\\Queuing": "tests/"
+        "psr-4": {
+            "GrahamCampbell\\Queuing\\": "src/",
+            "GrahamCampbell\\Tests\\Queuing\\": "tests/"
         }
     },
     "extra": {

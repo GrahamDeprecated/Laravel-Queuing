@@ -43,9 +43,9 @@ class QueuingServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->package('graham-campbell/queuing');
+        $this->package('graham-campbell/queuing', 'graham-campbell/queuing', __DIR__);
 
-        include __DIR__.'/../../routes.php';
+        include __DIR__.'/routes.php';
 
         // process jobs on shutdown
         $this->app->shutdown(function ($app) {
@@ -78,7 +78,7 @@ class QueuingServiceProvider extends ServiceProvider
     protected function registerJobProvider()
     {
         $this->app->bindShared('jobprovider', function ($app) {
-            $model = $app['config']['queuing::job'];
+            $model = $app['config']['graham-campbell/queuing::job'];
             $job = new $model();
 
             $config = $app['config'];
