@@ -2,6 +2,13 @@ CHANGE LOG
 ==========
 
 
+## V0.3 Alpha (Upcoming)
+
+* Improved redis support
+* Handler refactoring
+* Driver based refactor
+
+
 ## V0.2 Alpha (Upcoming)
 
 * PSR-4 autoloading
@@ -13,6 +20,7 @@ CHANGE LOG
 * Coding style fixes
 * Added unit tests
 * Model refactoring
+* Redis support
 * Minor tweaks
 
 
