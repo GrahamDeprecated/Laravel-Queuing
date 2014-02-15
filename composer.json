@@ -15,14 +15,12 @@
         "symfony/config": "2.4.*",
         "symfony/filesystem": "2.4.*",
         "graham-campbell/core": "0.3.*",
-        "symfony/event-dispatcher": "2.4.*",
-        "guzzle/guzzle": "3.8.*",
-        "pda/pheanstalk": "2.1.*",
-        "aws/aws-sdk-php": "2.5.*",
-        "iron-io/iron_mq": "1.4.*"
     },
     "require-dev": {
-        "graham-campbell/testbench": "0.3.*"
+        "graham-campbell/testbench": "0.3.*",
+        "pda/pheanstalk": "2.1.*",
+        "aws/aws-sdk-php": "2.5.*",
+        "iron-io/iron_mq": "1.5.*"
     },
     "autoload": {
         "classmap": [

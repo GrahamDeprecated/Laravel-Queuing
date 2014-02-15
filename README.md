@@ -35,7 +35,7 @@ Laravel Queuing is a cool way to queue in [Laravel 4.1](http://laravel.com).
 
 Please check the system requirements before installing Laravel Queuing.
 
-To get the latest version of Laravel Queuing, simply require `"graham-campbell/queuing": "0.3.*@dev"` in your `composer.json` file. You'll then need to run `composer install` or `composer update` to download it and have the autoloader updated.
+To get the latest version of Laravel Queuing, simply require `"graham-campbell/queuing": "0.3.*@dev"` in your `composer.json` file. In order to load support for the beanstalk connector, you will need to require `"pda/pheanstalk": "2.1.*"` in your `composer.json` file. In order to load support for the aws connector, you will need to require `"aws/aws-sdk-php": "2.5.*"` in your `composer.json` file. In order to load support for the iron connector, you will need to require `"iron-io/iron_mq": "1.5.*"` in your `composer.json` file. You'll then need to run `composer install` or `composer update` to download it and have the autoloader updated.
 
 You will need to register the [Laravel Core](https://github.com/GrahamCampbell/Laravel-Core) service provider before you attempt to load the Laravel Queuing service provider. Open up `app/config/app.php` and add the following to the `providers` key.
 
