@@ -2,13 +2,12 @@ Laravel Queuing
 ===============
 
 
-[![Build Status](https://travis-ci.org/GrahamCampbell/Laravel-Queuing.png)](https://travis-ci.org/GrahamCampbell/Laravel-Queuing)
-[![Coverage Status](https://coveralls.io/repos/GrahamCampbell/Laravel-Queuing/badge.png)](https://coveralls.io/r/GrahamCampbell/Laravel-Queuing)
+[![Build Status](https://img.shields.io/travis/GrahamCampbell/Laravel-Queuing/master.svg)](https://travis-ci.org/GrahamCampbell/Laravel-Queuing)
+[![Coverage Status](https://img.shields.io/coveralls/GrahamCampbell/Laravel-Queuing/master.svg)](https://coveralls.io/r/GrahamCampbell/Laravel-Queuing)
+[![Software License](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md)
+[![Latest Version](https://img.shields.io/github/release/GrahamCampbell/Laravel-Queuing.svg)](https://github.com/GrahamCampbell/Laravel-Queuing/releases)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/GrahamCampbell/Laravel-Queuing/badges/quality-score.png?s=8aa8514610dfe89cd32922515c7ed35d0901bdd9)](https://scrutinizer-ci.com/g/GrahamCampbell/Laravel-Queuing)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/75cb257f-5622-49a1-aff1-eba21c2487e2/mini.png)](https://insight.sensiolabs.com/projects/75cb257f-5622-49a1-aff1-eba21c2487e2)
-[![Software License](https://poser.pugx.org/graham-campbell/queuing/license.png)](https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md)
-[![Latest Version](https://poser.pugx.org/graham-campbell/queuing/v/stable.png)](https://packagist.org/packages/graham-campbell/queuing)
-[![Still Maintained](http://stillmaintained.com/GrahamCampbell/Laravel-Queuing.png)](http://stillmaintained.com/GrahamCampbell/Laravel-Queuing)
 
 
 ## What Is Laravel Queuing?
@@ -26,7 +25,7 @@ Laravel Queuing is a cool way to queue in [Laravel 4.1](http://laravel.com).
 
 ## System Requirements
 
-* PHP 5.4.7+ or HHVM 2.4+ is required.
+* PHP 5.4.7+ or HHVM 3.0+ is required.
 * You will need [Laravel 4.1](http://laravel.com) because this package is designed for it.
 * You will need [Composer](https://getcomposer.org) installed to load the dependencies of Laravel Queuing.
 
@@ -35,7 +34,15 @@ Laravel Queuing is a cool way to queue in [Laravel 4.1](http://laravel.com).
 
 Please check the system requirements before installing Laravel Queuing.
 
-To get the latest version of Laravel Queuing, simply require `"graham-campbell/queuing": "0.3.*@dev"` in your `composer.json` file. In order to load support for the beanstalk connector, you will need to require `"pda/pheanstalk": "2.1.*"` in your `composer.json` file. In order to load support for the aws connector, you will need to require `"aws/aws-sdk-php": "2.5.*"` in your `composer.json` file. In order to load support for the iron connector, you will need to require `"iron-io/iron_mq": "1.5.*"` in your `composer.json` file. You'll then need to run `composer install` or `composer update` to download it and have the autoloader updated.
+To get the latest version of Laravel Queuing, simply require `"graham-campbell/queuing": "0.3.*@dev"` in your `composer.json` file.
+
+There are some additional dependencies you will need to install for some of the features:
+
+* The beanstalk connector requires `"pda/pheanstalk": "2.1.*"` in your `composer.json`.
+* The aws connector requires `"aws/aws-sdk-php": "2.6.*"` in your `composer.json`.
+* The iron connector requires `"iron-io/iron_mq": "1.5.*"` in your `composer.json`.
+
+You'll then need to run `composer install` or `composer update` to download it and have the autoloader updated.
 
 You will need to register the [Laravel Core](https://github.com/GrahamCampbell/Laravel-Core) service provider before you attempt to load the Laravel Queuing service provider. Open up `app/config/app.php` and add the following to the `providers` key.
 
