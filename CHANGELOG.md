@@ -2,12 +2,17 @@ CHANGE LOG
 ==========
 
 
-## V0.3 Alpha (Upcoming)
+## V0.4 Alpha (Upcoming)
 
-* PHP 5.6 and HHVM compatibility
 * Improved redis support
 * Handler refactoring
 * Driver based refactor
+
+
+## V0.3 Alpha (Upcoming)
+
+* PHP 5.6 and HHVM compatibility
+* Composer tweaks
 
 
 ## V0.2 Alpha (08/02/2014)
