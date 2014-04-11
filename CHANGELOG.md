@@ -2,16 +2,19 @@ CHANGE LOG
 ==========
 
 
-## V0.4 Alpha (Upcoming)
+## V0.4 Alpha (Upcoming - July 2014)
 
-* Improved redis support
-* Handler refactoring
+* Upgrade to Laravel 4.2
+* Complete rewrite
 * Driver based refactor
+* Handler refactoring
+* Improved redis support
 
 
 ## V0.3 Alpha (Upcoming)
 
 * PHP 5.6 and HHVM compatibility
+* Command improvements
 * Composer tweaks
 
 
