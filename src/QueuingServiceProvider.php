@@ -46,6 +46,7 @@ class QueuingServiceProvider extends ServiceProvider
         $this->package('graham-campbell/queuing', 'graham-campbell/queuing', __DIR__);
 
         include __DIR__.'/routes.php';
+        include __DIR__.'/listeners.php';
 
         // process jobs on shutdown
         $this->app->shutdown(function ($app) {
