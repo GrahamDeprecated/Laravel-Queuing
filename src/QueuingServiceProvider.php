@@ -45,6 +45,9 @@ class QueuingServiceProvider extends ServiceProvider
     {
         $this->package('graham-campbell/queuing', 'graham-campbell/queuing', __DIR__);
 
+        $this->commands('command.queuelength', 'command.queueclear', 'command.queueclear', 'command.queueiron');
+        $this->commands('command.cronstart', 'command.cronstop');
+
         include __DIR__.'/routes.php';
         include __DIR__.'/listeners.php';
 
@@ -71,9 +74,7 @@ class QueuingServiceProvider extends ServiceProvider
         $this->registerCronStartCommand();
         $this->registerCronStopCommand();
 
-        if ($this->app['config']['graham-campbell/core::commands']) {
-            $this->registerCommandSubscriber();
-        }
+        $this->registerCommandSubscriber();
     }
 
     /**
@@ -133,8 +134,6 @@ class QueuingServiceProvider extends ServiceProvider
         $this->app->bindShared('command.queuelength', function ($app) {
             return new Commands\QueueLength();
         });
-
-        $this->commands('command.queuelength');
     }
 
     /**
@@ -147,8 +146,6 @@ class QueuingServiceProvider extends ServiceProvider
         $this->app->bindShared('command.queueclear', function ($app) {
             return new Commands\QueueClear();
         });
-
-        $this->commands('command.queueclear');
     }
 
     /**
@@ -161,8 +158,6 @@ class QueuingServiceProvider extends ServiceProvider
         $this->app->bindShared('command.queueiron', function ($app) {
             return new Commands\QueueIron();
         });
-
-        $this->commands('command.queueiron');
     }
 
     /**
@@ -175,8 +170,6 @@ class QueuingServiceProvider extends ServiceProvider
         $this->app->bindShared('command.cronstart', function ($app) {
             return new Commands\CronStart();
         });
-
-        $this->commands('command.cronstart');
     }
 
     /**
@@ -189,8 +182,6 @@ class QueuingServiceProvider extends ServiceProvider
         $this->app->bindShared('command.cronstop', function ($app) {
             return new Commands\CronStop();
         });
-
-        $this->commands('command.cronstop');
     }
 
     /**
