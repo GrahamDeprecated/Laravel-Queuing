@@ -34,7 +34,7 @@ class CommandSubscriber
     /**
      * Register the listeners for the subscriber.
      *
-     * @param  Illuminate\Events\Dispatcher  $events
+     * @param  \Illuminate\Events\Dispatcher  $events
      * @return array
      */
     public function subscribe(Dispatcher $events)
@@ -46,7 +46,7 @@ class CommandSubscriber
     /**
      * Handle a command.runmigrations event.
      *
-     * @param  Illuminate\Console\Command  $command
+     * @param  \Illuminate\Console\Command  $command
      * @return void
      */
     public function onRunMigrations(Command $command)
@@ -57,7 +57,7 @@ class CommandSubscriber
     /**
      * Handle a command.extrastuff event.
      *
-     * @param  Illuminate\Console\Command  $command
+     * @param  \Illuminate\Console\Command  $command
      * @return void
      */
     public function onExtraStuff(Command $command)
