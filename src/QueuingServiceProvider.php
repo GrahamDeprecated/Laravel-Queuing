@@ -88,9 +88,10 @@ class QueuingServiceProvider extends ServiceProvider
             $model = $app['config']['graham-campbell/queuing::job'];
             $job = new $model();
 
+            $validator = $app['validator'];
             $config = $app['config'];
 
-            return new Providers\JobProvider($job, $config);
+            return new Providers\JobProvider($job, $validator, $config);
         });
     }
 

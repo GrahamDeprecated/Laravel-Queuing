@@ -15,6 +15,7 @@ CHANGE LOG
 
 * PHP 5.6 and HHVM compatibility
 * Command improvements
+* Improved validation
 * Composer tweaks
 
 

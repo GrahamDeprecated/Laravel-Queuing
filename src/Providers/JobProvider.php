@@ -17,6 +17,8 @@
 namespace GrahamCampbell\Queuing\Providers;
 
 use Illuminate\Config\Repository;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\Factory;
 use GrahamCampbell\Core\Providers\AbstractProvider;
 
 /**
@@ -40,13 +42,14 @@ class JobProvider extends AbstractProvider
     /**
      * Create a new instance.
      *
-     * @param  string  $model
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param  \Illuminate\Validation\Factory  $validator
      * @param  \Illuminate\Config\Repository  $config
      * @return void
      */
-    public function __construct($model, Repository $config)
+    public function __construct(Model $model, Factory $validator, Repository $config)
     {
-        parent::__construct($model);
+        parent::__construct($model, $validator);
         $this->config = $config;
     }
 
