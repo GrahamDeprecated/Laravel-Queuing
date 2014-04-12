@@ -69,6 +69,7 @@ class QueuingServiceProvider extends ServiceProvider
         $this->registerQueueIronCommand();
         $this->registerCronStartCommand();
         $this->registerCronStopCommand();
+        $this->registerCommandSubscriber();
     }
 
     /**
@@ -186,6 +187,20 @@ class QueuingServiceProvider extends ServiceProvider
         });
 
         $this->commands('command.cronstop');
+    }
+
+    /**
+     * Register the command subscriber class.
+     *
+     * @return void
+     */
+    protected function registerCommandSubscriber()
+    {
+        $this->app->bindShared('GrahamCampbell\Queuing\Subscribers\CommandSubscriber', function ($app) {
+            $config = $app['config'];
+
+            return new Subscribers\CommandSubscriber($config);
+        });
     }
 
     /**

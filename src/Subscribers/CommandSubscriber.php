@@ -16,9 +16,9 @@
 
 namespace GrahamCampbell\Queuing\Subscribers;
 
+use Illuminate\Config\Repository;
 use Illuminate\Console\Command;
 use Illuminate\Events\Dispatcher;
-use Illuminate\Support\Facades\Config;
 
 /**
  * This is the command subscriber class.
@@ -32,6 +32,24 @@ use Illuminate\Support\Facades\Config;
 class CommandSubscriber
 {
     /**
+     * The events instance.
+     *
+     * @var \Illuminate\Events\Dispatcher
+     */
+    protected $config;
+
+    /**
+     * Create a new instance.
+     *
+     * @param  \Illuminate\Config\Repository  $config
+     * @return void
+     */
+    public function __construct(Repository $config)
+    {
+        $this->config = $config;
+    }
+
+    /**
      * Register the listeners for the subscriber.
      *
      * @param  \Illuminate\Events\Dispatcher  $events
@@ -39,8 +57,10 @@ class CommandSubscriber
      */
     public function subscribe(Dispatcher $events)
     {
-        $events->listen('command.runmigrations', 'GrahamCampbell\Core\Subscribers\CommandSubscriber@onRunMigrations', 2);
-        $events->listen('command.extrastuff', 'GrahamCampbell\Core\Subscribers\CommandSubscriber@onExtraStuff', 8);
+        $events->listen('command.runmigrations',
+            'GrahamCampbell\Core\Subscribers\CommandSubscriber@onRunMigrations', 2);
+        $events->listen('command.extrastuff',
+            'GrahamCampbell\Core\Subscribers\CommandSubscriber@onExtraStuff', 8);
     }
 
     /**
@@ -62,10 +82,20 @@ class CommandSubscriber
      */
     public function onExtraStuff(Command $command)
     {
-        if (Config::get('queue.default') == 'sync') {
+        if ($this->config->get('queue.default') == 'sync') {
             $command->comment('Please note that cron functionality is disabled.');
         } else {
             $command->call('cron:start');
         }
+    }
+
+    /**
+     * Get the config instance.
+     *
+     * @return \Illuminate\Config\Repository
+     */
+    public function getComfig()
+    {
+        return $this->config;
     }
 }
