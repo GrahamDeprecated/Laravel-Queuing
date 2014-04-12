@@ -58,9 +58,9 @@ class CommandSubscriber
     public function subscribe(Dispatcher $events)
     {
         $events->listen('command.runmigrations',
-            'GrahamCampbell\Core\Subscribers\CommandSubscriber@onRunMigrations', 2);
+            'GrahamCampbell\Core\Subscribers\CommandSubscriber@onRunMigrations', 8);
         $events->listen('command.extrastuff',
-            'GrahamCampbell\Core\Subscribers\CommandSubscriber@onExtraStuff', 8);
+            'GrahamCampbell\Core\Subscribers\CommandSubscriber@onExtraStuff', 2);
     }
 
     /**
