@@ -71,7 +71,7 @@ class QueuingServiceProvider extends ServiceProvider
         $this->registerCronStartCommand();
         $this->registerCronStopCommand();
 
-        if ($app['config']['graham-campbell/core::commands']) {
+        if ($this->app['config']['graham-campbell/core::commands']) {
             $this->registerCommandSubscriber();
         }
     }
