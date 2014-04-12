@@ -64,12 +64,16 @@ class QueuingServiceProvider extends ServiceProvider
         $this->registerJobProvider();
         $this->registerQueuing();
         $this->registerCron();
+
         $this->registerQueueLengthCommand();
         $this->registerQueueClearCommand();
         $this->registerQueueIronCommand();
         $this->registerCronStartCommand();
         $this->registerCronStopCommand();
-        $this->registerCommandSubscriber();
+
+        if ($app['config']['graham-campbell/core::commands']) {
+            $this->registerCommandSubscriber();
+        }
     }
 
     /**
