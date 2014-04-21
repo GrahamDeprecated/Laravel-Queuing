@@ -289,19 +289,19 @@ abstract class AbstractHandler
             }
         }
 
-        if ($this->method === 'Illuminate\Queue\Jobs\BeanstalkdJob' || $this->method === 'Illuminate\Queue\Jobs\RedisJob') {
-            // log the message
-            if ($message) {
-                Log::critical($message);
-            } else {
-                Log::critical($this->task.' has aborted without a message');
-            }
-        } else {
+        if ($this->method === 'Illuminate\Queue\Jobs\IronJob') {
             // make sure the queue knows the job aborted
             if ($message) {
                 throw new \Exception($message);
             } else {
                 throw new \Exception($this->task.' has aborted without a message');
+            }
+        } else {
+            // silently give up
+            if ($message) {
+                Log::critical($message);
+            } else {
+                Log::critical($this->task.' has aborted without a message');
             }
         }
     }
