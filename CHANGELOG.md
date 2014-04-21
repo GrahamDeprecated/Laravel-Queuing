@@ -17,6 +17,7 @@ CHANGE LOG
 * Command improvements
 * Improved validation
 * Composer tweaks
+* Minor fixes
 
 
 ## V0.2 Alpha (08/02/2014)
