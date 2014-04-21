@@ -34,7 +34,7 @@ Laravel Queuing is a cool way to queue in [Laravel 4.1](http://laravel.com).
 
 Please check the system requirements before installing Laravel Queuing.
 
-To get the latest version of Laravel Queuing, simply require `"graham-campbell/queuing": "0.3.*@dev"` in your `composer.json` file.
+To get the latest version of Laravel Queuing, simply require `"graham-campbell/queuing": "0.3.*@alpha"` in your `composer.json` file.
 
 There are some additional dependencies you will need to install for some of the features:
 
