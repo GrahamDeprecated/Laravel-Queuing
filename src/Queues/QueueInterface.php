@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-namespace GrahamCampbell\Queuing\Commands;
+namespace GrahamCampbell\Queuing\Queues;
 
-use Illuminate\Console\Command;
+use Illuminate\Queue\QueueInterface as LaravelQueueInterface;
 
 /**
- * This is the queue clear command class.
+ * This is the queue interface.
  *
  * @package    Laravel-Queuing
  * @author     Graham Campbell
@@ -27,32 +27,12 @@ use Illuminate\Console\Command;
  * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
-class QueueClear extends Command
+interface QueueInterface extends LaravelQueueInterface
 {
     /**
-     * The command name.
-     *
-     * @var string
-     */
-    protected $name = 'queue:clear';
-
-    /**
-     * The command description.
-     *
-     * @var string
-     */
-    protected $description = 'Clears the queue';
-
-    /**
-     * Run the commend.
+     * Process all jobs in the queue.
      *
      * @return void
      */
-    public function fire()
-    {
-        $this->line('Clearing the queue...');
-        $this->laravel['queuing']->clearAll();
-        $this->info('Queue cleared!');
-        $this->comment('Note that cron jobs were cleared too.');
-    }
+    public function process();
 }

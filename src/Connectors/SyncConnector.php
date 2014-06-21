@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-namespace GrahamCampbell\Queuing\Commands;
+namespace GrahamCampbell\Queuing\Connectors;
 
-use Illuminate\Console\Command;
+use GrahamCampbell\Queuing\Queues\SyncQueue;
+use Illuminate\Queue\Connectors\SyncConnector as LaravelSyncConnector;
 
 /**
- * This is the cron stop command class.
+ * This is the sync queue connector class.
  *
  * @package    Laravel-Queuing
  * @author     Graham Campbell
@@ -27,31 +28,16 @@ use Illuminate\Console\Command;
  * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
-class CronStop extends Command
+class SyncConnector extends LaravelSyncConnector
 {
     /**
-     * The command name.
+     * Establish a queue connection.
      *
-     * @var string
+     * @param  array  $config
+     * @return \Illuminate\Queue\QueueInterface
      */
-    protected $name = 'cron:stop';
-
-    /**
-     * The command description.
-     *
-     * @var string
-     */
-    protected $description = 'Stops the cron jobs';
-
-    /**
-     * Run the commend.
-     *
-     * @return void
-     */
-    public function fire()
+    public function connect(array $config)
     {
-        $this->line('Stopping cron...');
-        $this->laravel['cron']->stop();
-        $this->info('Cron stopped!');
+        return new SyncQueue();
     }
 }

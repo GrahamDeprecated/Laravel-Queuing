@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-namespace GrahamCampbell\Queuing\Handlers;
+namespace GrahamCampbell\Queuing\Connectors;
 
-use Illuminate\Support\Facades\Mail;
+use Aws\Sqs\SqsClient;
+use GrahamCampbell\Queuing\Queues\SqsQueue;
+use Illuminate\Queue\Connectors\SqsConnector as LaravelSqsConnector;
 
 /**
- * This is the mail handler class.
+ * This is the sqs queue connector class.
  *
  * @package    Laravel-Queuing
  * @author     Graham Campbell
@@ -27,24 +29,18 @@ use Illuminate\Support\Facades\Mail;
  * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
-class MailHandler extends AbstractHandler
+class SqsConnector extends LaravelSqsConnector
 {
     /**
-     * Run the task (called by AbstractHandler).
+     * Establish a queue connection.
      *
-     * @return void
+     * @param  array  $config
+     * @return \Illuminate\Queue\QueueInterface
      */
-    protected function run()
+    public function connect(array $config)
     {
-        $data = $this->data;
-        if (!is_array($this->data['email'])) {
-            $this->data['email'] = array($this->data['email']);
-        }
-        foreach ($this->data['email'] as $email) {
-            $data['email'] = $email;
-            Mail::send($data['view'], $data, function ($mail) use ($data) {
-                $mail->to($data['email'])->subject($data['subject']);
-            });
-        }
+        $sqs = SqsClient::factory($config);
+
+        return new SqsQueue($sqs, $config['queue']);
     }
 }

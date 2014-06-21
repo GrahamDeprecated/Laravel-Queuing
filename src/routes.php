@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-if (Config::get('queue.default') === 'iron') {
-    Route::post('queue/receive', function () {
-        return Queue::marshal();
-    });
-}
+Route::post('queue/receive', function () {
+    return Queue::connection('iron')->marshal();
+});

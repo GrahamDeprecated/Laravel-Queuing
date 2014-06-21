@@ -6,9 +6,7 @@ CHANGE LOG
 
 * Upgrade to Laravel 4.2
 * Complete rewrite
-* Driver based refactor
-* Handler refactoring
-* Improved redis support
+* Added di aliases
 
 
 ## V0.3 Alpha (21/04/2014)

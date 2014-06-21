@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-namespace GrahamCampbell\Queuing\Facades;
+namespace GrahamCampbell\Queuing\Connectors;
 
-use Illuminate\Support\Facades\Facade;
+use Pheanstalk_Pheanstalk as Pheanstalk;
+use GrahamCampbell\Queuing\Queues\BeanstalkdQueue;
+use Illuminate\Queue\Connectors\BeanstalkdConnector as LaravelBeanstalkdConnector;
 
 /**
- * This is the job provider facade class.
+ * This is the beanstalkd queue connector class.
  *
  * @package    Laravel-Queuing
  * @author     Graham Campbell
@@ -27,15 +29,20 @@ use Illuminate\Support\Facades\Facade;
  * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
-class JobProvider extends Facade
+class BeanstalkdConnector extends LaravelBeanstalkdConnector
 {
     /**
-     * Get the registered name of the component.
+     * Establish a queue connection.
      *
-     * @return string
+     * @param  array  $config
+     * @return \Illuminate\Queue\QueueInterface
      */
-    protected static function getFacadeAccessor()
+    public function connect(array $config)
     {
-        return 'jobprovider';
+        $pheanstalk = new Pheanstalk($config['host']);
+
+        return new BeanstalkdQueue(
+            $pheanstalk, $config['queue'], array_get($config, 'ttr', Pheanstalk::DEFAULT_TTR)
+        );
     }
 }

@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-namespace GrahamCampbell\Tests\Queuing\Facades;
+namespace GrahamCampbell\Queuing\Queues;
 
-use GrahamCampbell\Tests\Queuing\AbstractTestCase;
-use GrahamCampbell\TestBench\Traits\FacadeTestCaseTrait;
+use Illuminate\Queue\RedisQueue as LaravelRedisQueue;
 
 /**
- * This is the queuing facade test class.
+ * This is the redis queue class.
  *
  * @package    Laravel-Queuing
  * @author     Graham Campbell
@@ -28,37 +27,7 @@ use GrahamCampbell\TestBench\Traits\FacadeTestCaseTrait;
  * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
-class QueuingTest extends AbstractTestCase
+class RedisQueue extends LaravelRedisQueue implements QueueInterface
 {
-    use FacadeTestCaseTrait;
-
-    /**
-     * Get the facade accessor.
-     *
-     * @return string
-     */
-    protected function getFacadeAccessor()
-    {
-        return 'queuing';
-    }
-
-    /**
-     * Get the facade class.
-     *
-     * @return string
-     */
-    protected function getFacadeClass()
-    {
-        return 'GrahamCampbell\Queuing\Facades\Queuing';
-    }
-
-    /**
-     * Get the facade route.
-     *
-     * @return string
-     */
-    protected function getFacadeRoot()
-    {
-        return 'GrahamCampbell\Queuing\Classes\Queuing';
-    }
+    use QueueTrait;
 }

@@ -12,10 +12,9 @@ Laravel Queuing
 
 ## What Is Laravel Queuing?
 
-Laravel Queuing is a cool way to queue in [Laravel 4.1](http://laravel.com).
+Laravel Queuing is a cool way to queue in [Laravel 4.2+](http://laravel.com).
 
 * Laravel Queuing was created by, and is maintained by [Graham Campbell](https://github.com/GrahamCampbell).
-* Laravel Queuing relies on my [Laravel Core](https://github.com/GrahamCampbell/Laravel-Core) package.
 * Laravel Queuing uses [Travis CI](https://travis-ci.org/GrahamCampbell/Laravel-Queuing) with [Coveralls](https://coveralls.io/r/GrahamCampbell/Laravel-Queuing) to check everything is working.
 * Laravel Queuing uses [Scrutinizer CI](https://scrutinizer-ci.com/g/GrahamCampbell/Laravel-Queuing) and [SensioLabsInsight](https://insight.sensiolabs.com/projects/75cb257f-5622-49a1-aff1-eba21c2487e2) to run additional checks.
 * Laravel Queuing uses [Composer](https://getcomposer.org) to load and manage dependencies.
@@ -25,8 +24,8 @@ Laravel Queuing is a cool way to queue in [Laravel 4.1](http://laravel.com).
 
 ## System Requirements
 
-* PHP 5.4.7+ or HHVM 3.0+ is required.
-* You will need [Laravel 4.1](http://laravel.com) because this package is designed for it.
+* PHP 5.4.7+ or HHVM 3.1+ is required.
+* You will need [Laravel 4.2+](http://laravel.com) because this package is designed for it.
 * You will need [Composer](https://getcomposer.org) installed to load the dependencies of Laravel Queuing.
 
 
@@ -34,7 +33,7 @@ Laravel Queuing is a cool way to queue in [Laravel 4.1](http://laravel.com).
 
 Please check the system requirements before installing Laravel Queuing.
 
-To get the latest version of Laravel Queuing, simply require `"graham-campbell/queuing": "0.3.*@alpha"` in your `composer.json` file.
+To get the latest version of Laravel Queuing, simply require `"graham-campbell/queuing": "~0.4"` in your `composer.json` file.
 
 There are some additional dependencies you will need to install for some of the features:
 
@@ -44,36 +43,14 @@ There are some additional dependencies you will need to install for some of the 
 
 You'll then need to run `composer install` or `composer update` to download it and have the autoloader updated.
 
-You will need to register the [Laravel Core](https://github.com/GrahamCampbell/Laravel-Core) service provider before you attempt to load the Laravel Queuing service provider. Open up `app/config/app.php` and add the following to the `providers` key.
-
-* `'GrahamCampbell\Core\CoreServiceProvider'`
-
 Once Laravel Queuing is installed, you need to register the service provider. Open up `app/config/app.php` and add the following to the `providers` key.
 
 * `'GrahamCampbell\Queuing\QueuingServiceProvider'`
 
-You can register the three facades in the `aliases` key of your `app/config/app.php` file if you like.
-
-* `'JobProvider' => 'GrahamCampbell\Queuing\Facades\JobProvider'`
-* `'Queuing' => 'GrahamCampbell\Queuing\Facades\Queuing'`
-* `'Cron' => 'GrahamCampbell\Queuing\Facades\Cron'`
-
-You will additionally need to replace `app/config/queue.php` with the `queue.php` provided in the root folder of this repo. This config allows us to specify different queues for special jobs.
-
 
 ## Configuration
 
-Laravel Queuing supports optional configuration.
-
-To get started, first publish the package config file:
-
-    php artisan config:publish graham-campbell/queuing
-
-There is one config option:
-
-**Job Model**
-
-This option (`'job'`) defines the job model to be used. The default value for this setting is `'GrahamCampbell\Queuing\Models\Job'`.
+Laravel Queuing requires no configuration behond what Laravel's queuing would otherwise require. Just follow the simple install instructions and go!
 
 
 ## Usage

@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-namespace GrahamCampbell\Tests\Queuing\Facades;
+namespace GrahamCampbell\Queuing\Managers;
 
-use GrahamCampbell\Tests\Queuing\AbstractTestCase;
-use GrahamCampbell\TestBench\Traits\FacadeTestCaseTrait;
+use Illuminate\Queue\QueueManager as LaravelQueueManager;
 
 /**
- * This is the job provider facade test class.
+ * This is the queue manager class.
  *
  * @package    Laravel-Queuing
  * @author     Graham Campbell
@@ -28,37 +27,15 @@ use GrahamCampbell\TestBench\Traits\FacadeTestCaseTrait;
  * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
-class JobProviderTest extends AbstractTestCase
+class QueueManager extends LaravelQueueManager
 {
-    use FacadeTestCaseTrait;
-
     /**
-     * Get the facade accessor.
+     * Get the active connections.
      *
-     * @return string
+     * @return array
      */
-    protected function getFacadeAccessor()
+    public function getConnections()
     {
-        return 'jobprovider';
-    }
-
-    /**
-     * Get the facade class.
-     *
-     * @return string
-     */
-    protected function getFacadeClass()
-    {
-        return 'GrahamCampbell\Queuing\Facades\JobProvider';
-    }
-
-    /**
-     * Get the facade route.
-     *
-     * @return string
-     */
-    protected function getFacadeRoot()
-    {
-        return 'GrahamCampbell\Queuing\Providers\JobProvider';
+        return $this->connections;
     }
 }

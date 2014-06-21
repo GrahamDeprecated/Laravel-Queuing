@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-namespace GrahamCampbell\Queuing\Handlers;
+namespace GrahamCampbell\Queuing\Connectors;
 
-use GrahamCampbell\Queuing\Facades\Cron;
-use GrahamCampbell\Queuing\Facades\JobProvider;
+use IronMQ;
+use GrahamCampbell\Queuing\Queues\IronQueue;
+use Illuminate\Queue\Connectors\IronConnector as LaravelIronConnector;
 
 /**
- * This is the cron handler class.
+ * This is the iron queue connector class.
  *
  * @package    Laravel-Queuing
  * @author     Graham Campbell
@@ -28,41 +29,28 @@ use GrahamCampbell\Queuing\Facades\JobProvider;
  * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
-class CronHandler extends AbstractHandler
+class IronConnector extends LaravelIronConnector
 {
     /**
-     * Run the task (called by AbstractHandler).
+     * Establish a queue connection.
      *
-     * @return void
+     * @param  array  $config
+     * @return \Illuminate\Queue\QueueInterface
      */
-    protected function run()
+    public function connect(array $config)
     {
-        $data = $this->data;
-        JobProvider::clearOldJobs();
-        foreach ($data['tasks'] as $task) {
-            $task();
-        }
-    }
+        $ironConfig = array('token' => $config['token'], 'project_id' => $config['project']);
 
-    /**
-     * Run after a job success (called by AbstractHandler).
-     *
-     * @return void
-     */
-    protected function afterSuccess()
-    {
-        Cron::start();
-    }
-
-    /**
-     * Run after a job abortion (called by AbstractHandler).
-     *
-     * @return void
-     */
-    protected function afterAbortion()
-    {
-        if ($this->model) {
-            Cron::start(500);
+        if (isset($config['host'])) {
+            $ironConfig['host'] = $config['host'];
         }
+
+        $iron = new IronMQ($ironConfig);
+
+        if (isset($config['ssl_verifypeer'])) {
+            $iron->ssl_verifypeer = $config['ssl_verifypeer'];
+        }
+
+        return new IronQueue($iron, $this->request, $config['queue'], $config['encrypt']);
     }
 }

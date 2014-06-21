@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-namespace GrahamCampbell\Queuing\Facades;
+namespace GrahamCampbell\Queuing\Queues;
 
-use Illuminate\Support\Facades\Facade;
+use Illuminate\Queue\SyncQueue as LaravelSyncQueue;
 
 /**
- * This is the cron facade class.
+ * This is the sync queue class.
  *
  * @package    Laravel-Queuing
  * @author     Graham Campbell
@@ -27,15 +27,40 @@ use Illuminate\Support\Facades\Facade;
  * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
-class Cron extends Facade
+class SyncQueue extends LaravelSyncQueue implements QueueInterface
 {
     /**
-     * Get the registered name of the component.
+     * The jobs to get pushed.
      *
-     * @return string
+     * @var array
      */
-    protected static function getFacadeAccessor()
+    protected $jobs = array();
+
+    /**
+     * Push a new job onto the queue.
+     *
+     * @param  string  $job
+     * @param  mixed   $data
+     * @param  string  $queue
+     * @return void
+     */
+    public function push($job, $data = '', $queue = null)
     {
-        return 'cron';
+        $this->jobs[] = array(
+            'job'  => $job,
+            'data' => $data
+        );
+    }
+
+    /**
+     * Process all jobs in the queue.
+     *
+     * @return void
+     */
+    public function process()
+    {
+        foreach ($this->jobs as $job) {
+            $this->resolveJob($job['job'], json_encode($job['data']))->fire();
+        }
     }
 }
