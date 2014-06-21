@@ -27,9 +27,6 @@
         "iron-io/iron_mq": "Enables the iron connector."
     },
     "autoload": {
-        "classmap": [
-            "src/migrations"
-        ],
         "psr-4": {
             "GrahamCampbell\\Queuing\\": "src/"
         }
