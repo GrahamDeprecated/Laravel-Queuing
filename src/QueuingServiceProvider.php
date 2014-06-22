@@ -17,7 +17,7 @@
 namespace GrahamCampbell\Queuing;
 
 use ReflectionClass;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Queue\QueueServiceProvider;
 
 /**
  * This is the queuing service provider class.
@@ -28,7 +28,7 @@ use Illuminate\Support\ServiceProvider;
  * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
-class QueuingServiceProvider extends ServiceProvider
+class QueuingServiceProvider extends QueueServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
@@ -46,7 +46,7 @@ class QueuingServiceProvider extends ServiceProvider
     {
         $this->package('graham-campbell/queuing', 'graham-campbell/queuing', __DIR__);
 
-        $this->commands('command.queueiron');
+        $this->commands('command.queue.iron');
 
         include __DIR__.'/routes.php';
 
@@ -65,7 +65,7 @@ class QueuingServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerManager();
+        parent::register();
         $this->registerIronCommand();
     }
 
@@ -84,19 +84,6 @@ class QueuingServiceProvider extends ServiceProvider
 
             return $manager;
         });
-    }
-
-    /**
-     * Register the connectors on the queue manager.
-     *
-     * @param  \Illuminate\Queue\QueueManager  $manager
-     * @return void
-     */
-    public function registerConnectors($manager)
-    {
-        foreach (array('Sync', 'Beanstalkd', 'Redis', 'Sqs', 'Iron') as $connector) {
-            $this->{"register{$connector}Connector"}($manager);
-        }
     }
 
     /**
@@ -196,7 +183,7 @@ class QueuingServiceProvider extends ServiceProvider
      */
     protected function registerIronCommand()
     {
-        $this->app->bindShared('command.queueiron', function ($app) {
+        $this->app->bindShared('command.queue.iron', function ($app) {
             return new Commands\QueueIron();
         });
     }
@@ -210,7 +197,13 @@ class QueuingServiceProvider extends ServiceProvider
     {
         return array(
             'queue',
-            'command.queueiron'
+            'queue.worker',
+            'queue.listener',
+            'queue.failer',
+            'command.queue.work',
+            'command.queue.listen',
+            'command.queue.subscribe',
+            'command.queue.iron'
         );
     }
 }
