@@ -47,9 +47,11 @@ Once Laravel Queuing is installed, you need to register the service provider. Op
 
 * `'GrahamCampbell\Queuing\QueuingServiceProvider'`
 
-**You MUST also remove the laravel queuing service provider!**
+#### You MUST also remove the laravel queuing service provider!
 
-Open up `app/config/app.php` and remove `'Illuminate\Queue\QueueServiceProvider'`. Failure to do so will result in an infinite loop.
+Open up `app/config/app.php` and remove `'Illuminate\Queue\QueueServiceProvider'`.
+
+Failure to do so will result in an infinite loop.
 
 
 ## Configuration
