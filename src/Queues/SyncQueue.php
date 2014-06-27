@@ -59,8 +59,11 @@ class SyncQueue extends LaravelSyncQueue implements QueueInterface
      */
     public function process()
     {
-        foreach ($this->jobs as $job) {
+        foreach ($this->jobs as $id => $job) {
+            // process the job
             $this->resolveJob($job['job'], json_encode($job['data']))->fire();
+            // remove it from the processing queue
+            unset($this->jobs[$id]);
         }
     }
 }

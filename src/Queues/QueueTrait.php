@@ -79,9 +79,13 @@ trait QueueTrait
      */
     public function process()
     {
-        foreach ($this->jobs as $job) {
+        foreach ($this->jobs as $id => $job) {
+            // get the job name
             $name = ucfirst($job['type']);
+            // process the job
             $this->{"process{$name}"}($job);
+            // remove it from the processing queue
+            unset($this->jobs[$id]);
         }
     }
 

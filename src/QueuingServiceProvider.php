@@ -46,15 +46,10 @@ class QueuingServiceProvider extends QueueServiceProvider
     {
         $this->package('graham-campbell/queuing', 'graham-campbell/queuing', __DIR__);
 
-        $this->commands('command.queue.iron');
-
         include __DIR__.'/routes.php';
 
-        // process jobs on shutdown
         $this->app->shutdown(function ($app) {
-            foreach (array_keys($app['queue']->getConnections()) as $name) {
-                $app['queue']->connection($name)->process();
-            }
+            $app['queue']->processAll();
         });
     }
 
@@ -186,6 +181,8 @@ class QueuingServiceProvider extends QueueServiceProvider
         $this->app->bindShared('command.queue.iron', function ($app) {
             return new Commands\QueueIron();
         });
+
+        $this->commands('command.queue.iron');
     }
 
     /**

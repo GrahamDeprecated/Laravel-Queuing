@@ -30,12 +30,14 @@ use Illuminate\Queue\QueueManager as LaravelQueueManager;
 class QueueManager extends LaravelQueueManager
 {
     /**
-     * Get the active connections.
+     * Process all jobs.
      *
      * @return array
      */
-    public function getConnections()
+    public function processAll()
     {
-        return $this->connections;
+        foreach ($this->connections as $connection) {
+            $connection->process();
+        }
     }
 }
