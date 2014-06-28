@@ -22,7 +22,8 @@ To get the latest version of Laravel Queuing, simply require `"graham-campbell/q
 
 There are some additional dependencies you will need to install for some of the features:
 
-* The beanstalk connector requires `"pda/pheanstalk": "~2.1"` in your `composer.json`.
+* The beanstalk connector for Laravel 4.2 requires `"pda/pheanstalk": "~2.1"` in your `composer.json`.
+* The beanstalk connector for Laravel 4.3 requires `"pda/pheanstalk": "~3.0"` in your `composer.json`.
 * The aws connector requires `"aws/aws-sdk-php": "~2.4"` in your `composer.json`.
 * The iron connector requires `"iron-io/iron_mq": "~1.4"` in your `composer.json`.
 

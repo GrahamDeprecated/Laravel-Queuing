@@ -4,7 +4,7 @@ CHANGE LOG
 
 ## V0.4 Alpha (Upcoming - July 2014)
 
-* Upgrade to Laravel 4.2
+* Upgrade to Laravel 4.2+
 * Complete rewrite
 * Added di aliases
 
