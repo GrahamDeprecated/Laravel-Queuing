@@ -14,7 +14,20 @@
  * limitations under the License.
  */
 
-if (Config::get('graham-campbell/core::commands')) {
-    $subscriber = App::make('GrahamCampbell\Queuing\Subscribers\CommandSubscriber');
-    Event::subscribe($subscriber);
+namespace GrahamCampbell\Queuing\Queues;
+
+use Illuminate\Queue\SqsQueue as LaravelSqsQueue;
+
+/**
+ * This is the sqs queue class.
+ *
+ * @package    Laravel-Queuing
+ * @author     Graham Campbell
+ * @copyright  Copyright 2013-2014 Graham Campbell
+ * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
+ * @link       https://github.com/GrahamCampbell/Laravel-Queuing
+ */
+class SqsQueue extends LaravelSqsQueue implements QueueInterface
+{
+    use QueueTrait;
 }

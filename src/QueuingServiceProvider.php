@@ -16,7 +16,8 @@
 
 namespace GrahamCampbell\Queuing;
 
-use Illuminate\Support\ServiceProvider;
+use ReflectionClass;
+use Illuminate\Queue\QueueServiceProvider;
 
 /**
  * This is the queuing service provider class.
@@ -27,7 +28,7 @@ use Illuminate\Support\ServiceProvider;
  * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
-class QueuingServiceProvider extends ServiceProvider
+class QueuingServiceProvider extends QueueServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
@@ -45,15 +46,10 @@ class QueuingServiceProvider extends ServiceProvider
     {
         $this->package('graham-campbell/queuing', 'graham-campbell/queuing', __DIR__);
 
-        $this->commands('command.queuelength', 'command.queueclear', 'command.queueclear', 'command.queueiron');
-        $this->commands('command.cronstart', 'command.cronstop');
-
         include __DIR__.'/routes.php';
-        include __DIR__.'/listeners.php';
 
-        // process jobs on shutdown
         $this->app->shutdown(function ($app) {
-            $app['queuing']->process();
+            $app['queue']->processAll();
         });
     }
 
@@ -64,139 +60,129 @@ class QueuingServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerJobProvider();
-        $this->registerQueuing();
-        $this->registerCron();
-
-        $this->registerQueueLengthCommand();
-        $this->registerQueueClearCommand();
-        $this->registerQueueIronCommand();
-        $this->registerCronStartCommand();
-        $this->registerCronStopCommand();
-
-        $this->registerCommandSubscriber();
+        parent::register();
+        $this->registerIronCommand();
     }
 
     /**
-     * Register the job provider class.
+     * Register the queue manager.
      *
      * @return void
      */
-    protected function registerJobProvider()
+    protected function registerManager()
     {
-        $this->app->bindShared('jobprovider', function ($app) {
-            $model = $app['config']['graham-campbell/queuing::job'];
-            $job = new $model();
+        $this->app->bindShared('queue', function($app)
+        {
+            $manager = new Managers\QueueManager($app);
 
-            $validator = $app['validator'];
-            $config = $app['config'];
+            $this->registerConnectors($manager);
 
-            return new Providers\JobProvider($job, $validator, $config);
+            return $manager;
         });
     }
 
     /**
-     * Register the queuing class.
+     * Register the Sync queue connector.
      *
+     * @param  \Illuminate\Queue\QueueManager  $manager
      * @return void
      */
-    protected function registerQueuing()
+    protected function registerSyncConnector($manager)
     {
-        $this->app->bindShared('queuing', function ($app) {
-            $queue = $app['queue'];
-            $jobprovider = $app['jobprovider'];
-            $driver = $app['config']['queue.default'];
-
-            return new Classes\Queuing($queue, $jobprovider, $driver);
+        $manager->addConnector('sync', function() {
+            return new Connectors\SyncConnector();
         });
     }
 
     /**
-     * Register the cron class.
+     * Register the Beanstalkd queue connector.
      *
+     * @param  \Illuminate\Queue\QueueManager  $manager
      * @return void
      */
-    protected function registerCron()
+    protected function registerBeanstalkdConnector($manager)
     {
-        $this->app->bindShared('cron', function ($app) {
-            $queuing = $app['queuing'];
-
-            return new Classes\Cron($queuing);
+        $manager->addConnector('beanstalkd', function() {
+            return new Connectors\BeanstalkdConnector();
         });
     }
 
     /**
-     * Register the queue length command class.
+     * Register the Redis queue connector.
      *
+     * @param  \Illuminate\Queue\QueueManager  $manager
      * @return void
      */
-    protected function registerQueueLengthCommand()
+    protected function registerRedisConnector($manager)
     {
-        $this->app->bindShared('command.queuelength', function ($app) {
-            return new Commands\QueueLength();
+        $app = $this->app;
+
+        $manager->addConnector('redis', function() use ($app) {
+            $redis = $app['redis'];
+
+            return new Connectors\RedisConnector($redis);
         });
     }
 
     /**
-     * Register the queue clear command class.
+     * Register the Amazon SQS queue connector.
      *
+     * @param  \Illuminate\Queue\QueueManager  $manager
      * @return void
      */
-    protected function registerQueueClearCommand()
+    protected function registerSqsConnector($manager)
     {
-        $this->app->bindShared('command.queueclear', function ($app) {
-            return new Commands\QueueClear();
+        $manager->addConnector('sqs', function() {
+            return new Connectors\SqsConnector();
         });
     }
 
     /**
-     * Register the queue iron command class.
+     * Register the IronMQ queue connector.
+     *
+     * @param  \Illuminate\Queue\QueueManager  $manager
+     * @return void
+     */
+    protected function registerIronConnector($manager)
+    {
+        $app = $this->app;
+
+        $manager->addConnector('iron', function() use ($app) {
+            $encrypter = $app['encrypter'];
+            $request = $app['request'];
+
+            return new Connectors\IronConnector($encrypter, $request);
+        });
+
+        $this->registerIronRequestBinder();
+    }
+
+    /**
+     * Register the request rebinding event for the Iron queue.
      *
      * @return void
      */
-    protected function registerQueueIronCommand()
+    protected function registerIronRequestBinder()
     {
-        $this->app->bindShared('command.queueiron', function ($app) {
+        $this->app->rebinding('request', function($app, $request) {
+            if ($app['queue']->connected('iron')) {
+                $app['queue']->connection('iron')->setRequest($request);
+            }
+        });
+    }
+
+    /**
+     * Register the iron command class.
+     *
+     * @return void
+     */
+    protected function registerIronCommand()
+    {
+        $this->app->bindShared('command.queue.iron', function ($app) {
             return new Commands\QueueIron();
         });
-    }
 
-    /**
-     * Register the cron start command class.
-     *
-     * @return void
-     */
-    protected function registerCronStartCommand()
-    {
-        $this->app->bindShared('command.cronstart', function ($app) {
-            return new Commands\CronStart();
-        });
-    }
-
-    /**
-     * Register the cron stop command class.
-     *
-     * @return void
-     */
-    protected function registerCronStopCommand()
-    {
-        $this->app->bindShared('command.cronstop', function ($app) {
-            return new Commands\CronStop();
-        });
-    }
-
-    /**
-     * Register the command subscriber class.
-     *
-     * @return void
-     */
-    protected function registerCommandSubscriber()
-    {
-        $this->app->bindShared('GrahamCampbell\Queuing\Subscribers\CommandSubscriber', function ($app) {
-            $config = $app['config'];
-
-            return new Subscribers\CommandSubscriber($config);
-        });
+        $this->commands('command.queue.iron');
     }
 
     /**
@@ -207,14 +193,14 @@ class QueuingServiceProvider extends ServiceProvider
     public function provides()
     {
         return array(
-            'jobprovider',
-            'queuing',
-            'cron',
-            'command.queuelength',
-            'command.queueclear',
-            'command.queueiron',
-            'command.cronstart',
-            'command.cronstop'
+            'queue',
+            'queue.worker',
+            'queue.listener',
+            'queue.failer',
+            'command.queue.work',
+            'command.queue.listen',
+            'command.queue.subscribe',
+            'command.queue.iron'
         );
     }
 }

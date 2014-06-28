@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-namespace GrahamCampbell\Queuing\Facades;
+namespace GrahamCampbell\Queuing\Queues;
 
-use Illuminate\Support\Facades\Facade;
+use Illuminate\Queue\BeanstalkdQueue as LaravelBeanstalkdQueue;
 
 /**
- * This is the cron facade class.
+ * This is the beanstalkd queue class.
  *
  * @package    Laravel-Queuing
  * @author     Graham Campbell
@@ -27,15 +27,7 @@ use Illuminate\Support\Facades\Facade;
  * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
-class Cron extends Facade
+class BeanstalkdQueue extends LaravelBeanstalkdQueue implements QueueInterface
 {
-    /**
-     * Get the registered name of the component.
-     *
-     * @return string
-     */
-    protected static function getFacadeAccessor()
-    {
-        return 'cron';
-    }
+    use QueueTrait;
 }

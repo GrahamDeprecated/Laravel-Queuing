@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
-return array(
+namespace GrahamCampbell\Queuing\Queues;
 
-    /*
-    |--------------------------------------------------------------------------
-    | Job Model
-    |--------------------------------------------------------------------------
-    |
-    | This defines the job model to be used.
-    |
-    | Default: 'GrahamCampbell\Queuing\Models\Job'
-    |
-    */
+use Illuminate\Queue\IronQueue as LaravelIronQueue;
 
-    'job' => 'GrahamCampbell\Queuing\Models\Job'
-
-);
+/**
+ * This is the iron queue class.
+ *
+ * @package    Laravel-Queuing
+ * @author     Graham Campbell
+ * @copyright  Copyright 2013-2014 Graham Campbell
+ * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
+ * @link       https://github.com/GrahamCampbell/Laravel-Queuing
+ */
+class IronQueue extends LaravelIronQueue implements QueueInterface
+{
+    use QueueTrait;
+}

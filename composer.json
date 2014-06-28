@@ -1,6 +1,6 @@
 {
     "name": "graham-campbell/queuing",
-    "description": "Queuing Is A Cool Way To Queue In Laravel 4.1",
+    "description": "Queuing Provides Queuing Performance Increases Laravel 4.2+",
     "keywords": ["laravel", "framework", "queuing", "mail", "email", "cron", "queue", "Queuing", "Laravel Queuing", "Laravel-Queuing", "Graham Campbell", "GrahamCampbell"],
     "license": "Apache-2.0",
     "authors": [
@@ -11,17 +11,15 @@
     ],
     "require": {
         "php": ">=5.4.7",
-        "laravel/framework": "4.1.*",
-        "symfony/config": "2.4.*",
-        "symfony/event-dispatcher": "2.4.*",
-        "symfony/filesystem": "2.4.*",
-        "graham-campbell/core": "0.3.*"
+        "illuminate/console": "~4.2",
+        "illuminate/queue": "~4.2",
+        "illuminate/support": "~4.2"
     },
     "require-dev": {
-        "graham-campbell/testbench": "0.3.*",
-        "pda/pheanstalk": "2.1.*",
-        "aws/aws-sdk-php": "2.6.*",
-        "iron-io/iron_mq": "1.5.*"
+        "graham-campbell/testbench": "~1.0",
+        "pda/pheanstalk": "~2.1",
+        "aws/aws-sdk-php": "~2.4",
+        "iron-io/iron_mq": "~1.4"
     },
     "suggest": {
         "pda/pheanstalk": "Enables the beanstalk connector.",
@@ -29,9 +27,6 @@
         "iron-io/iron_mq": "Enables the iron connector."
     },
     "autoload": {
-        "classmap": [
-            "src/migrations"
-        ],
         "psr-4": {
             "GrahamCampbell\\Queuing\\": "src/"
         }
@@ -43,7 +38,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.3-dev"
+            "dev-develop": "0.4-dev"
         }
     },
     "minimum-stability": "dev",

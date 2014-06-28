@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-namespace GrahamCampbell\Queuing\Handlers;
+namespace GrahamCampbell\Queuing\Managers;
 
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Queue\QueueManager as LaravelQueueManager;
 
 /**
- * This is the mail handler class.
+ * This is the queue manager class.
  *
  * @package    Laravel-Queuing
  * @author     Graham Campbell
@@ -27,24 +27,17 @@ use Illuminate\Support\Facades\Mail;
  * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
-class MailHandler extends AbstractHandler
+class QueueManager extends LaravelQueueManager
 {
     /**
-     * Run the task (called by AbstractHandler).
+     * Process all jobs.
      *
-     * @return void
+     * @return array
      */
-    protected function run()
+    public function processAll()
     {
-        $data = $this->data;
-        if (!is_array($this->data['email'])) {
-            $this->data['email'] = array($this->data['email']);
-        }
-        foreach ($this->data['email'] as $email) {
-            $data['email'] = $email;
-            Mail::send($data['view'], $data, function ($mail) use ($data) {
-                $mail->to($data['email'])->subject($data['subject']);
-            });
+        foreach ($this->connections as $connection) {
+            $connection->process();
         }
     }
 }

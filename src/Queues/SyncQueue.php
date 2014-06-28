@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-namespace GrahamCampbell\Tests\Queuing\Facades;
+namespace GrahamCampbell\Queuing\Queues;
 
-use GrahamCampbell\Tests\Queuing\AbstractTestCase;
-use GrahamCampbell\TestBench\Traits\FacadeTestCaseTrait;
+use Illuminate\Queue\SyncQueue as LaravelSyncQueue;
 
 /**
- * This is the queuing facade test class.
+ * This is the sync queue class.
  *
  * @package    Laravel-Queuing
  * @author     Graham Campbell
@@ -28,37 +27,43 @@ use GrahamCampbell\TestBench\Traits\FacadeTestCaseTrait;
  * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
-class QueuingTest extends AbstractTestCase
+class SyncQueue extends LaravelSyncQueue implements QueueInterface
 {
-    use FacadeTestCaseTrait;
+    /**
+     * The jobs to get pushed.
+     *
+     * @var array
+     */
+    protected $jobs = array();
 
     /**
-     * Get the facade accessor.
+     * Push a new job onto the queue.
      *
-     * @return string
+     * @param  string  $job
+     * @param  mixed   $data
+     * @param  string  $queue
+     * @return void
      */
-    protected function getFacadeAccessor()
+    public function push($job, $data = '', $queue = null)
     {
-        return 'queuing';
+        $this->jobs[] = array(
+            'job'  => $job,
+            'data' => $data
+        );
     }
 
     /**
-     * Get the facade class.
+     * Process all jobs in the queue.
      *
-     * @return string
+     * @return void
      */
-    protected function getFacadeClass()
+    public function process()
     {
-        return 'GrahamCampbell\Queuing\Facades\Queuing';
-    }
-
-    /**
-     * Get the facade route.
-     *
-     * @return string
-     */
-    protected function getFacadeRoot()
-    {
-        return 'GrahamCampbell\Queuing\Classes\Queuing';
+        foreach ($this->jobs as $id => $job) {
+            // process the job
+            $this->resolveJob($job['job'], json_encode($job['data']))->fire();
+            // remove it from the processing queue
+            unset($this->jobs[$id]);
+        }
     }
 }

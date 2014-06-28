@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-namespace GrahamCampbell\Queuing\Commands;
+namespace GrahamCampbell\Queuing\Connectors;
 
-use Illuminate\Console\Command;
+use GrahamCampbell\Queuing\Queues\RedisQueue;
+use Illuminate\Queue\Connectors\RedisConnector as LaravelRedisConnector;
 
 /**
- * This is the cron start command class.
+ * This is the redis queue connector class.
  *
  * @package    Laravel-Queuing
  * @author     Graham Campbell
@@ -27,36 +28,16 @@ use Illuminate\Console\Command;
  * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
-class CronStart extends Command
+class RedisConnector extends LaravelRedisConnector
 {
     /**
-     * The command name.
+     * Establish a queue connection.
      *
-     * @var string
+     * @param  array  $config
+     * @return \Illuminate\Queue\QueueInterface
      */
-    protected $name = 'cron:start';
-
-    /**
-     * The command description.
-     *
-     * @var string
-     */
-    protected $description = 'Starts the cron jobs';
-
-    /**
-     * Run the commend.
-     *
-     * @return void
-     */
-    public function fire()
+    public function connect(array $config)
     {
-        $this->line('Starting cron...');
-        if ($this->laravel['config']['queue.default'] == 'sync') {
-            $this->error('Cron cannot run on the sync queue.');
-            $this->comment('Please change the queue in the config.');
-        } else {
-            $this->laravel['cron']->start(30);
-            $this->info('Cron started!');
-        }
+        return new RedisQueue($this->redis, $config['queue'], $this->connection);
     }
 }

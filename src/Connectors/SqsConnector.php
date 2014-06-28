@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-namespace GrahamCampbell\Queuing\Facades;
+namespace GrahamCampbell\Queuing\Connectors;
 
-use Illuminate\Support\Facades\Facade;
+use Aws\Sqs\SqsClient;
+use GrahamCampbell\Queuing\Queues\SqsQueue;
+use Illuminate\Queue\Connectors\SqsConnector as LaravelSqsConnector;
 
 /**
- * This is the queuing facade class.
+ * This is the sqs queue connector class.
  *
  * @package    Laravel-Queuing
  * @author     Graham Campbell
@@ -27,15 +29,18 @@ use Illuminate\Support\Facades\Facade;
  * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
  * @link       https://github.com/GrahamCampbell/Laravel-Queuing
  */
-class Queuing extends Facade
+class SqsConnector extends LaravelSqsConnector
 {
     /**
-     * Get the registered name of the component.
+     * Establish a queue connection.
      *
-     * @return string
+     * @param  array  $config
+     * @return \Illuminate\Queue\QueueInterface
      */
-    protected static function getFacadeAccessor()
+    public function connect(array $config)
     {
-        return 'queuing';
+        $sqs = SqsClient::factory($config);
+
+        return new SqsQueue($sqs, $config['queue']);
     }
 }
