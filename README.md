@@ -42,13 +42,26 @@ Failure to do so will result in an infinite loop.
 
 ## Configuration
 
-Laravel Queuing requires no configuration behond what Laravel's queuing would otherwise require. Just follow the simple install instructions and go!
+Laravel Queuing requires no configuration behond what Laravel's queuing would otherwise require, but provides a quickstart command for iron queuing where after configuring, you can simply run `php artisan queue:iron` with no arguments and it will just work.
 
 
 ## Usage
 
-There is currently no usage documentation besides the [API Documentation](http://grahamcampbell.github.io/Laravel-Queuing
-) for Laravel Queuing.
+**Queues\XXXQueue**
+
+All queue classes override Laravel's queue classes. When ever you call methods such as `push`, behind the scenes with package will simply queue them up in php's memory for real pushing whenever the `process` method on these classes is called. By default, this package will call this on `shutdown` through the queue manager, but you may manually call this earlier if you so which. After calling the function, the jobs will be removed from the internal queue so later calls to this function will not push same jobs twice.
+
+**Managers\QueueManager**
+
+This class extends Laravel's queue manager and will override it. It has one extra method `processAll`. This will call the `process` method on all active queue connections. The functionality of the `process` method on each queue is described above.
+
+**QueuingServiceProvider**
+
+This class contains no public methods of interest. This class should be added to the providers array in `app/config/app.php`. This class will setup ioc bindings and register queue processing.
+
+**Further Information**
+
+There are other classes in this package that are not documented here. This is because they are not intended for public use and are used internally by this package.
 
 You may see an example of implementation in [Laravel Credentials](https://github.com/GrahamCampbell/Laravel-Credentials) and [Bootstrap CMS](https://github.com/GrahamCampbell/Bootstrap-CMS).
 
