@@ -59,7 +59,7 @@ class QueueIron extends Command
             ));
             $this->info('Queueing is now setup!');
         } catch (\Exception $e) {
-            $this->error('Iron queuing could not be setup!')
+            $this->error('Iron queuing could not be setup!');
         }
     }
 }
