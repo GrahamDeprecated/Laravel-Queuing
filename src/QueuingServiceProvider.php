@@ -16,7 +16,6 @@
 
 namespace GrahamCampbell\Queuing;
 
-use ReflectionClass;
 use Illuminate\Queue\QueueServiceProvider;
 
 /**

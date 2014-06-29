@@ -48,7 +48,7 @@ class BeanstalkdConnector extends LaravelBeanstalkdConnector
         $pheanstalk = new $class($config['host']);
 
         return new BeanstalkdQueue(
-            $pheanstalk, $config['queue'], array_get($config, 'ttr', Pheanstalk::DEFAULT_TTR)
+            $pheanstalk, $config['queue'], array_get($config, 'ttr', $class::DEFAULT_TTR)
         );
     }
 }
