@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-namespace GrahamCampbell\Queuing\Managers;
+namespace GrahamCampbell\Queuing;
 
 use Illuminate\Queue\QueueManager as LaravelQueueManager;
 

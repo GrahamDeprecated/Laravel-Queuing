@@ -72,7 +72,7 @@ class QueuingServiceProvider extends QueueServiceProvider
     {
         $this->app->bindShared('queue', function($app)
         {
-            $manager = new Managers\QueueManager($app);
+            $manager = new QueueManager($app);
 
             $this->registerConnectors($manager);
 
