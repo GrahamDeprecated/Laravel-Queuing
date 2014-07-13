@@ -47,19 +47,19 @@ Laravel Queuing requires no configuration behond what Laravel's queuing would ot
 
 ## Usage
 
-**Queues\XXXQueue**
+##### Queues\XXXQueue
 
 All queue classes override Laravel's queue classes. When ever you call methods such as `push`, behind the scenes with package will simply queue them up in php's memory for real pushing whenever the `process` method on these classes is called. By default, this package will call this on `shutdown` through the queue manager, but you may manually call this earlier if you so which. After calling the function, the jobs will be removed from the internal queue so later calls to this function will not push same jobs twice.
 
-**QueueManager**
+##### QueueManager
 
 This class extends Laravel's queue manager and will override it. It has one extra method `processAll`. This will call the `process` method on all active queue connections. The functionality of the `process` method on each queue is described above.
 
-**QueuingServiceProvider**
+##### QueuingServiceProvider
 
-This class contains no public methods of interest. This class should be added to the providers array in `app/config/app.php`. This class will setup ioc bindings and register queue processing.
+This class contains no public methods of interest. This class should be added to the providers array in `app/config/app.php`. This class will setup ioc bindings and register queue processing. `Illuminate\Queue\QueueServiceProvider` must be removed from the service provider list before you add this class.
 
-**Further Information**
+##### Further Information
 
 There are other classes in this package that are not documented here. This is because they are not intended for public use and are used internally by this package.
 
