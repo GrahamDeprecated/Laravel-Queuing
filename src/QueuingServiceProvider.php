@@ -157,20 +157,6 @@ class QueuingServiceProvider extends QueueServiceProvider
     }
 
     /**
-     * Register the request rebinding event for the Iron queue.
-     *
-     * @return void
-     */
-    protected function registerIronRequestBinder()
-    {
-        $this->app->rebinding('request', function($app, $request) {
-            if ($app['queue']->connected('iron')) {
-                $app['queue']->connection('iron')->setRequest($request);
-            }
-        });
-    }
-
-    /**
      * Register the iron command class.
      *
      * @return void
