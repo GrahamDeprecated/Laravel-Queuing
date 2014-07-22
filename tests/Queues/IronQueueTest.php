@@ -40,7 +40,6 @@ class IronQueueTest extends AbstractQueueTestCase
         )->shouldAllowMockingProtectedMethods();
 
         $queue->shouldReceive('getQueue')->times(4)->with('')->andReturn('default');
-        $queue->shouldReceive('getQueue')->once()->with('default')->andReturn('default');
 
         $mock->shouldReceive('postMessage')->once()
             ->with('default', '{"job":"foo","data":["foodata"],"attempts":1,"queue":"default"}', array())
