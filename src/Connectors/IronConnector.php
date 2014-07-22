@@ -16,9 +16,9 @@
 
 namespace GrahamCampbell\Queuing\Connectors;
 
-use IronMQ;
 use GrahamCampbell\Queuing\Queues\IronQueue;
 use Illuminate\Queue\Connectors\IronConnector as LaravelIronConnector;
+use IronMQ;
 
 /**
  * This is the iron queue connector class.
