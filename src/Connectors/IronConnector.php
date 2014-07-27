@@ -34,7 +34,7 @@ class IronConnector extends LaravelIronConnector
      *
      * @param array $config
      *
-     * @return \Illuminate\Queue\QueueInterface
+     * @return \GrahamCampbell\Queuing\Queues\IronQueue
      */
     public function connect(array $config)
     {

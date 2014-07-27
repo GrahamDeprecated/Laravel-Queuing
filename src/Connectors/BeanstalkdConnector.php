@@ -33,7 +33,7 @@ class BeanstalkdConnector extends LaravelBeanstalkdConnector
      *
      * @param array $config
      *
-     * @return \Illuminate\Queue\QueueInterface
+     * @return \GrahamCampbell\Queuing\Queues\BeanstalkdQueue
      */
     public function connect(array $config)
     {

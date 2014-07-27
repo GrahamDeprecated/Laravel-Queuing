@@ -33,7 +33,7 @@ class RedisConnector extends LaravelRedisConnector
      *
      * @param array $config
      *
-     * @return \Illuminate\Queue\QueueInterface
+     * @return \GrahamCampbell\Queuing\Queues\RedisQueue
      */
     public function connect(array $config)
     {

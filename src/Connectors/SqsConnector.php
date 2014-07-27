@@ -34,7 +34,7 @@ class SqsConnector extends LaravelSqsConnector
      *
      * @param array $config
      *
-     * @return \Illuminate\Queue\QueueInterface
+     * @return \GrahamCampbell\Queuing\Queues\SqsQueue
      */
     public function connect(array $config)
     {

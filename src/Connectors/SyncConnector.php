@@ -33,7 +33,7 @@ class SyncConnector extends LaravelSyncConnector
      *
      * @param array $config
      *
-     * @return \Illuminate\Queue\QueueInterface
+     * @return \GrahamCampbell\Queuing\Queues\SyncQueue
      */
     public function connect(array $config)
     {
