@@ -21,27 +21,26 @@ use Illuminate\Queue\SyncQueue as LaravelSyncQueue;
 /**
  * This is the sync queue class.
  *
- * @package    Laravel-Queuing
- * @author     Graham Campbell
- * @copyright  Copyright 2013-2014 Graham Campbell
- * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
- * @link       https://github.com/GrahamCampbell/Laravel-Queuing
+ * @author    Graham Campbell <graham@mineuk.com>
+ * @copyright 2013-2014 Graham Campbell
+ * @license   <https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md> Apache 2.0
  */
 class SyncQueue extends LaravelSyncQueue implements QueueInterface
 {
     /**
      * The jobs to get pushed.
      *
-     * @var array
+     * @type array
      */
     protected $jobs = array();
 
     /**
      * Push a new job onto the queue.
      *
-     * @param  string  $job
-     * @param  mixed   $data
-     * @param  string  $queue
+     * @param string $job
+     * @param mixed  $data
+     * @param string $queue
+     *
      * @return void
      */
     public function push($job, $data = '', $queue = null)

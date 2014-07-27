@@ -19,27 +19,26 @@ namespace GrahamCampbell\Queuing\Queues;
 /**
  * This is the queue trait.
  *
- * @package    Laravel-Queuing
- * @author     Graham Campbell
- * @copyright  Copyright 2013-2014 Graham Campbell
- * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
- * @link       https://github.com/GrahamCampbell/Laravel-Queuing
+ * @author    Graham Campbell <graham@mineuk.com>
+ * @copyright 2013-2014 Graham Campbell
+ * @license   <https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md> Apache 2.0
  */
 trait QueueTrait
 {
     /**
      * The jobs to get pushed.
      *
-     * @var array
+     * @type array
      */
     protected $jobs = array();
 
     /**
      * Push a raw payload onto the queue.
      *
-     * @param  string  $payload
-     * @param  string  $queue
-     * @param  array   $options
+     * @param string $payload
+     * @param string $queue
+     * @param array  $options
+     *
      * @return void
      */
     public function pushRaw($payload, $queue = null, array $options = array())
@@ -55,10 +54,11 @@ trait QueueTrait
     /**
      * Push a new job onto the queue after a delay.
      *
-     * @param  \DateTime|int  $delay
-     * @param  string  $job
-     * @param  mixed   $data
-     * @param  string  $queue
+     * @param \DateTime|int $delay
+     * @param string        $job
+     * @param mixed         $data
+     * @param string        $queue
+     *
      * @return void
      */
     public function later($delay, $job, $data = '', $queue = null)
@@ -92,7 +92,8 @@ trait QueueTrait
     /**
      * Process a "push".
      *
-     * @param  array  $job
+     * @param array $job
+     *
      * @return void
      */
     protected function processPush($job)
@@ -103,7 +104,8 @@ trait QueueTrait
     /**
      * Process a "later".
      *
-     * @param  array  $job
+     * @param array $job
+     *
      * @return void
      */
     protected function processLater($job)

@@ -21,18 +21,16 @@ use Illuminate\Queue\QueueServiceProvider;
 /**
  * This is the queuing service provider class.
  *
- * @package    Laravel-Queuing
- * @author     Graham Campbell
- * @copyright  Copyright 2013-2014 Graham Campbell
- * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
- * @link       https://github.com/GrahamCampbell/Laravel-Queuing
+ * @author    Graham Campbell <graham@mineuk.com>
+ * @copyright 2013-2014 Graham Campbell
+ * @license   <https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md> Apache 2.0
  */
 class QueuingServiceProvider extends QueueServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
      *
-     * @var bool
+     * @type bool
      */
     protected $defer = false;
 
@@ -70,8 +68,7 @@ class QueuingServiceProvider extends QueueServiceProvider
      */
     protected function registerManager()
     {
-        $this->app->bindShared('queue', function($app)
-        {
+        $this->app->bindShared('queue', function ($app) {
             $manager = new QueueManager($app);
 
             $this->registerConnectors($manager);
@@ -83,12 +80,13 @@ class QueuingServiceProvider extends QueueServiceProvider
     /**
      * Register the Sync queue connector.
      *
-     * @param  \Illuminate\Queue\QueueManager  $manager
+     * @param \Illuminate\Queue\QueueManager $manager
+     *
      * @return void
      */
     protected function registerSyncConnector($manager)
     {
-        $manager->addConnector('sync', function() {
+        $manager->addConnector('sync', function () {
             return new Connectors\SyncConnector();
         });
     }
@@ -96,12 +94,13 @@ class QueuingServiceProvider extends QueueServiceProvider
     /**
      * Register the Beanstalkd queue connector.
      *
-     * @param  \Illuminate\Queue\QueueManager  $manager
+     * @param \Illuminate\Queue\QueueManager $manager
+     *
      * @return void
      */
     protected function registerBeanstalkdConnector($manager)
     {
-        $manager->addConnector('beanstalkd', function() {
+        $manager->addConnector('beanstalkd', function () {
             return new Connectors\BeanstalkdConnector();
         });
     }
@@ -109,14 +108,15 @@ class QueuingServiceProvider extends QueueServiceProvider
     /**
      * Register the Redis queue connector.
      *
-     * @param  \Illuminate\Queue\QueueManager  $manager
+     * @param \Illuminate\Queue\QueueManager $manager
+     *
      * @return void
      */
     protected function registerRedisConnector($manager)
     {
         $app = $this->app;
 
-        $manager->addConnector('redis', function() use ($app) {
+        $manager->addConnector('redis', function () use ($app) {
             $redis = $app['redis'];
 
             return new Connectors\RedisConnector($redis);
@@ -126,12 +126,13 @@ class QueuingServiceProvider extends QueueServiceProvider
     /**
      * Register the Amazon SQS queue connector.
      *
-     * @param  \Illuminate\Queue\QueueManager  $manager
+     * @param \Illuminate\Queue\QueueManager $manager
+     *
      * @return void
      */
     protected function registerSqsConnector($manager)
     {
-        $manager->addConnector('sqs', function() {
+        $manager->addConnector('sqs', function () {
             return new Connectors\SqsConnector();
         });
     }
@@ -139,14 +140,15 @@ class QueuingServiceProvider extends QueueServiceProvider
     /**
      * Register the IronMQ queue connector.
      *
-     * @param  \Illuminate\Queue\QueueManager  $manager
+     * @param \Illuminate\Queue\QueueManager $manager
+     *
      * @return void
      */
     protected function registerIronConnector($manager)
     {
         $app = $this->app;
 
-        $manager->addConnector('iron', function() use ($app) {
+        $manager->addConnector('iron', function () use ($app) {
             $encrypter = $app['encrypter'];
             $request = $app['request'];
 

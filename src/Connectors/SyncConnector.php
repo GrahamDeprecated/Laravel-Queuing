@@ -22,18 +22,17 @@ use Illuminate\Queue\Connectors\SyncConnector as LaravelSyncConnector;
 /**
  * This is the sync queue connector class.
  *
- * @package    Laravel-Queuing
- * @author     Graham Campbell
- * @copyright  Copyright 2013-2014 Graham Campbell
- * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
- * @link       https://github.com/GrahamCampbell/Laravel-Queuing
+ * @author    Graham Campbell <graham@mineuk.com>
+ * @copyright 2013-2014 Graham Campbell
+ * @license   <https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md> Apache 2.0
  */
 class SyncConnector extends LaravelSyncConnector
 {
     /**
      * Establish a queue connection.
      *
-     * @param  array  $config
+     * @param array $config
+     *
      * @return \Illuminate\Queue\QueueInterface
      */
     public function connect(array $config)

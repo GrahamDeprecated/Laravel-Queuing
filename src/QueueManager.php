@@ -21,18 +21,16 @@ use Illuminate\Queue\QueueManager as LaravelQueueManager;
 /**
  * This is the queue manager class.
  *
- * @package    Laravel-Queuing
- * @author     Graham Campbell
- * @copyright  Copyright 2013-2014 Graham Campbell
- * @license    https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md
- * @link       https://github.com/GrahamCampbell/Laravel-Queuing
+ * @author    Graham Campbell <graham@mineuk.com>
+ * @copyright 2013-2014 Graham Campbell
+ * @license   <https://github.com/GrahamCampbell/Laravel-Queuing/blob/master/LICENSE.md> Apache 2.0
  */
 class QueueManager extends LaravelQueueManager
 {
     /**
      * Process all jobs.
      *
-     * @return array
+     * @return void
      */
     public function processAll()
     {
