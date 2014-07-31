@@ -30,7 +30,7 @@ class SyncQueue extends LaravelSyncQueue implements QueueInterface
     /**
      * The jobs to get pushed.
      *
-     * @type array
+     * @var array
      */
     protected $jobs = array();
 

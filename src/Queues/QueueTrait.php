@@ -28,7 +28,7 @@ trait QueueTrait
     /**
      * The jobs to get pushed.
      *
-     * @type array
+     * @var array
      */
     protected $jobs = array();
 

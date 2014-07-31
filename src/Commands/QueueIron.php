@@ -30,14 +30,14 @@ class QueueIron extends Command
     /**
      * The command name.
      *
-     * @type string
+     * @var string
      */
     protected $name = 'queue:iron';
 
     /**
      * The command description.
      *
-     * @type string
+     * @var string
      */
     protected $description = 'Sets up IronMQ subscriptions';
 
