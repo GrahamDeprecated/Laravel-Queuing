@@ -2,9 +2,11 @@ CHANGE LOG
 ==========
 
 
-## V1.0 RC 1 (Upcoming - August 2014)
+## V1.0 (12/08/2014)
 
-* Added some tests
+* Corrected the license comments
+* Added some more tests
+* Docblock fixes
 * Minor fixes and tweaks
 
 
