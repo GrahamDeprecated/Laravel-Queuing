@@ -16,7 +16,6 @@
 
 namespace GrahamCampbell\Tests\Queuing\Queues;
 
-use Mockery;
 use GrahamCampbell\TestBench\AbstractTestCase;
 
 /**

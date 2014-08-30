@@ -40,11 +40,11 @@ class SqsQueueTest extends AbstractQueueTestCase
 
         $mock->shouldReceive('sendMessage')->once()
             ->with(array('QueueUrl' => 'default', 'MessageBody' => '{"job":"foo","data":["foodata"]}'))
-            ->andReturn(new SqsStub);
+            ->andReturn(new SqsStub());
 
         $mock->shouldReceive('sendMessage')->once()
             ->with(array('QueueUrl' => 'default', 'MessageBody' => '{"job":"bar","data":["bardata"]}', 'DelaySeconds' => 666))
-            ->andReturn(new SqsStub);
+            ->andReturn(new SqsStub());
 
         return $queue;
     }
