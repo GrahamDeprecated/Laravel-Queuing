@@ -31,8 +31,8 @@ abstract class AbstractQueueTestCase extends AbstractTestCase
     {
         $queue = $this->getQueue();
 
-        $queue->push('foo', array('foodata'));
-        $queue->later(666, 'bar', array('bardata'));
+        $this->assertNull($queue->push('foo', array('foodata')));
+        $this->assertNull($queue->later(666, 'bar', array('bardata')));
 
         // process once - jobs are processed and unset
         $queue->process();

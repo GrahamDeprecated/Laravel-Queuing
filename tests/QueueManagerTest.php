@@ -40,7 +40,7 @@ class QueueManagerTest extends AbstractTestBenchTestCase
 
         $property->setValue($manager, $this->getConnections());
 
-        $manager->processAll();
+        $this->assertNull($manager->processAll());
     }
 
     protected function getManager()
