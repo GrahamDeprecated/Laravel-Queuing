@@ -12,7 +12,7 @@ CHANGE LOG
 
 ## V1.0 Beta 1 (20/07/2014)
 
-* Upgrade to Laravel 4.2+
+* Upgrade to Laravel 4.2
 * Complete rewrite
 * Added di aliases
 

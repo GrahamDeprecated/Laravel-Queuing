@@ -11,7 +11,7 @@ Laravel Queuing
 
 ## Introduction
 
-Laravel Queuing was created by, and is maintained by [Graham Campbell](https://github.com/GrahamCampbell), and provides queuing performance increases for [Laravel 4.2+](http://laravel.com). It works by doing the actual job queuing (including the execution of sync jobs) after the response has been sent to the client (on shutdown). Feel free to check out the [change log](CHANGELOG.md), [releases](https://github.com/GrahamCampbell/Laravel-Queuing/releases), [license](LICENSE.md), [api docs](http://docs.grahamjcampbell.co.uk), and [contribution guidelines](CONTRIBUTING.md).
+Laravel Queuing was created by, and is maintained by [Graham Campbell](https://github.com/GrahamCampbell), and provides queuing performance increases for [Laravel 4.2](http://laravel.com). It works by doing the actual job queuing (including the execution of sync jobs) after the response has been sent to the client (on shutdown). Feel free to check out the [change log](CHANGELOG.md), [releases](https://github.com/GrahamCampbell/Laravel-Queuing/releases), [license](LICENSE.md), [api docs](http://docs.grahamjcampbell.co.uk), and [contribution guidelines](CONTRIBUTING.md).
 
 
 ## Installation
