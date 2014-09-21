@@ -16,9 +16,9 @@
 
 namespace GrahamCampbell\Queuing\Connectors;
 
-use Pheanstalk_Pheanstalk as Pheanstalk;
 use GrahamCampbell\Queuing\Queues\BeanstalkdQueue;
 use Illuminate\Queue\Connectors\BeanstalkdConnector as LaravelBeanstalkdConnector;
+use Pheanstalk_Pheanstalk as Pheanstalk;
 
 /**
  * This is the beanstalkd queue connector class.
@@ -38,10 +38,10 @@ class BeanstalkdConnector extends LaravelBeanstalkdConnector
      */
     public function connect(array $config)
     {
-        $pheanstalk = new Pheanstalk($config['host']);
+        $pheanstalk = new Pheanstalk($config['host'], array_get($config, 'port', Pheanstalk::DEFAULT_PORT));
 
         return new BeanstalkdQueue(
-            $pheanstalk, $config['queue'], array_get($config, 'ttr', $class::DEFAULT_TTR)
+            $pheanstalk, $config['queue'], array_get($config, 'ttr', Pheanstalk::DEFAULT_TTR)
         );
     }
 }
