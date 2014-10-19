@@ -4,8 +4,10 @@ CHANGE LOG
 
 ## V1.0.1 (Upcoming)
 
-* Improved the test suite
 * Beanstalk improvements
+* Improved the test suite
+* Added cs fixers to the test suite
+* Improved the docs
 
 
 ## V1.0 (12/08/2014)
