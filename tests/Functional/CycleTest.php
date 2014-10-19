@@ -16,8 +16,8 @@
 
 namespace GrahamCampbell\Tests\Queuing\Functional;
 
-use Illuminate\Support\Facades\Queue;
 use GrahamCampbell\Tests\Queuing\AbstractTestCase;
+use Illuminate\Support\Facades\Queue;
 
 /**
  * This is the cycle test class.

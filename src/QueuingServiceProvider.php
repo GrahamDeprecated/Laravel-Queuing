@@ -187,7 +187,7 @@ class QueuingServiceProvider extends QueueServiceProvider
             'command.queue.work',
             'command.queue.listen',
             'command.queue.subscribe',
-            'command.queue.iron'
+            'command.queue.iron',
         );
     }
 }

@@ -16,8 +16,8 @@
 
 namespace GrahamCampbell\Tests\Queuing\Functional;
 
-use Illuminate\Support\Facades\Queue;
 use GrahamCampbell\Tests\Queuing\AbstractTestCase;
+use Illuminate\Support\Facades\Queue;
 
 /**
  * This is the queuing test class.
@@ -35,7 +35,7 @@ class QueuingTest extends AbstractTestCase
             array('beanstalkd', 'GrahamCampbell\Queuing\Queues\BeanstalkdQueue'),
             array('redis', 'GrahamCampbell\Queuing\Queues\RedisQueue'),
             array('sqs', 'GrahamCampbell\Queuing\Queues\SqsQueue'),
-            array('iron', 'GrahamCampbell\Queuing\Queues\IronQueue')
+            array('iron', 'GrahamCampbell\Queuing\Queues\IronQueue'),
         );
     }
 

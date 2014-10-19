@@ -47,7 +47,7 @@ trait QueueTrait
             'type'    => 'push',
             'payload' => $payload,
             'queue'   => $queue,
-            'options' => $options
+            'options' => $options,
         );
     }
 
@@ -68,7 +68,7 @@ trait QueueTrait
             'delay' => $delay,
             'job'   => $job,
             'data'  => $data,
-            'queue' => $queue
+            'queue' => $queue,
         );
     }
 

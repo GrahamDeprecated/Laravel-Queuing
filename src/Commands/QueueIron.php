@@ -53,7 +53,7 @@ class QueueIron extends Command
         try {
             $this->call('queue:subscribe', array(
                 'queue' => $this->laravel['config']['queue.connections.iron.queue'],
-                'url' => $this->laravel['url']->to('queue/receive')
+                'url' => $this->laravel['url']->to('queue/receive'),
             ));
             $this->info('Queueing is now setup!');
         } catch (\Exception $e) {

@@ -47,7 +47,7 @@ class SyncQueue extends LaravelSyncQueue implements QueueInterface
     {
         $this->jobs[] = array(
             'job'  => $job,
-            'data' => $data
+            'data' => $data,
         );
     }
 

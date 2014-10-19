@@ -16,10 +16,10 @@
 
 namespace GrahamCampbell\Tests\Queuing;
 
-use Mockery;
-use ReflectionClass;
 use GrahamCampbell\Queuing\QueueManager;
 use GrahamCampbell\TestBench\AbstractTestCase as AbstractTestBenchTestCase;
+use Mockery;
+use ReflectionClass;
 
 /**
  * This is the queue manager test class.
