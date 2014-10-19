@@ -39,9 +39,8 @@ class BeanstalkdConnector extends LaravelBeanstalkdConnector
     public function connect(array $config)
     {
         $pheanstalk = new Pheanstalk($config['host'], array_get($config, 'port', Pheanstalk::DEFAULT_PORT));
+        $ttr = array_get($config, 'ttr', Pheanstalk::DEFAULT_TTR);
 
-        return new BeanstalkdQueue(
-            $pheanstalk, $config['queue'], array_get($config, 'ttr', Pheanstalk::DEFAULT_TTR)
-        );
+        return new BeanstalkdQueue($pheanstalk, $config['queue'], $ttr);
     }
 }
