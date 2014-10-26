@@ -16,9 +16,13 @@ Laravel Queuing was created by, and is maintained by [Graham Campbell](https://g
 
 ## Installation
 
-[PHP](https://php.net) 5.4+ or [HHVM](http://hhvm.com) 3.2+, and [Composer](https://getcomposer.org) are required.
+[PHP](https://php.net) 5.4+ or [HHVM](http://hhvm.com) 3.3+, and [Composer](https://getcomposer.org) are required.
 
-To get the latest version of Laravel Queuing, simply require `"graham-campbell/queuing": "~1.0"` in your `composer.json` file.
+To get the latest version of Laravel Queuing, simply add the following line to the require block of your `composer.json` file:
+
+```
+"graham-campbell/queuing": "~1.0"
+```
 
 There are some additional dependencies you will need to install for some of the features:
 
