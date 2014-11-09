@@ -2,7 +2,7 @@ CHANGE LOG
 ==========
 
 
-## V1.0.2 (Upcoming)
+## V1.0.2 (09/11/2014)
 
 * Updated the docs
 * Tweaked the routes file
