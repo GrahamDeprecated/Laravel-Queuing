@@ -42,10 +42,6 @@ Open up `app/config/app.php` and remove `'Illuminate\Queue\QueueServiceProvider'
 
 Failure to do so will result in an infinite loop.
 
-#### Looking for a laravel 5 compatable version?
-
-Checkout the [master branch](https://github.com/GrahamCampbell/Laravel-Queuing/tree/master), installable by requiring `"graham-campbell/queuing": "~2.0"`.
-
 
 ## Configuration
 
