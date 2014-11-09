@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+use Illuminate\Support\Facades\Queue;
+use Illuminate\Support\Facades\Route;
+
 Route::post('queue/receive', function () {
     return Queue::connection('iron')->marshal();
 });
