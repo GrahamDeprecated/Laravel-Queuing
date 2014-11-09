@@ -165,7 +165,7 @@ class QueuingServiceProvider extends QueueServiceProvider
      */
     protected function registerIronCommand()
     {
-        $this->app->bindShared('command.queue.iron', function ($app) {
+        $this->app->bindShared('command.queue.iron', function () {
             return new Commands\QueueIron();
         });
 
