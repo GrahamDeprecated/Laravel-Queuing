@@ -42,10 +42,14 @@ class RedisQueueTest extends AbstractQueueTestCase
 
         $queue->shouldReceive('getTime')->once()->andReturn(568);
 
-        $mock->shouldReceive('rpush')->once()
+        $client = Mockery::mock('Predis\Client');
+
+        $mock->shouldReceive('connection')->twice()->with('')->andReturn($client);
+
+        $client->shouldReceive('rpush')->once()
             ->with('default', '{"job":"foo","data":["foodata"],"id":"notsorandomid","attempts":1}');
 
-        $mock->shouldReceive('zadd')->once()
+        $client->shouldReceive('zadd')->once()
             ->with('default:delayed', 1234, '{"job":"bar","data":["bardata"],"id":"notsorandomid","attempts":1}');
 
         return $queue;
