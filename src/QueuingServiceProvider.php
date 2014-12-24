@@ -179,7 +179,7 @@ class QueuingServiceProvider extends QueueServiceProvider
      */
     public function provides()
     {
-        return array(
+        return [
             'queue',
             'queue.worker',
             'queue.listener',
@@ -188,6 +188,6 @@ class QueuingServiceProvider extends QueueServiceProvider
             'command.queue.listen',
             'command.queue.subscribe',
             'command.queue.iron',
-        );
+        ];
     }
 }

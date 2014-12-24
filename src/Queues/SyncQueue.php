@@ -32,7 +32,7 @@ class SyncQueue extends LaravelSyncQueue implements QueueInterface
      *
      * @var array
      */
-    protected $jobs = array();
+    protected $jobs = [];
 
     /**
      * Push a new job onto the queue.
@@ -45,10 +45,10 @@ class SyncQueue extends LaravelSyncQueue implements QueueInterface
      */
     public function push($job, $data = '', $queue = null)
     {
-        $this->jobs[] = array(
+        $this->jobs[] = [
             'job'  => $job,
             'data' => $data,
-        );
+        ];
     }
 
     /**

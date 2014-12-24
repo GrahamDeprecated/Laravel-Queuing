@@ -30,7 +30,7 @@ trait QueueTrait
      *
      * @var array
      */
-    protected $jobs = array();
+    protected $jobs = [];
 
     /**
      * Push a raw payload onto the queue.
@@ -41,14 +41,14 @@ trait QueueTrait
      *
      * @return void
      */
-    public function pushRaw($payload, $queue = null, array $options = array())
+    public function pushRaw($payload, $queue = null, array $options = [])
     {
-        $this->jobs[] = array(
+        $this->jobs[] = [
             'type'    => 'push',
             'payload' => $payload,
             'queue'   => $queue,
             'options' => $options,
-        );
+        ];
     }
 
     /**
@@ -63,13 +63,13 @@ trait QueueTrait
      */
     public function later($delay, $job, $data = '', $queue = null)
     {
-        $this->jobs[] = array(
+        $this->jobs[] = [
             'type'  => 'later',
             'delay' => $delay,
             'job'   => $job,
             'data'  => $data,
             'queue' => $queue,
-        );
+        ];
     }
 
     /**

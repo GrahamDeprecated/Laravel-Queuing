@@ -31,8 +31,8 @@ class SyncQueueTest extends AbstractQueueTestCase
     {
         $queue = $this->getQueue();
 
-        $this->assertNull($queue->push('foo', array('foodata')));
-        $this->assertNull($queue->push('bar', array('bardata')));
+        $this->assertNull($queue->push('foo', ['foodata']));
+        $this->assertNull($queue->push('bar', ['bardata']));
 
         // process once - jobs are processed and unset
         $queue->process();

@@ -33,7 +33,7 @@ class RedisQueueTest extends AbstractQueueTestCase
 
         $queue = Mockery::mock(
             'GrahamCampbell\Queuing\Queues\RedisQueue[getQueue,getRandomId,getTime]',
-            array($mock, 'default', null)
+            [$mock, 'default', null]
         )->shouldAllowMockingProtectedMethods();
 
         $queue->shouldReceive('getQueue')->twice()->with('')->andReturn('default');

@@ -38,7 +38,7 @@ class IronConnector extends LaravelIronConnector
      */
     public function connect(array $config)
     {
-        $ironConfig = array('token' => $config['token'], 'project_id' => $config['project']);
+        $ironConfig = ['token' => $config['token'], 'project_id' => $config['project']];
 
         if (isset($config['host'])) {
             $ironConfig['host'] = $config['host'];

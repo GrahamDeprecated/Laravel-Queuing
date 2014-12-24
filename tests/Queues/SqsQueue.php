@@ -33,17 +33,17 @@ class SqsQueueTest extends AbstractQueueTestCase
 
         $queue = Mockery::mock(
             'GrahamCampbell\Queuing\Queues\SqsQueue[getQueue]',
-            array($mock, 'default')
+            [$mock, 'default']
         )->shouldAllowMockingProtectedMethods();
 
         $queue->shouldReceive('getQueue')->twice()->with('')->andReturn('default');
 
         $mock->shouldReceive('sendMessage')->once()
-            ->with(array('QueueUrl' => 'default', 'MessageBody' => '{"job":"foo","data":["foodata"]}'))
+            ->with(['QueueUrl' => 'default', 'MessageBody' => '{"job":"foo","data":["foodata"]}'])
             ->andReturn(new SqsStub());
 
         $mock->shouldReceive('sendMessage')->once()
-            ->with(array('QueueUrl' => 'default', 'MessageBody' => '{"job":"bar","data":["bardata"]}', 'DelaySeconds' => 666))
+            ->with(['QueueUrl' => 'default', 'MessageBody' => '{"job":"bar","data":["bardata"]}', 'DelaySeconds' => 666])
             ->andReturn(new SqsStub());
 
         return $queue;

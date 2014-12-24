@@ -56,6 +56,6 @@ class QueueManagerTest extends AbstractTestBenchTestCase
 
         $mock->shouldReceive('process')->twice();
 
-        return array($mock, $mock);
+        return [$mock, $mock];
     }
 }

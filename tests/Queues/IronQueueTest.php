@@ -34,18 +34,18 @@ class IronQueueTest extends AbstractQueueTestCase
 
         $queue = Mockery::mock(
             'GrahamCampbell\Queuing\Queues\IronQueue[getQueue]',
-            array($mock, $request, 'default')
+            [$mock, $request, 'default']
         )->shouldAllowMockingProtectedMethods();
 
         $queue->shouldReceive('getQueue')->times(4)->with('')->andReturn('default');
 
         $mock->shouldReceive('postMessage')->once()
-            ->with('default', '{"job":"foo","data":["foodata"],"attempts":1,"queue":"default"}', array())
-            ->andReturn((object) array('id' => 666));
+            ->with('default', '{"job":"foo","data":["foodata"],"attempts":1,"queue":"default"}', [])
+            ->andReturn((object) ['id' => 666]);
 
         $mock->shouldReceive('postMessage')->once()
-            ->with('default', '{"job":"bar","data":["bardata"],"attempts":1,"queue":"default"}', array('delay' => 666))
-            ->andReturn((object) array('id' => 666));
+            ->with('default', '{"job":"bar","data":["bardata"],"attempts":1,"queue":"default"}', ['delay' => 666])
+            ->andReturn((object) ['id' => 666]);
 
         return $queue;
     }

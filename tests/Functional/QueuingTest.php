@@ -30,13 +30,13 @@ class QueuingTest extends AbstractTestCase
 {
     public function connectionProvider()
     {
-        return array(
-            array('sync', 'GrahamCampbell\Queuing\Queues\SyncQueue'),
-            array('beanstalkd', 'GrahamCampbell\Queuing\Queues\BeanstalkdQueue'),
-            array('redis', 'GrahamCampbell\Queuing\Queues\RedisQueue'),
-            array('sqs', 'GrahamCampbell\Queuing\Queues\SqsQueue'),
-            array('iron', 'GrahamCampbell\Queuing\Queues\IronQueue'),
-        );
+        return [
+            ['sync', 'GrahamCampbell\Queuing\Queues\SyncQueue'],
+            ['beanstalkd', 'GrahamCampbell\Queuing\Queues\BeanstalkdQueue'],
+            ['redis', 'GrahamCampbell\Queuing\Queues\RedisQueue'],
+            ['sqs', 'GrahamCampbell\Queuing\Queues\SqsQueue'],
+            ['iron', 'GrahamCampbell\Queuing\Queues\IronQueue'],
+        ];
     }
 
     /**

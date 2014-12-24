@@ -33,7 +33,7 @@ class BeanstalkdQueueTest extends AbstractQueueTestCase
 
         $queue = Mockery::mock(
             'GrahamCampbell\Queuing\Queues\BeanstalkdQueue[getQueue]',
-            array($mock, 'default', 10)
+            [$mock, 'default', 10]
         )->shouldAllowMockingProtectedMethods();
 
         $queue->shouldReceive('getQueue')->twice()->with('')->andReturn('default');

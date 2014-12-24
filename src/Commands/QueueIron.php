@@ -51,10 +51,10 @@ class QueueIron extends Command
         $this->line('Setting up iron queueing...');
 
         try {
-            $this->call('queue:subscribe', array(
+            $this->call('queue:subscribe', [
                 'queue' => $this->laravel['config']['queue.connections.iron.queue'],
-                'url' => $this->laravel['url']->to('queue/receive'),
-            ));
+                'url'   => $this->laravel['url']->to('queue/receive'),
+            ]);
             $this->info('Queueing is now setup!');
         } catch (\Exception $e) {
             $this->error('Iron queuing could not be setup!');
