@@ -2,7 +2,7 @@
     "name": "graham-campbell/queuing",
     "description": "Queuing Provides Queuing Performance Increases Laravel 4.2",
     "keywords": ["laravel", "framework", "queuing", "mail", "email", "cron", "queue", "Queuing", "Laravel Queuing", "Laravel-Queuing", "Graham Campbell", "GrahamCampbell"],
-    "license": "Apache-2.0",
+    "license": "MIT",
     "authors": [
         {
             "name": "Graham Campbell",

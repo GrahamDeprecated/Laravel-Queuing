@@ -1,7 +1,7 @@
 Laravel Queuing
 ===============
 
-Laravel Queuing was created by, and is maintained by [Graham Campbell](https://github.com/GrahamCampbell), and provides queuing performance increases for [Laravel 4.2](http://laravel.com). It works by doing the actual job queuing (including the execution of sync jobs) after the response has been sent to the client (on shutdown). Feel free to check out the [change log](CHANGELOG.md), [releases](https://github.com/GrahamCampbell/Laravel-Queuing/releases), [license](LICENSE.md), [api docs](http://docs.grahamjcampbell.co.uk), and [contribution guidelines](CONTRIBUTING.md).
+Laravel Queuing was created by, and is maintained by [Graham Campbell](https://github.com/GrahamCampbell), and provides queuing performance increases for [Laravel 4.2](http://laravel.com). It works by doing the actual job queuing (including the execution of sync jobs) after the response has been sent to the client (on shutdown). Feel free to check out the [change log](CHANGELOG.md), [releases](https://github.com/GrahamCampbell/Laravel-Queuing/releases), [license](LICENSE), [api docs](http://docs.grahamjcampbell.co.uk), and [contribution guidelines](CONTRIBUTING.md).
 
 ![Laravel Queuing](https://cloud.githubusercontent.com/assets/2829600/4432309/c15748a4-468c-11e4-9d1f-8059185387ec.PNG)
 
@@ -9,7 +9,7 @@ Laravel Queuing was created by, and is maintained by [Graham Campbell](https://g
 <a href="https://travis-ci.org/GrahamCampbell/Laravel-Queuing"><img src="https://img.shields.io/travis/GrahamCampbell/Laravel-Queuing/master.svg?style=flat-square" alt="Build Status"></img></a>
 <a href="https://scrutinizer-ci.com/g/GrahamCampbell/Laravel-Queuing/code-structure"><img src="https://img.shields.io/scrutinizer/coverage/g/GrahamCampbell/Laravel-Queuing.svg?style=flat-square" alt="Coverage Status"></img></a>
 <a href="https://scrutinizer-ci.com/g/GrahamCampbell/Laravel-Queuing"><img src="https://img.shields.io/scrutinizer/g/GrahamCampbell/Laravel-Queuing.svg?style=flat-square" alt="Quality Score"></img></a>
-<a href="LICENSE.md"><img src="https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg?style=flat-square" alt="Software License"></img></a>
+<a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square" alt="Software License"></img></a>
 <a href="https://github.com/GrahamCampbell/Laravel-Queuing/releases"><img src="https://img.shields.io/github/release/GrahamCampbell/Laravel-Queuing.svg?style=flat-square" alt="Latest Version"></img></a>
 </p>
 
@@ -73,18 +73,4 @@ You may see an example of implementation in [Laravel Credentials](https://github
 
 ## License
 
-Apache License
-
-Copyright 2013-2014 Graham Campbell
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+Laravel Queuing is licensed under [The MIT License (MIT)](LICENSE).
