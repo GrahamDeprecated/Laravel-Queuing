@@ -2,7 +2,7 @@ CHANGE LOG
 ==========
 
 
-## V1.0.3 (Upcoming)
+## V1.0.3 (03/01/2015)
 
 * Removed the cs fixers
 * CS fixes
